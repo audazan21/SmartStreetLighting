@@ -1,0 +1,2155 @@
+file 1088056 1779031849                                         
+version 3
+run NodeSweep-33-20260517-18:30:49-1261
+attr configname NodeSweep
+attr datetime 20260517-18:30:49
+attr datetimef 20260517-183049
+attr experiment NodeSweep
+attr inifile omnetpp.ini
+attr iterationvars $N=20
+attr iterationvarsd N=20
+attr iterationvarsf N=20-
+attr measurement $N=20
+attr network SmartLoRaNetwork
+attr processid 1261
+attr repetition 3
+attr replication #3
+attr resultdir results
+attr runnumber 33
+attr seedset 3
+itervar N 20
+config image-path ../inet4.4/images
+config description "Node count sweep for smart street lighting"
+config *.numberOfNodes 20
+config *.numberOfGateways 1
+config repeat 30
+config seed-set 3
+config sim-time-limit 1000s
+config **.loRaNodes[*].app[0].telemetryBaseTime 120s
+config **.loRaNodes[*].app[0].faultMeanTime 600s
+config **.loRaNodes[*].app[0].minimumSendGap 20s
+config network SmartLoRaNetwork
+config sim-time-limit 1000s
+config *.numberOfNodes 5
+config *.numberOfGateways 1
+config **.loRaNodes[*].numApps 1
+config **.loRaNodes[*].app[0].typename StreetLightApp
+config **.loRaNodes[*].app[0].telemetryBaseTime 120s
+config **.loRaNodes[*].app[0].faultMeanTime 600s
+config **.loRaNodes[*].app[0].minimumSendGap 20s
+config **.loRaNodes[*].app[0].initialLoRaTP 14dBm
+config **.loRaNodes[*].app[0].initialLoRaCF 868MHz
+config **.loRaNodes[*].app[0].initialLoRaSF 7
+config **.loRaNodes[*].app[0].initialLoRaBW 125kHz
+config **.loRaNodes[*].app[0].initialLoRaCR 4
+config **.loRaNodes[*].app[0].initialUseHeader true
+config **.numberOfPacketsToSend 0
+config **.timeToFirstPacket exponential(1000s)
+config **.timeToNextPacket exponential(1000s)
+config **.loRaGW[*].numUdpApps 1
+config **.loRaGW[0].packetForwarder.localPort 2000
+config **.loRaGW[0].packetForwarder.destPort 1000
+config **.loRaGW[0].packetForwarder.destAddresses "\"networkServer\""
+config **.loRaGW[0].packetForwarder.indexNumber 0
+config **.loRaGW[*].LoRaGWNic.radio.iAmGateway true
+config **.networkServer.numApps 1
+config **.networkServer.app[0].typename SmartNetworkServerApp
+config **.networkServer.app[0].localPort 1000
+config **.networkServer.app[0].destAddresses "\"loRaGW[0]\""
+config **.networkServer.app[0].destPort 2000
+config **.networkServer.app[0].adrMethod "\"avg\""
+config **.constraintAreaMinX 0m
+config **.constraintAreaMinY 0m
+config **.constraintAreaMaxX 1000m
+config **.constraintAreaMaxY 1000m
+config **.constraintAreaMinZ 0m
+config **.constraintAreaMaxZ 0m
+config **.loRaNodes[*].**.initialX "uniform(300m, 400m)"
+config **.loRaNodes[*].**.initialY "uniform(300m, 400m)"
+config **.loRaNodes[*].**.initFromDisplayString false
+config **.loRaGW[0].**.initialX 350m
+config **.loRaGW[0].**.initialY 350m
+config **.loRaGW[*].**.initFromDisplayString false
+config **.radio.radioMediumModule "\"LoRaMedium\""
+config **.LoRaMedium.pathLossType "\"LoRaLogNormalShadowing\""
+config **.energyDetection -110dBm
+config **.minInterferenceTime 0s
+config **.alohaChannelModel false
+config **.vector-recording true
+config **.loRaNodes[*].LoRaNic.radio.energyConsumer.typename LoRaEnergyConsumer
+config **.loRaNodes[*].LoRaNic.radio.energyConsumer.energySourceModule "\"^.IdealEpEnergyStorage\""
+config **.energySourceModule "\"^.IdealEpEnergyStorage\""
+config **.loRaNodes[*].LoRaNic.radio.energyConsumer.configFile "xmldoc(\"../flora/simulations/energyConsumptionParameters.xml\")"
+config **.internetCloud.ipv4Delayer.config "xmldoc(\"../flora/simulations/cloudDelays.xml\")"
+config **.ipv4Delayer.config "xmldoc(\"../flora/simulations/cloudDelays.xml\")"
+config **.maxTransmissionDuration 200s
+
+vector 0 SmartLoRaNetwork.loRaNodes[0].app[0] faultInterArrivalTimes ETV
+vector 1 SmartLoRaNetwork.loRaNodes[1].app[0] faultInterArrivalTimes ETV
+vector 2 SmartLoRaNetwork.loRaNodes[2].app[0] faultInterArrivalTimes ETV
+vector 3 SmartLoRaNetwork.loRaNodes[3].app[0] faultInterArrivalTimes ETV
+vector 4 SmartLoRaNetwork.loRaNodes[4].app[0] faultInterArrivalTimes ETV
+vector 5 SmartLoRaNetwork.loRaNodes[5].app[0] faultInterArrivalTimes ETV
+vector 6 SmartLoRaNetwork.loRaNodes[6].app[0] faultInterArrivalTimes ETV
+vector 7 SmartLoRaNetwork.loRaNodes[7].app[0] faultInterArrivalTimes ETV
+vector 8 SmartLoRaNetwork.loRaNodes[8].app[0] faultInterArrivalTimes ETV
+vector 9 SmartLoRaNetwork.loRaNodes[9].app[0] faultInterArrivalTimes ETV
+vector 10 SmartLoRaNetwork.loRaNodes[10].app[0] faultInterArrivalTimes ETV
+vector 11 SmartLoRaNetwork.loRaNodes[11].app[0] faultInterArrivalTimes ETV
+vector 12 SmartLoRaNetwork.loRaNodes[12].app[0] faultInterArrivalTimes ETV
+vector 13 SmartLoRaNetwork.loRaNodes[13].app[0] faultInterArrivalTimes ETV
+vector 14 SmartLoRaNetwork.loRaNodes[14].app[0] faultInterArrivalTimes ETV
+vector 15 SmartLoRaNetwork.loRaNodes[15].app[0] faultInterArrivalTimes ETV
+vector 16 SmartLoRaNetwork.loRaNodes[16].app[0] faultInterArrivalTimes ETV
+vector 17 SmartLoRaNetwork.loRaNodes[17].app[0] faultInterArrivalTimes ETV
+vector 18 SmartLoRaNetwork.loRaNodes[18].app[0] faultInterArrivalTimes ETV
+vector 19 SmartLoRaNetwork.loRaNodes[19].app[0] faultInterArrivalTimes ETV
+vector 20 SmartLoRaNetwork.loRaGW[0].udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 21 SmartLoRaNetwork.loRaGW[0].udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 22 SmartLoRaNetwork.loRaGW[0].udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 23 SmartLoRaNetwork.networkServer.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 24 SmartLoRaNetwork.networkServer.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 25 SmartLoRaNetwork.networkServer.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 26 SmartLoRaNetwork.internetCloud.ppp[0].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "tx state"
+vector 27 SmartLoRaNetwork.internetCloud.ppp[1].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "tx state"
+vector 28 SmartLoRaNetwork.gwRouter[0].ppp[0].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "tx state"
+vector 29 SmartLoRaNetwork.nsRouter.ppp[0].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "tx state"
+vector 30 SmartLoRaNetwork.loRaNodes[0].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 31 SmartLoRaNetwork.loRaNodes[1].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 32 SmartLoRaNetwork.loRaNodes[2].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 33 SmartLoRaNetwork.loRaNodes[3].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 34 SmartLoRaNetwork.loRaNodes[4].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 35 SmartLoRaNetwork.loRaNodes[5].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 36 SmartLoRaNetwork.loRaNodes[6].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 37 SmartLoRaNetwork.loRaNodes[7].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 38 SmartLoRaNetwork.loRaNodes[8].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 39 SmartLoRaNetwork.loRaNodes[9].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 40 SmartLoRaNetwork.loRaNodes[10].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 41 SmartLoRaNetwork.loRaNodes[11].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 42 SmartLoRaNetwork.loRaNodes[12].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 43 SmartLoRaNetwork.loRaNodes[13].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 44 SmartLoRaNetwork.loRaNodes[14].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 45 SmartLoRaNetwork.loRaNodes[15].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 46 SmartLoRaNetwork.loRaNodes[16].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 47 SmartLoRaNetwork.loRaNodes[17].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 48 SmartLoRaNetwork.loRaNodes[18].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 49 SmartLoRaNetwork.loRaNodes[19].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 50 SmartLoRaNetwork.loRaNodes[0].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 51 SmartLoRaNetwork.loRaNodes[0].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 52 SmartLoRaNetwork.loRaNodes[1].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 53 SmartLoRaNetwork.loRaNodes[1].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 54 SmartLoRaNetwork.loRaNodes[2].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 55 SmartLoRaNetwork.loRaNodes[2].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 56 SmartLoRaNetwork.loRaNodes[3].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 57 SmartLoRaNetwork.loRaNodes[3].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 58 SmartLoRaNetwork.loRaNodes[4].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 59 SmartLoRaNetwork.loRaNodes[4].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 60 SmartLoRaNetwork.loRaNodes[5].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 61 SmartLoRaNetwork.loRaNodes[5].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 62 SmartLoRaNetwork.loRaNodes[6].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 63 SmartLoRaNetwork.loRaNodes[6].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 64 SmartLoRaNetwork.loRaNodes[7].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 65 SmartLoRaNetwork.loRaNodes[7].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 66 SmartLoRaNetwork.loRaNodes[8].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 67 SmartLoRaNetwork.loRaNodes[8].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 68 SmartLoRaNetwork.loRaNodes[9].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 69 SmartLoRaNetwork.loRaNodes[9].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 70 SmartLoRaNetwork.loRaNodes[10].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 71 SmartLoRaNetwork.loRaNodes[10].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 72 SmartLoRaNetwork.loRaNodes[11].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 73 SmartLoRaNetwork.loRaNodes[11].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 74 SmartLoRaNetwork.loRaNodes[12].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 75 SmartLoRaNetwork.loRaNodes[12].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 76 SmartLoRaNetwork.loRaNodes[13].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 77 SmartLoRaNetwork.loRaNodes[13].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 78 SmartLoRaNetwork.loRaNodes[14].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 79 SmartLoRaNetwork.loRaNodes[14].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 80 SmartLoRaNetwork.loRaNodes[15].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 81 SmartLoRaNetwork.loRaNodes[15].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 82 SmartLoRaNetwork.loRaNodes[16].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 83 SmartLoRaNetwork.loRaNodes[16].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 84 SmartLoRaNetwork.loRaNodes[17].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 85 SmartLoRaNetwork.loRaNodes[17].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 86 SmartLoRaNetwork.loRaNodes[18].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 87 SmartLoRaNetwork.loRaNodes[18].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 88 SmartLoRaNetwork.loRaNodes[19].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 89 SmartLoRaNetwork.loRaNodes[19].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 90 SmartLoRaNetwork.loRaGW[0].LoRaGWNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 91 SmartLoRaNetwork.loRaGW[0].LoRaGWNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 92 SmartLoRaNetwork.loRaGW[0].LoRaGWNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 93 SmartLoRaNetwork.loRaNodes[8].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 94 SmartLoRaNetwork.loRaNodes[8].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 95 SmartLoRaNetwork.loRaNodes[8].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 96 SmartLoRaNetwork.loRaNodes[8].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 97 SmartLoRaNetwork.loRaNodes[8].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 98 SmartLoRaNetwork.loRaNodes[8].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 99 SmartLoRaNetwork.loRaNodes[8].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 100 SmartLoRaNetwork.loRaGW[0].udp packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 101 SmartLoRaNetwork.loRaGW[0].ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+vector 102 SmartLoRaNetwork.loRaGW[0].ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 103 SmartLoRaNetwork.loRaGW[0].eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 104 SmartLoRaNetwork.loRaGW[0].eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 105 SmartLoRaNetwork.loRaGW[0].eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 106 SmartLoRaNetwork.loRaGW[0].eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 107 SmartLoRaNetwork.loRaGW[0].eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 108 SmartLoRaNetwork.loRaGW[0].eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 109 SmartLoRaNetwork.loRaGW[0].eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 110 SmartLoRaNetwork.gwRouter[0].eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 111 SmartLoRaNetwork.gwRouter[0].eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 112 SmartLoRaNetwork.gwRouter[0].ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 113 SmartLoRaNetwork.gwRouter[0].ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+vector 114 SmartLoRaNetwork.gwRouter[0].ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 115 SmartLoRaNetwork.gwRouter[0].eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 116 SmartLoRaNetwork.gwRouter[0].eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 117 SmartLoRaNetwork.gwRouter[0].eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 118 SmartLoRaNetwork.gwRouter[0].eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 119 SmartLoRaNetwork.gwRouter[0].eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 120 SmartLoRaNetwork.gwRouter[0].eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 121 SmartLoRaNetwork.gwRouter[0].eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 122 SmartLoRaNetwork.loRaGW[0].eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 123 SmartLoRaNetwork.loRaGW[0].eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 124 SmartLoRaNetwork.loRaGW[0].ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 125 SmartLoRaNetwork.gwRouter[0].ppp[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 126 SmartLoRaNetwork.gwRouter[0].ppp[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 127 SmartLoRaNetwork.gwRouter[0].ppp[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 128 SmartLoRaNetwork.gwRouter[0].ppp[0].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 129 SmartLoRaNetwork.gwRouter[0].ppp[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 130 SmartLoRaNetwork.gwRouter[0].ppp[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 131 SmartLoRaNetwork.internetCloud.ppp[1].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 132 SmartLoRaNetwork.internetCloud.ppp[1].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 133 SmartLoRaNetwork.internetCloud.ppp[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 134 SmartLoRaNetwork.internetCloud.ppp[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 135 SmartLoRaNetwork.internetCloud.ppp[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 136 SmartLoRaNetwork.internetCloud.ppp[0].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 137 SmartLoRaNetwork.internetCloud.ppp[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 138 SmartLoRaNetwork.internetCloud.ppp[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 139 SmartLoRaNetwork.nsRouter.ppp[0].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 140 SmartLoRaNetwork.nsRouter.ppp[0].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 141 SmartLoRaNetwork.nsRouter.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+vector 142 SmartLoRaNetwork.nsRouter.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 143 SmartLoRaNetwork.nsRouter.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 144 SmartLoRaNetwork.nsRouter.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 145 SmartLoRaNetwork.nsRouter.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 146 SmartLoRaNetwork.nsRouter.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 147 SmartLoRaNetwork.nsRouter.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 148 SmartLoRaNetwork.nsRouter.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 149 SmartLoRaNetwork.nsRouter.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 150 SmartLoRaNetwork.networkServer.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 151 SmartLoRaNetwork.networkServer.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 152 SmartLoRaNetwork.networkServer.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 153 SmartLoRaNetwork.networkServer.ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+vector 154 SmartLoRaNetwork.networkServer.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 155 SmartLoRaNetwork.networkServer.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 156 SmartLoRaNetwork.networkServer.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 157 SmartLoRaNetwork.networkServer.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 158 SmartLoRaNetwork.networkServer.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 159 SmartLoRaNetwork.networkServer.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 160 SmartLoRaNetwork.networkServer.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 161 SmartLoRaNetwork.networkServer.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 162 SmartLoRaNetwork.nsRouter.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 163 SmartLoRaNetwork.nsRouter.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 164 SmartLoRaNetwork.nsRouter.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 165 SmartLoRaNetwork.networkServer.udp packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 166 SmartLoRaNetwork.loRaNodes[19].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 167 SmartLoRaNetwork.loRaNodes[19].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 168 SmartLoRaNetwork.loRaNodes[19].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 169 SmartLoRaNetwork.loRaNodes[19].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 170 SmartLoRaNetwork.loRaNodes[19].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 171 SmartLoRaNetwork.loRaNodes[19].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 172 SmartLoRaNetwork.loRaNodes[19].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 173 SmartLoRaNetwork.loRaNodes[8].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 174 SmartLoRaNetwork.loRaNodes[19].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 175 SmartLoRaNetwork.loRaNodes[0].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 176 SmartLoRaNetwork.loRaNodes[0].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 177 SmartLoRaNetwork.loRaNodes[0].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 178 SmartLoRaNetwork.loRaNodes[0].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 179 SmartLoRaNetwork.loRaNodes[0].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 180 SmartLoRaNetwork.loRaNodes[0].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 181 SmartLoRaNetwork.loRaNodes[0].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 182 SmartLoRaNetwork.loRaNodes[0].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 183 SmartLoRaNetwork.loRaNodes[13].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 184 SmartLoRaNetwork.loRaNodes[13].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 185 SmartLoRaNetwork.loRaNodes[13].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 186 SmartLoRaNetwork.loRaNodes[13].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 187 SmartLoRaNetwork.loRaNodes[13].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 188 SmartLoRaNetwork.loRaNodes[13].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 189 SmartLoRaNetwork.loRaNodes[13].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 190 SmartLoRaNetwork.loRaNodes[13].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 191 SmartLoRaNetwork.loRaNodes[9].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 192 SmartLoRaNetwork.loRaNodes[9].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 193 SmartLoRaNetwork.loRaNodes[9].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 194 SmartLoRaNetwork.loRaNodes[9].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 195 SmartLoRaNetwork.loRaNodes[9].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 196 SmartLoRaNetwork.loRaNodes[9].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 197 SmartLoRaNetwork.loRaNodes[9].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 198 SmartLoRaNetwork.loRaNodes[1].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 199 SmartLoRaNetwork.loRaNodes[1].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 200 SmartLoRaNetwork.loRaNodes[1].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 201 SmartLoRaNetwork.loRaNodes[1].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 202 SmartLoRaNetwork.loRaNodes[1].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 203 SmartLoRaNetwork.loRaNodes[1].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 204 SmartLoRaNetwork.loRaNodes[1].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 205 SmartLoRaNetwork.loRaNodes[9].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 206 SmartLoRaNetwork.loRaNodes[18].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 207 SmartLoRaNetwork.loRaNodes[18].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 208 SmartLoRaNetwork.loRaNodes[18].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 209 SmartLoRaNetwork.loRaNodes[18].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 210 SmartLoRaNetwork.loRaNodes[18].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 211 SmartLoRaNetwork.loRaNodes[18].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 212 SmartLoRaNetwork.loRaNodes[18].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 213 SmartLoRaNetwork.loRaNodes[1].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 214 SmartLoRaNetwork.loRaNodes[3].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 215 SmartLoRaNetwork.loRaNodes[3].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 216 SmartLoRaNetwork.loRaNodes[3].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 217 SmartLoRaNetwork.loRaNodes[3].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 218 SmartLoRaNetwork.loRaNodes[3].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 219 SmartLoRaNetwork.loRaNodes[3].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 220 SmartLoRaNetwork.loRaNodes[3].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 221 SmartLoRaNetwork.loRaNodes[5].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 222 SmartLoRaNetwork.loRaNodes[5].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 223 SmartLoRaNetwork.loRaNodes[5].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 224 SmartLoRaNetwork.loRaNodes[5].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 225 SmartLoRaNetwork.loRaNodes[5].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 226 SmartLoRaNetwork.loRaNodes[5].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 227 SmartLoRaNetwork.loRaNodes[5].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 228 SmartLoRaNetwork.loRaNodes[4].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 229 SmartLoRaNetwork.loRaNodes[4].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 230 SmartLoRaNetwork.loRaNodes[4].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 231 SmartLoRaNetwork.loRaNodes[4].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 232 SmartLoRaNetwork.loRaNodes[4].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 233 SmartLoRaNetwork.loRaNodes[4].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 234 SmartLoRaNetwork.loRaNodes[4].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 235 SmartLoRaNetwork.loRaNodes[18].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 236 SmartLoRaNetwork.loRaNodes[3].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 237 SmartLoRaNetwork.loRaNodes[5].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 238 SmartLoRaNetwork.loRaNodes[4].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 239 SmartLoRaNetwork.loRaNodes[10].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 240 SmartLoRaNetwork.loRaNodes[10].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 241 SmartLoRaNetwork.loRaNodes[10].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 242 SmartLoRaNetwork.loRaNodes[10].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 243 SmartLoRaNetwork.loRaNodes[10].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 244 SmartLoRaNetwork.loRaNodes[10].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 245 SmartLoRaNetwork.loRaNodes[10].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 246 SmartLoRaNetwork.loRaNodes[12].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 247 SmartLoRaNetwork.loRaNodes[12].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 248 SmartLoRaNetwork.loRaNodes[12].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 249 SmartLoRaNetwork.loRaNodes[12].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 250 SmartLoRaNetwork.loRaNodes[12].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 251 SmartLoRaNetwork.loRaNodes[12].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 252 SmartLoRaNetwork.loRaNodes[12].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 253 SmartLoRaNetwork.loRaNodes[10].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 254 SmartLoRaNetwork.loRaNodes[14].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 255 SmartLoRaNetwork.loRaNodes[14].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 256 SmartLoRaNetwork.loRaNodes[14].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 257 SmartLoRaNetwork.loRaNodes[14].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 258 SmartLoRaNetwork.loRaNodes[14].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 259 SmartLoRaNetwork.loRaNodes[14].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 260 SmartLoRaNetwork.loRaNodes[14].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 261 SmartLoRaNetwork.loRaNodes[15].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 262 SmartLoRaNetwork.loRaNodes[15].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 263 SmartLoRaNetwork.loRaNodes[15].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 264 SmartLoRaNetwork.loRaNodes[15].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 265 SmartLoRaNetwork.loRaNodes[15].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 266 SmartLoRaNetwork.loRaNodes[15].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 267 SmartLoRaNetwork.loRaNodes[15].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 268 SmartLoRaNetwork.loRaNodes[12].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 269 SmartLoRaNetwork.loRaNodes[14].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 270 SmartLoRaNetwork.loRaNodes[7].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 271 SmartLoRaNetwork.loRaNodes[7].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 272 SmartLoRaNetwork.loRaNodes[7].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 273 SmartLoRaNetwork.loRaNodes[7].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 274 SmartLoRaNetwork.loRaNodes[7].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 275 SmartLoRaNetwork.loRaNodes[7].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 276 SmartLoRaNetwork.loRaNodes[7].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 277 SmartLoRaNetwork.loRaNodes[15].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 278 SmartLoRaNetwork.loRaNodes[11].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 279 SmartLoRaNetwork.loRaNodes[11].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 280 SmartLoRaNetwork.loRaNodes[11].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 281 SmartLoRaNetwork.loRaNodes[11].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 282 SmartLoRaNetwork.loRaNodes[11].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 283 SmartLoRaNetwork.loRaNodes[11].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 284 SmartLoRaNetwork.loRaNodes[11].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 285 SmartLoRaNetwork.loRaNodes[7].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 286 SmartLoRaNetwork.loRaNodes[6].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 287 SmartLoRaNetwork.loRaNodes[6].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 288 SmartLoRaNetwork.loRaNodes[6].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 289 SmartLoRaNetwork.loRaNodes[6].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 290 SmartLoRaNetwork.loRaNodes[6].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 291 SmartLoRaNetwork.loRaNodes[6].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 292 SmartLoRaNetwork.loRaNodes[6].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 293 SmartLoRaNetwork.loRaNodes[11].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 294 SmartLoRaNetwork.loRaNodes[2].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 295 SmartLoRaNetwork.loRaNodes[2].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 296 SmartLoRaNetwork.loRaNodes[2].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 297 SmartLoRaNetwork.loRaNodes[2].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 298 SmartLoRaNetwork.loRaNodes[2].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 299 SmartLoRaNetwork.loRaNodes[2].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 300 SmartLoRaNetwork.loRaNodes[2].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 301 SmartLoRaNetwork.loRaNodes[17].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 302 SmartLoRaNetwork.loRaNodes[17].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 303 SmartLoRaNetwork.loRaNodes[17].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 304 SmartLoRaNetwork.loRaNodes[17].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 305 SmartLoRaNetwork.loRaNodes[17].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 306 SmartLoRaNetwork.loRaNodes[17].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 307 SmartLoRaNetwork.loRaNodes[17].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 308 SmartLoRaNetwork.loRaNodes[6].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 309 SmartLoRaNetwork.loRaNodes[2].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 310 SmartLoRaNetwork.loRaNodes[17].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 311 SmartLoRaNetwork.loRaNodes[16].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 312 SmartLoRaNetwork.loRaNodes[16].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 313 SmartLoRaNetwork.loRaNodes[16].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 314 SmartLoRaNetwork.loRaNodes[16].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 315 SmartLoRaNetwork.loRaNodes[16].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 316 SmartLoRaNetwork.loRaNodes[16].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 317 SmartLoRaNetwork.loRaNodes[16].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 318 SmartLoRaNetwork.loRaNodes[16].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 319 SmartLoRaNetwork.loRaGW[0].eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 320 SmartLoRaNetwork.loRaGW[0].eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 321 SmartLoRaNetwork.nsRouter.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 322 SmartLoRaNetwork.nsRouter.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 323 SmartLoRaNetwork.gwRouter[0].ppp[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 324 SmartLoRaNetwork.gwRouter[0].ppp[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 325 SmartLoRaNetwork.internetCloud.ppp[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 326 SmartLoRaNetwork.internetCloud.ppp[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+0	81694 62 0 9525 0 669.547264293379 2 669.54726429338 1417.3565068131 2086.9037711065 2457193.0065283
+1	81756 22 0 0 0 0 1 1398.8012867762 1398.8012867762 1398.8012867762 1956645.0398868
+2	81778 22 0 0 0 0 1 1121.5117636132 1121.5117636132 1121.5117636132 1257788.6359227
+3	81800 101 0 8096 0 599.491423994036 3 284.88336776912 2132.6542358882 2732.1456598822 4728350.8521248
+4	81901 61 0 1371 0 58.049956955907 2 58.049956955907 1133.1216943202 1191.1716512761 1287334.5716417
+5	81962 62 0 9475 0 635.769207367849 2 545.83061417731 635.76920736785 1181.5998215452 702133.54441032
+6	82024 103 0 12770 0 949.752630371777 3 460.10151100656 1337.6244033699 2287.3770337416 2240690.6636167
+7	82127 141 0 11083 0 797.21157566269 4 121.23608972965 1034.4664032535 1825.1386815184 1317465.8278299
+8	82268 183 0 12596 0 917.163672362184 5 94.504553654083 782.27842245475 1699.4420948169 869285.02311331
+9	82451 62 0 4691 0 313.050974501418 2 313.05097450142 806.29961146202 1119.3505859634 748119.9760801
+10	82513 104 0 11035 0 789.839342711576 3 379.72843918103 2152.854124998 2928.0272718966 4935351.0879055
+11	82617 106 0 10955 0 758.456166995969 3 188.19848540819 560.62771565064 1050.86433272 440949.13844299
+12	82723 185 0 8043 0 579.482930810543 5 40.410380395906 1347.0575710303 1926.5405018409 1925913.5323837
+13	82908 106 0 11162 0 805.129426903269 3 367.14650623237 1163.6598188162 1950.2482703791 1664832.2764686
+14	83014 23 0 0 0 0 1 1181.9602812878 1181.9602812878 1181.9602812878 1397030.1065419
+15	83037 104 0 12548 0 887.711315232518 3 358.2110959354 1648.801960258 2536.5132754905 3127233.5756374
+16	83141 105 0 3395 0 246.407709729045 3 46.391656214826 2239.6429898689 2486.0506995979 5058159.3294985
+17	83246 64 0 2929 0 195.419393921915 2 195.41939392191 2838.2317622663 3033.6511561883 8093748.2758583
+18	83310 148 0 12999 0 969.412130643356 4 36.081201864981 569.56515031755 1157.6840470146 493478.1696576
+19	83458 104 0 11261 0 839.518278441741 3 137.95766919109 695.98209475181 1092.0927957383 570066.38252891
+20	83562 9 0 0 0 0 1 0 0 0 0
+21	83571 9 0 0 0 0 1 0 0 0 0
+22	83580 9 0 0 0 0 1 0 0 0 0
+23	83589 3029 0 14002 0 991.033656135143 109 0 108 5886 425754
+24	86618 9 0 0 0 0 1 0 0 0 0
+25	86627 9 0 0 0 0 1 0 0 0 0
+26	86636 5831 0 13993 0 991.033655387143 217 0 1 108 108
+27	92467 9 0 0 0 0 1 0 0 0 0
+28	92476 5829 0 13988 0 991.023654401143 217 0 1 108 108
+29	98305 9 0 0 0 0 1 0 0 0 0
+30	98314 10324 0 13244 0 971.824579468806 354 0 2.112 88.48125 178.5498400125
+31	108638 8718 0 13351 0 974.692797882592 300 0 2.112 79.32903 160.6851219303
+32	117356 6386 0 13879 0 983.356849859578 199 0 0.03201 1.9206 0.061478406
+33	123742 6799 0 13885 0 985.696626719512 213 0 0.03201 1.85658 0.0594291258
+34	130541 7434 0 13357 0 976.678188649349 236 0 0.03201 2.30472 0.0737740872
+35	137975 7714 0 13402 0 977.264342271832 244 0 0.03201 2.43276 0.0778726476
+36	145689 6902 0 14109 0 996.884154983227 214 0 0.03201 1.9206 0.061478406
+37	152591 10303 0 13878 0 983.318651750329 326 0 0.03201 3.42507 0.1096364907
+38	162894 10596 0 13352 0 974.838651787116 335 0 0.03201 3.45708 0.1106611308
+39	173490 9350 0 13354 0 975.579280451981 301 0 0.03201 3.29703 0.1055379303
+40	182840 12530 0 13814 0 981.140861921122 403 0 0.03201 4.67346 0.1495974546
+41	195370 9780 0 13880 0 983.420942480088 310 0 0.03201 3.26502 0.1045132902
+42	205150 10851 0 14110 0 997.026962955314 345 0 0.03201 3.71316 0.1188582516
+43	216001 11403 0 13298 0 973.067146784503 368 0 0.03201 4.12929 0.1321785729
+44	227404 10704 0 13871 0 982.356823339935 344 0 0.03201 4.19331 0.1342278531
+45	238108 9066 0 13875 0 982.896625319373 286 0 0.03201 2.94492 0.0942668892
+46	247174 7838 0 14105 0 995.023653119914 246 0 0.03201 2.40075 0.0768480075
+47	255012 6112 0 13882 0 984.190618142829 189 0 0.03201 1.66452 0.0532812852
+48	261124 10072 0 14102 0 994.439781571684 318 0 0.03201 3.29703 0.1055379303
+49	271196 9514 0 13883 0 984.292640098131 303 0 0.03201 3.26502 0.1045132902
+50	280710 3190 0 13244 0 971.824579468806 121 0 3 181 325
+51	283900 10315 0 13244 0 971.824579468806 353 0 2.112 88.48125 178.5498400125
+52	294215 2811 0 13351 0 974.692797882592 107 0 3 158 282
+53	297026 8709 0 13351 0 974.692797882592 299 0 2.112 79.32903 160.6851219303
+54	305735 1905 0 13879 0 983.356849859578 72 0 3 112 214
+55	307640 6377 0 13879 0 983.356849859578 198 0 0.03201 1.9206 0.061478406
+56	314017 2033 0 13885 0 985.696626719512 78 0 3 124 242
+57	316050 6790 0 13885 0 985.696626719512 212 0 0.03201 1.85658 0.0594291258
+58	322840 2275 0 13357 0 976.678188649349 87 0 3 133 249
+59	325115 7425 0 13357 0 976.678188649349 235 0 0.03201 2.30472 0.0737740872
+60	332540 2344 0 13402 0 977.264342271832 89 0 3 136 254
+61	334884 7705 0 13402 0 977.264342271832 243 0 0.03201 2.43276 0.0778726476
+62	342589 2081 0 14109 0 996.884154983227 79 0 3 125 243
+63	344670 6893 0 14109 0 996.884154983227 213 0 0.03201 1.9206 0.061478406
+64	351563 3060 0 13878 0 983.318651750329 115 0 3 176 326
+65	354623 10294 0 13878 0 983.318651750329 325 0 0.03201 3.42507 0.1096364907
+66	364917 3185 0 13352 0 974.838651787116 120 0 3 184 342
+67	368102 10587 0 13352 0 974.838651787116 334 0 0.03201 3.45708 0.1106611308
+68	378689 2732 0 13354 0 975.579280451981 104 0 3 158 290
+69	381421 9341 0 13354 0 975.579280451981 300 0 0.03201 3.29703 0.1055379303
+70	390762 3621 0 13814 0 981.140861921122 136 0 3 204 366
+71	394383 12521 0 13814 0 981.140861921122 402 0 0.03201 4.67346 0.1495974546
+72	406904 2902 0 13880 0 983.420942480088 109 0 3 166 306
+73	409806 9771 0 13880 0 983.420942480088 309 0 0.03201 3.26502 0.1045132902
+74	419577 3111 0 14110 0 997.026962955314 118 0 3 184 346
+75	422688 10842 0 14110 0 997.026962955314 344 0 0.03201 3.71316 0.1188582516
+76	433530 3296 0 13298 0 973.067146784503 125 0 3 189 343
+77	436826 11394 0 13298 0 973.067146784503 367 0 0.03201 4.12929 0.1321785729
+78	448220 2896 0 13871 0 982.356823339935 109 0 3 167 305
+79	451116 10695 0 13871 0 982.356823339935 343 0 0.03201 4.19331 0.1342278531
+80	461811 2739 0 13875 0 982.896625319373 103 0 3 157 291
+81	464550 9057 0 13875 0 982.896625319373 285 0 0.03201 2.94492 0.0942668892
+82	473607 2290 0 14105 0 995.023653119914 87 0 3 137 263
+83	475897 7829 0 14105 0 995.023653119914 245 0 0.03201 2.40075 0.0768480075
+84	483726 1841 0 13882 0 984.190618142829 70 0 3 111 217
+85	485567 6103 0 13882 0 984.190618142829 188 0 0.03201 1.66452 0.0532812852
+86	491670 3006 0 14102 0 994.439781571684 113 0 3 173 321
+87	494676 10063 0 14102 0 994.439781571684 317 0 0.03201 3.29703 0.1055379303
+88	504739 2685 0 13883 0 984.292640098131 102 0 3 159 299
+89	507424 9505 0 13883 0 984.292640098131 302 0 0.03201 3.26502 0.1045132902
+90	516929 27 0 0 0 0 3 0 4 4 16
+91	516956 9 0 0 0 0 1 1 1 1 1
+92	516965 9 0 0 0 0 1 1 1 1 1
+93	516974 361 4 13122 1.439233802957 970.760571787116 13 80 80 1040 83200
+94	517335 348 4 13122 1.439233802957 970.760571787116 13 0 0 0 0
+95	517683 361 4 13122 1.439233802957 970.760571787116 13 80 80 1040 83200
+96	518044 3824 4 13352 1.439233802957 974.838651787116 106 -0.83226 0 -43.479797149319 23.446535768822
+97	521868 1394 4 13145 1.439233802957 970.838651787116 52 0 2 52 78
+98	523262 348 4 13122 1.439233802957 970.760571787116 13 0 0 0 0
+99	523610 348 4 13122 1.439233802957 970.760571787116 13 0 0 0 0
+100	523958 3126 34 13966 1.517313910083 991.023653207143 108 35 35 3780 132300
+101	527084 259 35 12927 1.517313910083 969.067146858826 9 28 28 252 7056
+102	527343 3385 36 13968 1.517313910083 991.023653207143 117 28 55 6192 333756
+103	530728 3502 37 13969 1.517313910083 991.023653207143 117 368 584 66384 38052864
+104	534230 3268 37 13969 1.517313910083 991.023653207143 117 0 0 0 0
+105	537498 3502 37 13969 1.517313910083 991.023653207143 117 368 584 66384 38052864
+106	541000 3385 37 13969 1.517313910083 991.023653207143 117 46 73 8298 594576
+107	544385 3268 37 13969 1.517313910083 991.023653207143 117 0 0 0 0
+108	547653 3268 37 13969 1.517313910083 991.023653207143 117 0 0 0 0
+109	550921 3385 53 13982 1.517314486083 991.023653855143 117 64 73 8460 612396
+110	554306 3385 54 13983 1.517314536083 991.023653905143 117 64 73 8460 612396
+111	557691 3385 54 13983 1.517314536083 991.023653905143 117 64 73 8460 612396
+112	561076 3385 55 13984 1.517314536083 991.023653905143 117 46 55 6354 345744
+113	564461 259 56 12950 1.517314536083 969.067147484826 9 28 28 252 7056
+114	564720 259 57 12951 1.517314536083 969.067147484826 9 28 28 252 7056
+115	564979 268 58 12952 1.517314536083 969.067147484826 9 368 368 3312 1218816
+116	565247 250 58 12952 1.517314536083 969.067147484826 9 0 0 0 0
+117	565497 268 58 12952 1.517314536083 969.067147484826 9 368 368 3312 1218816
+118	565765 259 58 12952 1.517314536083 969.067147484826 9 46 46 414 19044
+119	566024 250 58 12952 1.517314536083 969.067147484826 9 0 0 0 0
+120	566274 250 58 12952 1.517314536083 969.067147484826 9 0 0 0 0
+121	566524 259 60 12954 1.517315112083 969.067148060826 9 64 64 576 36864
+122	566783 259 61 12955 1.517315162083 969.067148110826 9 64 64 576 36864
+123	567042 259 61 12955 1.517315162083 969.067148110826 9 64 64 576 36864
+124	567301 259 62 12956 1.517315162083 969.067148110826 9 46 46 414 19044
+125	567560 3234 71 13986 1.517315860083 991.023653905143 108 440 440 47520 20908800
+126	570794 3018 71 13986 1.517315860083 991.023653905143 108 0 0 0 0
+127	573812 3234 71 13986 1.517315860083 991.023653905143 108 440 440 47520 20908800
+128	577046 3126 71 13986 1.517315860083 991.023653905143 108 62 62 6696 415152
+129	580172 3018 71 13986 1.517315860083 991.023653905143 108 0 0 0 0
+130	583190 3018 71 13986 1.517315860083 991.023653905143 108 0 0 0 0
+131	586208 3126 74 13989 1.517316406083 991.023654451143 108 62 62 6696 415152
+132	589334 3126 74 13989 1.517316406083 991.023654451143 108 55 55 5940 326700
+133	592460 3235 77 13992 1.527316846083 991.033654891143 108 440 440 47520 20908800
+134	595695 3019 77 13992 1.527316846083 991.033654891143 108 0 0 0 0
+135	598714 3235 77 13992 1.527316846083 991.033654891143 108 440 440 47520 20908800
+136	601949 3127 77 13992 1.527316846083 991.033654891143 108 62 62 6696 415152
+137	605076 3019 77 13992 1.527316846083 991.033654891143 108 0 0 0 0
+138	608095 3019 77 13992 1.527316846083 991.033654891143 108 0 0 0 0
+139	611114 3127 79 13994 1.527317392083 991.033655437143 108 62 62 6696 415152
+140	614241 3127 79 13994 1.527317392083 991.033655437143 108 55 55 5940 326700
+141	617368 259 80 12974 1.527317392083 969.077150340826 9 28 28 252 7056
+142	617627 3386 81 13996 1.527317392083 991.033655437143 117 28 55 6192 333756
+143	621013 3503 82 13997 1.527317392083 991.033655437143 117 368 584 66384 38052864
+144	624516 3269 82 13997 1.527317392083 991.033655437143 117 0 0 0 0
+145	627785 3503 82 13997 1.527317392083 991.033655437143 117 368 584 66384 38052864
+146	631288 3386 82 13997 1.527317392083 991.033655437143 117 46 73 8298 594576
+147	634674 3269 82 13997 1.527317392083 991.033655437143 117 0 0 0 0
+148	637943 3269 82 13997 1.527317392083 991.033655437143 117 0 0 0 0
+149	641212 3386 83 13998 1.527317968083 991.033656085143 117 64 73 8460 612396
+150	644598 3386 84 13999 1.527318018083 991.033656135143 117 64 73 8460 612396
+151	647984 3386 84 13999 1.527318018083 991.033656135143 117 64 73 8460 612396
+152	651370 3386 85 14000 1.527318018083 991.033656135143 117 46 55 6354 345744
+153	654756 259 86 12980 1.527318018083 969.077150966826 9 28 28 252 7056
+154	655015 259 87 12981 1.527318018083 969.077150966826 9 28 28 252 7056
+155	655274 268 88 12982 1.527318018083 969.077150966826 9 368 368 3312 1218816
+156	655542 250 88 12982 1.527318018083 969.077150966826 9 0 0 0 0
+157	655792 268 88 12982 1.527318018083 969.077150966826 9 368 368 3312 1218816
+158	656060 259 88 12982 1.527318018083 969.077150966826 9 46 46 414 19044
+159	656319 250 88 12982 1.527318018083 969.077150966826 9 0 0 0 0
+160	656569 250 88 12982 1.527318018083 969.077150966826 9 0 0 0 0
+161	656819 259 90 12984 1.527318594083 969.077151542826 9 64 64 576 36864
+162	657078 259 91 12985 1.527318644083 969.077151592826 9 64 64 576 36864
+163	657337 259 91 12985 1.527318644083 969.077151592826 9 64 64 576 36864
+164	657596 259 92 12986 1.527318644083 969.077151592826 9 46 46 414 19044
+165	657855 3128 101 14002 1.527319342083 991.033656135143 108 35 35 3780 132300
+166	660983 318 106 13763 2.428802160313 980.214560098131 11 80 80 880 70400
+167	661301 307 106 13763 2.428802160313 980.214560098131 11 0 0 0 0
+168	661608 318 106 13763 2.428802160313 980.214560098131 11 80 80 880 70400
+169	661926 4008 106 13883 2.428802160313 984.292640098131 94 -0.70495794216679 0 -31.473648449187 14.222775314198
+170	665934 1228 106 13785 2.428802160313 980.292640098131 44 0 2 44 66
+171	667162 307 106 13763 2.428802160313 980.214560098131 11 0 0 0 0
+172	667469 307 106 13763 2.428802160313 980.214560098131 11 0 0 0 0
+173	667776 3026 178 13352 2.517313802957 974.838651787116 108 0 3 96 180
+174	670802 2896 179 13883 3.506882160313 984.292640098131 104 0 3 97 187
+175	673698 288 182 12852 3.711629261496 967.746499468806 10 80 80 800 64000
+176	673986 278 182 12852 3.711629261496 967.746499468806 10 0 0 0 0
+177	674264 288 182 12852 3.711629261496 967.746499468806 10 80 80 800 64000
+178	674552 4262 182 13244 3.711629261496 971.824579468806 101 -2.2931409277712 0 -123.86073042906 198.12837032264
+179	678814 1112 182 12874 3.711629261496 967.824579468806 40 0 2 40 60
+180	679926 278 182 12852 3.711629261496 967.746499468806 10 0 0 0 0
+181	680204 278 182 12852 3.711629261496 967.746499468806 10 0 0 0 0
+182	680482 3557 228 13244 4.789709261496 971.824579468806 128 0 3 130 262
+183	684039 319 230 12897 4.863736048574 968.989066784503 11 80 80 880 70400
+184	684358 308 230 12897 4.863736048574 968.989066784503 11 0 0 0 0
+185	684666 319 230 12897 4.863736048574 968.989066784503 11 80 80 880 70400
+186	684985 4301 230 13298 4.863736048574 973.067146784503 107 -0.70603448459595 0 -38.186387014359 18.305248514698
+187	689286 1232 230 12919 4.863736048574 969.067146784503 44 0 2 44 66
+188	690518 308 230 12897 4.863736048574 968.989066784503 11 0 0 0 0
+189	690826 308 230 12897 4.863736048574 968.989066784503 11 0 0 0 0
+190	691134 3665 308 13298 5.941816048574 973.067146784503 132 0 3 132 264
+191	694799 289 313 13200 6.999577719485 971.501200451981 10 80 80 800 64000
+192	695088 279 313 13200 6.999577719485 971.501200451981 10 0 0 0 0
+193	695367 289 313 13200 6.999577719485 971.501200451981 10 80 80 800 64000
+194	695656 3959 313 13354 6.999577719485 975.579280451981 91 -0.64243279652454 0 -26.54132254914 11.133981567871
+195	699615 1118 313 13222 6.999577719485 971.579280451981 40 0 2 40 60
+196	700733 279 313 13200 6.999577719485 971.501200451981 10 0 0 0 0
+197	701012 279 313 13200 6.999577719485 971.501200451981 10 0 0 0 0
+198	701291 258 386 13047 7.180817365646 970.614717882592 9 80 80 720 57600
+199	701549 249 386 13047 7.180817365646 970.614717882592 9 0 0 0 0
+200	701798 258 386 13047 7.180817365646 970.614717882592 9 80 80 720 57600
+201	702056 3661 386 13351 7.180817365646 974.692797882592 87 -2.0622658519143 0 -90.22760990345 125.051081926
+202	705717 996 386 13069 7.180817365646 970.692797882592 36 0 2 36 54
+203	706713 249 386 13047 7.180817365646 970.614717882592 9 0 0 0 0
+204	706962 249 386 13047 7.180817365646 970.614717882592 9 0 0 0 0
+205	707211 2874 462 13354 8.077657719485 975.579280451981 104 0 3 100 196
+206	710085 349 464 13889 8.108369834721 990.361701571684 12 80 80 960 76800
+207	710434 337 464 13889 8.108369834721 990.361701571684 12 0 0 0 0
+208	710771 349 464 13889 8.108369834721 990.361701571684 12 80 80 960 76800
+209	711120 4157 464 14102 8.108369834721 994.439781571684 99 -0.76936685799372 0 -37.13181154368 18.844032908147
+210	715277 1348 464 13911 8.108369834721 990.439781571684 48 0 2 48 72
+211	716625 337 464 13889 8.108369834721 990.361701571684 12 0 0 0 0
+212	716962 337 464 13889 8.108369834721 990.361701571684 12 0 0 0 0
+213	717299 2890 508 13351 8.258897365646 974.692797882592 104 0 3 103 205
+214	720189 318 510 13822 8.580828166567 981.618546719512 11 80 80 880 70400
+215	720507 307 510 13822 8.580828166567 981.618546719512 11 0 0 0 0
+216	720814 318 510 13822 8.580828166567 981.618546719512 11 80 80 880 70400
+217	721132 3098 510 13885 8.580828166567 985.696626719512 72 -0.70593584392636 0 -23.263765084576 10.631717305777
+218	724230 1228 510 13844 8.580828166567 981.696626719512 44 0 2 44 66
+219	725458 307 510 13822 8.580828166567 981.618546719512 11 0 0 0 0
+220	725765 307 510 13822 8.580828166567 981.618546719512 11 0 0 0 0
+221	726072 289 584 13300 8.860654989257 973.186262271832 10 80 80 800 64000
+222	726361 279 584 13300 8.860654989257 973.186262271832 10 0 0 0 0
+223	726640 289 584 13300 8.860654989257 973.186262271832 10 80 80 800 64000
+224	726929 2859 584 13402 8.860654989257 977.264342271832 78 -0.6402 0 -24.17566061403 10.282947379707
+225	729788 1116 584 13322 8.860654989257 973.264342271832 40 0 2 40 60
+226	730904 279 584 13300 8.860654989257 973.186262271832 10 0 0 0 0
+227	731183 279 584 13300 8.860654989257 973.186262271832 10 0 0 0 0
+228	731462 287 629 13250 9.06933058775 972.600108649349 10 80 80 800 64000
+229	731749 277 629 13250 9.06933058775 972.600108649349 10 0 0 0 0
+230	732026 287 629 13250 9.06933058775 972.600108649349 10 80 80 800 64000
+231	732313 2758 629 13357 9.06933058775 976.678188649349 76 -0.6402 0 -23.359615173432 9.5483443552503
+232	735071 1108 629 13272 9.06933058775 972.678188649349 40 0 2 40 60
+233	736179 277 629 13250 9.06933058775 972.600108649349 10 0 0 0 0
+234	736456 277 629 13250 9.06933058775 972.600108649349 10 0 0 0 0
+235	736733 2923 673 14102 9.186449834721 994.439781571684 104 0 3 94 178
+236	739656 1653 676 13885 9.658908166567 985.696626719512 60 0 3 42 66
+237	741309 2123 677 13402 9.938734989257 977.264342271832 76 0 3 65 119
+238	743432 2000 680 13357 10.14741058775 976.678188649349 72 0 3 60 108
+239	745432 320 691 13359 11.692631830694 977.062781921122 11 80 80 880 70400
+240	745752 309 691 13359 11.692631830694 977.062781921122 11 0 0 0 0
+241	746061 320 691 13359 11.692631830694 977.062781921122 11 80 80 880 70400
+242	746381 4926 691 13814 11.692631830694 981.140861921122 116 -0.7083576702687 0 -40.18751125481 19.234247462931
+243	751307 1236 691 13381 11.692631830694 977.140861921122 44 0 2 44 66
+244	752543 309 691 13359 11.692631830694 977.062781921122 11 0 0 0 0
+245	752852 309 691 13359 11.692631830694 977.062781921122 11 0 0 0 0
+246	753161 376 739 14054 12.582849617116 992.948882955314 13 80 80 1040 83200
+247	753537 363 739 14054 12.582849617116 992.948882955314 13 0 0 0 0
+248	753900 376 739 14054 12.582849617116 992.948882955314 13 80 80 1040 83200
+249	754276 4094 739 14110 12.582849617116 997.026962955314 110 -0.83226 0 -38.254569448874 19.180571126112
+250	758370 1452 739 14077 12.582849617116 993.026962955314 52 0 2 52 78
+251	759822 363 739 14054 12.582849617116 992.948882955314 13 0 0 0 0
+252	760185 363 739 14054 12.582849617116 992.948882955314 13 0 0 0 0
+253	760548 4146 813 13814 12.770711830694 981.140861921122 148 0 3 152 308
+254	764694 261 817 13405 13.418986196863 978.278743339935 9 80 80 720 57600
+255	764955 252 817 13405 13.418986196863 978.278743339935 9 0 0 0 0
+256	765207 261 817 13405 13.418986196863 978.278743339935 9 80 80 720 57600
+257	765468 4136 817 13871 13.418986196863 982.356823339935 101 -0.57819600086803 0 -29.599303745859 11.526948057624
+258	769604 1008 817 13427 13.418986196863 978.356823339935 36 0 2 36 54
+259	770612 252 817 13405 13.418986196863 978.278743339935 9 0 0 0 0
+260	770864 252 817 13405 13.418986196863 978.278743339935 9 0 0 0 0
+261	771116 319 891 13480 13.591039054096 978.818545319373 11 80 80 880 70400
+262	771435 308 891 13480 13.591039054096 978.818545319373 11 0 0 0 0
+263	771743 319 891 13480 13.591039054096 978.818545319373 11 80 80 880 70400
+264	772062 3349 891 13875 13.591039054096 982.896625319373 90 -0.70422 0 -30.836394984322 14.420243730702
+265	775411 1232 891 13502 13.591039054096 978.896625319373 44 0 2 44 66
+266	776643 308 891 13480 13.591039054096 978.818545319373 11 0 0 0 0
+267	776951 308 891 13480 13.591039054096 978.818545319373 11 0 0 0 0
+268	777259 3215 913 14110 13.660929617116 997.026962955314 116 0 3 106 202
+269	780474 3704 936 13871 14.497066196863 982.356823339935 132 0 3 138 282
+270	784178 348 938 13525 14.557749206666 979.240571750329 12 80 80 960 76800
+271	784526 336 938 13525 14.557749206666 979.240571750329 12 0 0 0 0
+272	784862 348 938 13525 14.557749206666 979.240571750329 12 80 80 960 76800
+273	785210 4148 938 13878 14.557749206666 983.318651750329 101 -0.7685183210713 0 -34.954564806398 17.206209803576
+274	789358 1344 938 13570 14.557749206666 979.318651750329 48 0 2 48 72
+275	790702 336 938 13525 14.557749206666 979.240571750329 12 0 0 0 0
+276	791038 336 938 13525 14.557749206666 979.240571750329 12 0 0 0 0
+277	791374 2588 1014 13875 14.669119054096 982.896625319373 92 0 3 82 154
+278	793962 319 1018 13621 15.214991297806 979.342862480088 11 80 80 880 70400
+279	794281 308 1018 13621 15.214991297806 979.342862480088 11 0 0 0 0
+280	794589 319 1018 13621 15.214991297806 979.342862480088 11 80 80 880 70400
+281	794908 3938 1018 13880 15.214991297806 983.420942480088 94 -0.70759596878188 0 -30.977978615377 13.936347342568
+282	798846 1232 1018 13665 15.214991297806 979.420942480088 44 0 2 44 66
+283	800078 308 1018 13621 15.214991297806 979.342862480088 11 0 0 0 0
+284	800386 308 1018 13621 15.214991297806 979.342862480088 11 0 0 0 0
+285	800694 3032 1094 13878 15.635829206666 983.318651750329 108 0 3 99 189
+286	803726 320 1099 14009 15.95563150919 992.806074983227 11 80 80 880 70400
+287	804046 309 1099 14009 15.95563150919 992.806074983227 11 0 0 0 0
+288	804355 320 1099 14009 15.95563150919 992.806074983227 11 80 80 880 70400
+289	804675 2639 1099 14109 15.95563150919 996.884154983227 74 -0.70422 0 -23.826854837878 10.748916570199
+290	807314 1236 1099 14031 15.95563150919 992.884154983227 44 0 2 44 66
+291	808550 309 1099 14009 15.95563150919 992.806074983227 11 0 0 0 0
+292	808859 309 1099 14009 15.95563150919 992.806074983227 11 0 0 0 0
+293	809168 2927 1173 13880 16.293071297806 983.420942480088 104 0 3 97 187
+294	812095 263 1175 13548 16.369654792128 979.278769859578 9 80 80 720 57600
+295	812358 254 1175 13548 16.369654792128 979.278769859578 9 0 0 0 0
+296	812612 263 1175 13548 16.369654792128 979.278769859578 9 80 80 720 57600
+297	812875 2407 1175 13879 16.369654792128 983.356849859578 66 -0.57618 0 -18.246766872618 6.8965398073945
+298	815282 1016 1175 13644 16.369654792128 979.356849859578 36 0 2 36 54
+299	816298 254 1175 13548 16.369654792128 979.278769859578 9 0 0 0 0
+300	816552 254 1175 13548 16.369654792128 979.278769859578 9 0 0 0 0
+301	816806 291 1198 13717 16.413327370072 980.112538142829 10 80 80 800 64000
+302	817097 281 1198 13717 16.413327370072 980.112538142829 10 0 0 0 0
+303	817378 291 1198 13717 16.413327370072 980.112538142829 10 80 80 800 64000
+304	817669 2346 1198 13882 16.413327370072 984.190618142829 66 -0.6402 0 -19.891786773706 8.5160977249286
+305	820015 1124 1198 13740 16.413327370072 980.190618142829 40 0 2 40 60
+306	821139 281 1198 13717 16.413327370072 980.112538142829 10 0 0 0 0
+307	821420 281 1198 13717 16.413327370072 980.112538142829 10 0 0 0 0
+308	821701 1676 1299 14109 17.03371150919 996.884154983227 60 0 3 42 66
+309	823377 1692 1303 13879 17.447734792128 983.356849859578 60 0 3 48 84
+310	825069 1456 1304 13882 17.491407370072 984.190618142829 52 0 3 35 53
+311	826525 319 1307 13933 17.550368962344 990.945573119914 11 80 80 880 70400
+312	826844 308 1307 13933 17.550368962344 990.945573119914 11 0 0 0 0
+313	827152 319 1307 13933 17.550368962344 990.945573119914 11 80 80 880 70400
+314	827471 2963 1307 14105 17.550368962344 995.023653119914 81 -0.70432595269719 0 -28.108397396298 12.972282400015
+315	830434 1232 1307 13955 17.550368962344 991.023653119914 44 0 2 44 66
+316	831666 308 1307 13933 17.550368962344 990.945573119914 11 0 0 0 0
+317	831974 308 1307 13933 17.550368962344 990.945573119914 11 0 0 0 0
+318	832282 2119 1359 14105 18.628448962344 995.023653119914 76 0 3 62 110
+319	834401 44044 11448 14112 848.442512064238 1000 1517 -373.93071613869 9520 96746.069283861 602354224.18047
+320	878445 44044 11448 14112 848.442512064238 1000 1517 -373.93071613869 9520 96746.069283861 602354224.18047
+321	922489 44044 11478 14112 848.452515546238 1000 1517 -373.95539889209 9520 96746.044601108 602354242.64036
+322	966533 44044 11478 14112 848.452515546238 1000 1517 -373.95539889209 9520 96746.044601108 602354242.64036
+323	1010577 19369 12736 14112 933.409009636974 1000 667 -660.7500468176 4400 34539.249953182 155316590.62437
+324	1029946 19369 12736 14112 933.409009636974 1000 667 -660.7500468176 4400 34539.249953182 155316590.62437
+325	1049315 19370 12742 14112 933.419010622974 1000 667 -660.84929664897 4400 34539.150703351 155316721.79288
+326	1068685 19370 12742 14112 933.419010622974 1000 667 -660.84929664897 4400 34539.150703351 155316721.79288
+
