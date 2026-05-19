@@ -1,0 +1,5587 @@
+version 3
+run NodeSweep-20-20260517-18:30:46-1261
+attr configname NodeSweep
+attr datetime 20260517-18:30:46
+attr datetimef 20260517-183046
+attr experiment NodeSweep
+attr inifile omnetpp.ini
+attr iterationvars $N=5
+attr iterationvarsd N=5
+attr iterationvarsf N=5-
+attr measurement $N=5
+attr network SmartLoRaNetwork
+attr processid 1261
+attr repetition 20
+attr replication #20
+attr resultdir results
+attr runnumber 20
+attr seedset 20
+itervar N 5
+config image-path ../inet4.4/images
+config description "Node count sweep for smart street lighting"
+config *.numberOfNodes 5
+config *.numberOfGateways 1
+config repeat 30
+config seed-set 20
+config sim-time-limit 1000s
+config **.loRaNodes[*].app[0].telemetryBaseTime 120s
+config **.loRaNodes[*].app[0].faultMeanTime 600s
+config **.loRaNodes[*].app[0].minimumSendGap 20s
+config network SmartLoRaNetwork
+config sim-time-limit 1000s
+config *.numberOfNodes 5
+config *.numberOfGateways 1
+config **.loRaNodes[*].numApps 1
+config **.loRaNodes[*].app[0].typename StreetLightApp
+config **.loRaNodes[*].app[0].telemetryBaseTime 120s
+config **.loRaNodes[*].app[0].faultMeanTime 600s
+config **.loRaNodes[*].app[0].minimumSendGap 20s
+config **.loRaNodes[*].app[0].initialLoRaTP 14dBm
+config **.loRaNodes[*].app[0].initialLoRaCF 868MHz
+config **.loRaNodes[*].app[0].initialLoRaSF 7
+config **.loRaNodes[*].app[0].initialLoRaBW 125kHz
+config **.loRaNodes[*].app[0].initialLoRaCR 4
+config **.loRaNodes[*].app[0].initialUseHeader true
+config **.numberOfPacketsToSend 0
+config **.timeToFirstPacket exponential(1000s)
+config **.timeToNextPacket exponential(1000s)
+config **.loRaGW[*].numUdpApps 1
+config **.loRaGW[0].packetForwarder.localPort 2000
+config **.loRaGW[0].packetForwarder.destPort 1000
+config **.loRaGW[0].packetForwarder.destAddresses "\"networkServer\""
+config **.loRaGW[0].packetForwarder.indexNumber 0
+config **.loRaGW[*].LoRaGWNic.radio.iAmGateway true
+config **.networkServer.numApps 1
+config **.networkServer.app[0].typename SmartNetworkServerApp
+config **.networkServer.app[0].localPort 1000
+config **.networkServer.app[0].destAddresses "\"loRaGW[0]\""
+config **.networkServer.app[0].destPort 2000
+config **.networkServer.app[0].adrMethod "\"avg\""
+config **.constraintAreaMinX 0m
+config **.constraintAreaMinY 0m
+config **.constraintAreaMaxX 1000m
+config **.constraintAreaMaxY 1000m
+config **.constraintAreaMinZ 0m
+config **.constraintAreaMaxZ 0m
+config **.loRaNodes[*].**.initialX "uniform(300m, 400m)"
+config **.loRaNodes[*].**.initialY "uniform(300m, 400m)"
+config **.loRaNodes[*].**.initFromDisplayString false
+config **.loRaGW[0].**.initialX 350m
+config **.loRaGW[0].**.initialY 350m
+config **.loRaGW[*].**.initFromDisplayString false
+config **.radio.radioMediumModule "\"LoRaMedium\""
+config **.LoRaMedium.pathLossType "\"LoRaLogNormalShadowing\""
+config **.energyDetection -110dBm
+config **.minInterferenceTime 0s
+config **.alohaChannelModel false
+config **.vector-recording true
+config **.loRaNodes[*].LoRaNic.radio.energyConsumer.typename LoRaEnergyConsumer
+config **.loRaNodes[*].LoRaNic.radio.energyConsumer.energySourceModule "\"^.IdealEpEnergyStorage\""
+config **.energySourceModule "\"^.IdealEpEnergyStorage\""
+config **.loRaNodes[*].LoRaNic.radio.energyConsumer.configFile "xmldoc(\"../flora/simulations/energyConsumptionParameters.xml\")"
+config **.internetCloud.ipv4Delayer.config "xmldoc(\"../flora/simulations/cloudDelays.xml\")"
+config **.ipv4Delayer.config "xmldoc(\"../flora/simulations/cloudDelays.xml\")"
+config **.maxTransmissionDuration 200s
+
+vector 0 SmartLoRaNetwork.loRaNodes[0].app[0] faultInterArrivalTimes ETV
+vector 1 SmartLoRaNetwork.loRaNodes[1].app[0] faultInterArrivalTimes ETV
+vector 2 SmartLoRaNetwork.loRaNodes[2].app[0] faultInterArrivalTimes ETV
+vector 3 SmartLoRaNetwork.loRaNodes[3].app[0] faultInterArrivalTimes ETV
+vector 4 SmartLoRaNetwork.loRaNodes[4].app[0] faultInterArrivalTimes ETV
+vector 5 SmartLoRaNetwork.loRaGW[0].udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 6 SmartLoRaNetwork.loRaGW[0].udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 7 SmartLoRaNetwork.loRaGW[0].udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 8 SmartLoRaNetwork.networkServer.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 9 SmartLoRaNetwork.networkServer.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 10 SmartLoRaNetwork.networkServer.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 11 SmartLoRaNetwork.internetCloud.ppp[0].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "tx state"
+vector 12 SmartLoRaNetwork.internetCloud.ppp[1].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "tx state"
+vector 13 SmartLoRaNetwork.gwRouter[0].ppp[0].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "tx state"
+vector 14 SmartLoRaNetwork.nsRouter.ppp[0].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "tx state"
+vector 15 SmartLoRaNetwork.loRaNodes[0].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 16 SmartLoRaNetwork.loRaNodes[1].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 17 SmartLoRaNetwork.loRaNodes[2].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 18 SmartLoRaNetwork.loRaNodes[3].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 19 SmartLoRaNetwork.loRaNodes[4].LoRaNic.radio.IdealEpEnergyStorage powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 20 SmartLoRaNetwork.loRaNodes[0].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 21 SmartLoRaNetwork.loRaNodes[0].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 22 SmartLoRaNetwork.loRaNodes[1].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 23 SmartLoRaNetwork.loRaNodes[1].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 24 SmartLoRaNetwork.loRaNodes[2].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 25 SmartLoRaNetwork.loRaNodes[2].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 26 SmartLoRaNetwork.loRaNodes[3].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 27 SmartLoRaNetwork.loRaNodes[3].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 28 SmartLoRaNetwork.loRaNodes[4].LoRaNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 29 SmartLoRaNetwork.loRaNodes[4].LoRaNic.radio.energyConsumer powerConsumption:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source powerConsumptionChanged
+attr title "Power consumption"
+vector 30 SmartLoRaNetwork.loRaGW[0].LoRaGWNic.radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 31 SmartLoRaNetwork.loRaGW[0].LoRaGWNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 32 SmartLoRaNetwork.loRaGW[0].LoRaGWNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 33 SmartLoRaNetwork.loRaNodes[1].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 34 SmartLoRaNetwork.loRaNodes[1].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 35 SmartLoRaNetwork.loRaNodes[1].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 36 SmartLoRaNetwork.loRaNodes[1].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 37 SmartLoRaNetwork.loRaNodes[1].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 38 SmartLoRaNetwork.loRaNodes[1].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 39 SmartLoRaNetwork.loRaNodes[1].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 40 SmartLoRaNetwork.loRaNodes[1].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 41 SmartLoRaNetwork.loRaNodes[2].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 42 SmartLoRaNetwork.loRaNodes[2].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 43 SmartLoRaNetwork.loRaNodes[2].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 44 SmartLoRaNetwork.loRaNodes[2].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 45 SmartLoRaNetwork.loRaNodes[2].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 46 SmartLoRaNetwork.loRaNodes[2].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 47 SmartLoRaNetwork.loRaNodes[2].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 48 SmartLoRaNetwork.loRaNodes[2].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 49 SmartLoRaNetwork.loRaNodes[0].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 50 SmartLoRaNetwork.loRaNodes[0].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 51 SmartLoRaNetwork.loRaNodes[0].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 52 SmartLoRaNetwork.loRaNodes[0].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 53 SmartLoRaNetwork.loRaNodes[0].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 54 SmartLoRaNetwork.loRaNodes[0].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 55 SmartLoRaNetwork.loRaNodes[0].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 56 SmartLoRaNetwork.loRaNodes[0].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 57 SmartLoRaNetwork.loRaNodes[3].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 58 SmartLoRaNetwork.loRaNodes[3].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 59 SmartLoRaNetwork.loRaNodes[3].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 60 SmartLoRaNetwork.loRaNodes[3].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 61 SmartLoRaNetwork.loRaNodes[3].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 62 SmartLoRaNetwork.loRaNodes[3].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 63 SmartLoRaNetwork.loRaNodes[3].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 64 SmartLoRaNetwork.loRaGW[0].udp packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 65 SmartLoRaNetwork.loRaGW[0].ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+vector 66 SmartLoRaNetwork.loRaGW[0].ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 67 SmartLoRaNetwork.loRaGW[0].eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 68 SmartLoRaNetwork.loRaGW[0].eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 69 SmartLoRaNetwork.loRaGW[0].eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 70 SmartLoRaNetwork.loRaGW[0].eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 71 SmartLoRaNetwork.loRaGW[0].eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 72 SmartLoRaNetwork.loRaGW[0].eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 73 SmartLoRaNetwork.loRaGW[0].eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 74 SmartLoRaNetwork.gwRouter[0].eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 75 SmartLoRaNetwork.gwRouter[0].eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 76 SmartLoRaNetwork.gwRouter[0].ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 77 SmartLoRaNetwork.gwRouter[0].ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+vector 78 SmartLoRaNetwork.gwRouter[0].ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 79 SmartLoRaNetwork.gwRouter[0].eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 80 SmartLoRaNetwork.gwRouter[0].eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 81 SmartLoRaNetwork.gwRouter[0].eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 82 SmartLoRaNetwork.gwRouter[0].eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 83 SmartLoRaNetwork.gwRouter[0].eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 84 SmartLoRaNetwork.gwRouter[0].eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 85 SmartLoRaNetwork.gwRouter[0].eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 86 SmartLoRaNetwork.loRaGW[0].eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 87 SmartLoRaNetwork.loRaGW[0].eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 88 SmartLoRaNetwork.loRaGW[0].ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 89 SmartLoRaNetwork.gwRouter[0].ppp[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 90 SmartLoRaNetwork.gwRouter[0].ppp[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 91 SmartLoRaNetwork.gwRouter[0].ppp[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 92 SmartLoRaNetwork.gwRouter[0].ppp[0].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 93 SmartLoRaNetwork.gwRouter[0].ppp[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 94 SmartLoRaNetwork.gwRouter[0].ppp[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 95 SmartLoRaNetwork.internetCloud.ppp[1].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 96 SmartLoRaNetwork.internetCloud.ppp[1].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 97 SmartLoRaNetwork.internetCloud.ppp[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 98 SmartLoRaNetwork.internetCloud.ppp[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 99 SmartLoRaNetwork.internetCloud.ppp[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 100 SmartLoRaNetwork.internetCloud.ppp[0].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 101 SmartLoRaNetwork.internetCloud.ppp[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 102 SmartLoRaNetwork.internetCloud.ppp[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 103 SmartLoRaNetwork.nsRouter.ppp[0].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 104 SmartLoRaNetwork.nsRouter.ppp[0].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 105 SmartLoRaNetwork.nsRouter.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+vector 106 SmartLoRaNetwork.nsRouter.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 107 SmartLoRaNetwork.nsRouter.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 108 SmartLoRaNetwork.nsRouter.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 109 SmartLoRaNetwork.nsRouter.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 110 SmartLoRaNetwork.nsRouter.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 111 SmartLoRaNetwork.nsRouter.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 112 SmartLoRaNetwork.nsRouter.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 113 SmartLoRaNetwork.nsRouter.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 114 SmartLoRaNetwork.networkServer.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 115 SmartLoRaNetwork.networkServer.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 116 SmartLoRaNetwork.networkServer.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 117 SmartLoRaNetwork.networkServer.ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+vector 118 SmartLoRaNetwork.networkServer.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 119 SmartLoRaNetwork.networkServer.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 120 SmartLoRaNetwork.networkServer.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 121 SmartLoRaNetwork.networkServer.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 122 SmartLoRaNetwork.networkServer.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 123 SmartLoRaNetwork.networkServer.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 124 SmartLoRaNetwork.networkServer.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 125 SmartLoRaNetwork.networkServer.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 126 SmartLoRaNetwork.nsRouter.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 127 SmartLoRaNetwork.nsRouter.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 128 SmartLoRaNetwork.nsRouter.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 129 SmartLoRaNetwork.networkServer.udp packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 130 SmartLoRaNetwork.loRaNodes[3].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 131 SmartLoRaNetwork.loRaNodes[4].LoRaNic.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 132 SmartLoRaNetwork.loRaNodes[4].LoRaNic.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 133 SmartLoRaNetwork.loRaNodes[4].LoRaNic.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 134 SmartLoRaNetwork.loRaNodes[4].LoRaNic.radio.IdealEpEnergyStorage residualEnergyCapacity:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source residualEnergyCapacityChanged
+attr title "Residual energy capacity"
+vector 135 SmartLoRaNetwork.loRaNodes[4].LoRaNic.radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 136 SmartLoRaNetwork.loRaNodes[4].LoRaNic.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 137 SmartLoRaNetwork.loRaNodes[4].LoRaNic.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 138 SmartLoRaNetwork.loRaNodes[4].LoRaNic.radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+0	0	0	1105.4811275149
+1	0	0	1017.5019325441
+2	0	0	915.36534037772
+2	1671	915.365340377719	639.37229152679
+3	0	0	797.42086429445
+3	1420	797.42086429445	318.23590443854
+4	0	0	389.34923426829
+4	791	397.867269541672	463.16368148953
+4	1623	879.669267215045	1325.341744809
+5	0	0	0
+6	0	0	0
+7	0	0	0
+8	0	0	0
+8	123	14.741598172147	1
+8	170	15.9651516433	2
+8	238	126.736619024746	3
+8	331	135.061058120836	4
+8	378	136.294358055958	5
+8	452	247.562442602333	6
+8	546	255.562315959983	7
+8	593	256.928311435658	8
+8	731	376.443064665223	9
+8	776	377.509554064752	10
+8	831	397.955352540117	11
+8	920	495.397815301851	12
+8	995	497.439665521762	13
+8	1038	497.554401584355	14
+8	1179	618.221906483931	15
+8	1222	618.421066561143	16
+8	1362	738.952905870568	17
+8	1405	739.206756718352	18
+8	1460	797.508947301717	19
+8	1609	860.064324927551	20
+8	1663	879.75735021349	21
+8	1770	977.665739319358	22
+8	1816	979.27988743029	23
+8	1892	981.015766837902	24
+9	0	0	0
+10	0	0	0
+11	0	0	0
+11	99	14.741595676147	1
+11	100	14.741596172147	0
+11	160	15.9651503993	1
+11	161	15.9651508953	0
+11	228	126.736617780746	1
+11	229	126.736618276746	0
+11	307	135.061055624836	1
+11	308	135.061056120836	0
+11	368	136.294356811958	1
+11	369	136.294357307958	0
+11	442	247.562441358333	1
+11	443	247.562441854333	0
+11	522	255.562313463983	1
+11	523	255.562313959983	0
+11	583	256.928310191658	1
+11	584	256.928310687658	0
+11	707	376.443062169223	1
+11	708	376.443062665223	0
+11	766	377.509552820752	1
+11	767	377.509553316752	0
+11	821	397.955351296117	1
+11	822	397.955351792117	0
+11	910	495.397814057851	1
+11	911	495.397814553851	0
+11	971	497.439663025762	1
+11	972	497.439663521762	0
+11	1028	497.554400340355	1
+11	1029	497.554400836355	0
+11	1155	618.221903987931	1
+11	1156	618.221904483931	0
+11	1212	618.421065317143	1
+11	1213	618.421065813143	0
+11	1338	738.952903374568	1
+11	1339	738.952903870568	0
+11	1395	739.206755474352	1
+11	1396	739.206755970352	0
+11	1450	797.508946057717	1
+11	1451	797.508946553717	0
+11	1585	860.064322431551	1
+11	1586	860.064322927551	0
+11	1653	879.75734896949	1
+11	1654	879.75734946549	0
+11	1760	977.665738075358	1
+11	1761	977.665738571358	0
+11	1806	979.27988618629	1
+11	1807	979.27988668229	0
+11	1868	981.015764341902	1
+11	1869	981.015764837902	0
+12	0	0	0
+13	0	0	0
+13	93	14.731594690147	1
+13	95	14.731595186147	0
+13	154	15.9551494133	1
+13	156	15.9551499093	0
+13	222	126.726616794746	1
+13	224	126.726617290746	0
+13	301	135.051054638836	1
+13	303	135.051055134836	0
+13	362	136.284355825958	1
+13	364	136.284356321958	0
+13	436	247.552440372333	1
+13	438	247.552440868333	0
+13	516	255.552312477983	1
+13	518	255.552312973983	0
+13	577	256.918309205658	1
+13	579	256.918309701658	0
+13	701	376.433061183223	1
+13	703	376.433061679223	0
+13	760	377.499551834752	1
+13	762	377.499552330752	0
+13	815	397.945350310117	1
+13	817	397.945350806117	0
+13	904	495.387813071851	1
+13	906	495.387813567851	0
+13	965	497.429662039762	1
+13	967	497.429662535762	0
+13	1022	497.544399354355	1
+13	1024	497.544399850355	0
+13	1149	618.211903001931	1
+13	1151	618.211903497931	0
+13	1206	618.411064331143	1
+13	1208	618.411064827143	0
+13	1332	738.942902388568	1
+13	1334	738.942902884568	0
+13	1389	739.196754488352	1
+13	1391	739.196754984352	0
+13	1444	797.498945071717	1
+13	1446	797.498945567717	0
+13	1579	860.054321445551	1
+13	1581	860.054321941551	0
+13	1647	879.74734798349	1
+13	1649	879.74734847949	0
+13	1754	977.655737089358	1
+13	1756	977.655737585358	0
+13	1800	979.26988520029	1
+13	1802	979.26988569629	0
+13	1862	981.005763355902	1
+13	1864	981.005763851902	0
+14	0	0	0
+15	0	0	0
+15	0	0	0
+15	0	0	0
+15	0	0	0
+15	40	13.501077841502	2.112
+15	40	13.501077841502	2.112
+15	41	13.501077841502	2.112
+15	41	13.501077841502	2.112
+15	47	13.579157841502	0
+15	47	13.579157841502	0
+15	47	13.579157841502	0
+15	47	13.579157841502	0
+15	53	14.579157841502	0.03201
+15	53	14.579157841502	0.03201
+15	58	14.653512728428	0.03201
+15	58	14.653512728428	0.03201
+15	64	14.731592728428	0
+15	64	14.731592728428	0
+15	64	14.731592728428	0
+15	64	14.731592728428	0
+15	65	14.731592728428	0.03201
+15	65	14.731592728428	0.03201
+15	127	15.579157841502	0
+15	127	15.579157841502	0
+15	174	16.579157841502	0.03201
+15	174	16.579157841502	0.03201
+15	177	17.579157841502	0
+15	177	17.579157841502	0
+15	250	134.27132977359	2.112
+15	250	134.27132977359	2.112
+15	251	134.27132977359	2.112
+15	251	134.27132977359	2.112
+15	257	134.34940977359	0
+15	257	134.34940977359	0
+15	257	134.34940977359	0
+15	257	134.34940977359	0
+15	334	135.34940977359	0.03201
+15	334	135.34940977359	0.03201
+15	342	136.206275157526	0.03201
+15	342	136.206275157526	0.03201
+15	354	136.284355157526	0
+15	354	136.284355157526	0
+15	354	136.284355157526	0
+15	354	136.284355157526	0
+15	355	136.284355157526	0.03201
+15	355	136.284355157526	0.03201
+15	382	136.34940977359	0
+15	382	136.34940977359	0
+15	385	137.34940977359	0.03201
+15	385	137.34940977359	0.03201
+15	388	138.34940977359	0
+15	388	138.34940977359	0
+15	464	254.467183997389	2.112
+15	464	254.467183997389	2.112
+15	465	254.467183997389	2.112
+15	465	254.467183997389	2.112
+15	471	254.545263997389	0
+15	471	254.545263997389	0
+15	471	254.545263997389	0
+15	471	254.545263997389	0
+15	485	255.545263997389	0.03201
+15	485	255.545263997389	0.03201
+15	550	256.545263997389	0
+15	550	256.545263997389	0
+15	597	257.545263997389	0.03201
+15	597	257.545263997389	0.03201
+15	600	258.545263997389	0
+15	600	258.545263997389	0
+15	648	374.632621740922	2.112
+15	648	374.632621740922	2.112
+15	649	374.632621740922	2.112
+15	649	374.632621740922	2.112
+15	655	374.710701740922	0
+15	655	374.710701740922	0
+15	655	374.710701740922	0
+15	655	374.710701740922	0
+15	661	375.710701740922	0.03201
+15	661	375.710701740922	0.03201
+15	666	376.354979221504	0.03201
+15	666	376.354979221504	0.03201
+15	672	376.433059221504	0
+15	672	376.433059221504	0
+15	672	376.433059221504	0
+15	672	376.433059221504	0
+15	673	376.433059221504	0.03201
+15	673	376.433059221504	0.03201
+15	734	376.710701740922	0
+15	734	376.710701740922	0
+15	779	377.710701740922	0.03201
+15	779	377.710701740922	0.03201
+15	782	378.710701740922	0
+15	782	378.710701740922	0
+15	881	495.309732241323	2.112
+15	881	495.309732241323	2.112
+15	882	495.309732241323	2.112
+15	882	495.309732241323	2.112
+15	888	495.387812241323	0
+15	888	495.387812241323	0
+15	888	495.387812241323	0
+15	888	495.387812241323	0
+15	924	496.387812241323	0.03201
+15	924	496.387812241323	0.03201
+15	929	497.351580078043	0.03201
+15	929	497.351580078043	0.03201
+15	936	497.429660078043	0
+15	936	497.429660078043	0
+15	936	497.429660078043	0
+15	936	497.429660078043	0
+15	937	497.429660078043	0.03201
+15	937	497.429660078043	0
+15	937	497.429660078043	0
+15	937	497.429660078043	0
+15	1041	498.387812241323	0.03201
+15	1041	498.387812241323	0.03201
+15	1045	499.387812241323	0
+15	1045	499.387812241323	0
+15	1096	615.58566602855	2.112
+15	1096	615.58566602855	2.112
+15	1097	615.58566602855	2.112
+15	1097	615.58566602855	2.112
+15	1103	615.66374602855	0
+15	1103	615.66374602855	0
+15	1103	615.66374602855	0
+15	1103	615.66374602855	0
+15	1109	616.66374602855	0.03201
+15	1109	616.66374602855	0.03201
+15	1110	617.66374602855	0
+15	1110	617.66374602855	0
+15	1225	618.66374602855	0.03201
+15	1225	618.66374602855	0.03201
+15	1228	619.66374602855	0
+15	1228	619.66374602855	0
+15	1279	736.482557066251	2.112
+15	1279	736.482557066251	2.112
+15	1280	736.482557066251	2.112
+15	1280	736.482557066251	2.112
+15	1286	736.560637066251	0
+15	1286	736.560637066251	0
+15	1286	736.560637066251	0
+15	1286	736.560637066251	0
+15	1292	737.560637066251	0.03201
+15	1292	737.560637066251	0.03201
+15	1293	738.560637066251	0
+15	1293	738.560637066251	0
+15	1408	739.560637066251	0.03201
+15	1408	739.560637066251	0.03201
+15	1412	740.560637066251	0
+15	1412	740.560637066251	0
+15	1510	857.26970016677	2.112
+15	1510	857.26970016677	2.112
+15	1511	857.26970016677	2.112
+15	1511	857.26970016677	2.112
+15	1517	857.34778016677	0
+15	1517	857.34778016677	0
+15	1517	857.34778016677	0
+15	1517	857.34778016677	0
+15	1523	858.34778016677	0.03201
+15	1523	858.34778016677	0.03201
+15	1529	858.886420098728	0.03201
+15	1529	858.886420098728	0.03201
+15	1535	858.964500098728	0
+15	1535	858.964500098728	0
+15	1535	858.964500098728	0
+15	1535	858.964500098728	0
+15	1535	858.964500098728	0
+15	1535	858.964500098728	0.03201
+15	1535	858.964500098728	0.03201
+15	1538	859.34778016677	0
+15	1538	859.34778016677	0
+15	1612	860.34778016677	0.03201
+15	1612	860.34778016677	0.03201
+15	1616	861.34778016677	0
+15	1616	861.34778016677	0
+15	1731	977.57765625883	2.112
+15	1731	977.57765625883	2.112
+15	1732	977.57765625883	2.112
+15	1732	977.57765625883	2.112
+15	1738	977.65573625883	0
+15	1738	977.65573625883	0
+15	1738	977.65573625883	0
+15	1738	977.65573625883	0
+15	1773	978.65573625883	0.03201
+15	1773	978.65573625883	0.03201
+15	1780	979.191804531858	0.03201
+15	1780	979.191804531858	0.03201
+15	1792	979.269884531858	0
+15	1792	979.269884531858	0
+15	1792	979.269884531858	0
+15	1792	979.269884531858	0
+15	1793	979.269884531858	0.03201
+15	1793	979.269884531858	0.03201
+15	1819	979.65573625883	0
+15	1819	979.65573625883	0
+15	1821	980.65573625883	0.03201
+15	1821	980.65573625883	0.03201
+15	1826	980.927681394183	0.03201
+15	1826	980.927681394183	0.03201
+15	1832	981.005761394183	0
+15	1832	981.005761394183	0
+15	1832	981.005761394183	0
+15	1832	981.005761394183	0
+15	1833	981.005761394183	0.03201
+15	1833	981.005761394183	0.03201
+15	1896	981.65573625883	0
+15	1896	981.65573625883	0
+16	0	0	0
+16	0	0	0
+16	0	0	0
+16	0	0	0
+16	4	4.683154143626	2.112
+16	4	4.683154143626	2.112
+16	5	4.683154143626	2.112
+16	5	4.683154143626	2.112
+16	11	4.761234143626	0
+16	11	4.761234143626	0
+16	11	4.761234143626	0
+16	11	4.761234143626	0
+16	17	5.761234143626	0.03201
+16	17	5.761234143626	0.03201
+16	22	6.174011700516	0.03201
+16	22	6.174011700516	0.03201
+16	28	6.252091700516	0
+16	28	6.252091700516	0
+16	28	6.252091700516	0
+16	28	6.252091700516	0
+16	28	6.252091700516	0
+16	28	6.252091700516	0.03201
+16	28	6.252091700516	0.03201
+16	32	6.761234143626	0
+16	32	6.761234143626	0
+16	34	7.761234143626	0.03201
+16	34	7.761234143626	0.03201
+16	36	8.761234143626	0
+16	36	8.761234143626	0
+16	184	125.533481779043	2.112
+16	184	125.533481779043	2.112
+16	185	125.533481779043	2.112
+16	185	125.533481779043	2.112
+16	191	125.611561779043	0
+16	191	125.611561779043	0
+16	191	125.611561779043	0
+16	191	125.611561779043	0
+16	197	126.611561779043	0.03201
+16	197	126.611561779043	0.03201
+16	202	126.648536085113	0.03201
+16	202	126.648536085113	0.03201
+16	208	126.726616085113	0
+16	208	126.726616085113	0
+16	208	126.726616085113	0
+16	208	126.726616085113	0
+16	208	126.726616085113	0
+16	208	126.726616085113	0.03201
+16	208	126.726616085113	0.03201
+16	241	127.611561779043	0
+16	241	127.611561779043	0
+16	244	128.611561779043	0.03201
+16	244	128.611561779043	0.03201
+16	246	129.611561779043	0
+16	246	129.611561779043	0
+16	398	246.207523440943	2.112
+16	398	246.207523440943	2.112
+16	399	246.207523440943	2.112
+16	399	246.207523440943	2.112
+16	405	246.285603440943	0
+16	405	246.285603440943	0
+16	405	246.285603440943	0
+16	405	246.285603440943	0
+16	411	247.285603440943	0.03201
+16	411	247.285603440943	0.03201
+16	416	247.4743596627	0.03201
+16	416	247.4743596627	0.03201
+16	422	247.5524396627	0
+16	422	247.5524396627	0
+16	422	247.5524396627	0
+16	422	247.5524396627	0
+16	422	247.5524396627	0
+16	422	247.5524396627	0.03201
+16	422	247.5524396627	0.03201
+16	455	248.285603440943	0
+16	455	248.285603440943	0
+16	458	249.285603440943	0.03201
+16	458	249.285603440943	0.03201
+16	460	250.285603440943	0
+16	460	250.285603440943	0
+16	612	367.086106021424	2.112
+16	612	367.086106021424	2.112
+16	613	367.086106021424	2.112
+16	613	367.086106021424	2.112
+16	619	367.164186021424	0
+16	619	367.164186021424	0
+16	619	367.164186021424	0
+16	619	367.164186021424	0
+16	639	368.164186021424	0.03201
+16	639	368.164186021424	0.03201
+16	641	369.164186021424	0
+16	641	369.164186021424	0
+16	643	370.164186021424	0.03201
+16	643	370.164186021424	0.03201
+16	645	371.164186021424	0
+16	645	371.164186021424	0
+16	845	487.775989660529	2.112
+16	845	487.775989660529	2.112
+16	846	487.775989660529	2.112
+16	846	487.775989660529	2.112
+16	852	487.854069660529	0
+16	852	487.854069660529	0
+16	852	487.854069660529	0
+16	852	487.854069660529	0
+16	872	488.854069660529	0.03201
+16	872	488.854069660529	0.03201
+16	874	489.854069660529	0
+16	874	489.854069660529	0
+16	876	490.854069660529	0.03201
+16	876	490.854069660529	0.03201
+16	878	491.854069660529	0
+16	878	491.854069660529	0
+16	1060	607.853025932332	2.112
+16	1060	607.853025932332	2.112
+16	1061	607.853025932332	2.112
+16	1061	607.853025932332	2.112
+16	1067	607.931105932332	0
+16	1067	607.931105932332	0
+16	1067	607.931105932332	0
+16	1067	607.931105932332	0
+16	1087	608.931105932332	0.03201
+16	1087	608.931105932332	0.03201
+16	1089	609.931105932332	0
+16	1089	609.931105932332	0
+16	1091	610.931105932332	0.03201
+16	1091	610.931105932332	0.03201
+16	1093	611.931105932332	0
+16	1093	611.931105932332	0
+16	1243	728.697488104693	2.112
+16	1243	728.697488104693	2.112
+16	1244	728.697488104693	2.112
+16	1244	728.697488104693	2.112
+16	1250	728.775568104693	0
+16	1250	728.775568104693	0
+16	1250	728.775568104693	0
+16	1250	728.775568104693	0
+16	1270	729.775568104693	0.03201
+16	1270	729.775568104693	0.03201
+16	1272	730.775568104693	0
+16	1272	730.775568104693	0
+16	1274	731.775568104693	0.03201
+16	1274	731.775568104693	0.03201
+16	1276	732.775568104693	0
+16	1276	732.775568104693	0
+16	1488	849.094935426723	2.112
+16	1488	849.094935426723	2.112
+16	1489	849.094935426723	2.112
+16	1489	849.094935426723	2.112
+16	1495	849.173015426723	0
+16	1495	849.173015426723	0
+16	1495	849.173015426723	0
+16	1495	849.173015426723	0
+16	1502	850.173015426723	0.03201
+16	1502	850.173015426723	0.03201
+16	1504	851.173015426723	0
+16	1504	851.173015426723	0
+16	1506	852.173015426723	0.03201
+16	1506	852.173015426723	0.03201
+16	1508	853.173015426723	0
+16	1508	853.173015426723	0
+16	1709	970.019781906159	2.112
+16	1709	970.019781906159	2.112
+16	1710	970.019781906159	2.112
+16	1710	970.019781906159	2.112
+16	1716	970.097861906159	0
+16	1716	970.097861906159	0
+16	1716	970.097861906159	0
+16	1716	970.097861906159	0
+16	1723	971.097861906159	0.03201
+16	1723	971.097861906159	0.03201
+16	1725	972.097861906159	0
+16	1725	972.097861906159	0
+16	1727	973.097861906159	0.03201
+16	1727	973.097861906159	0.03201
+16	1729	974.097861906159	0
+16	1729	974.097861906159	0
+17	0	0	0
+17	0	0	0
+17	0	0	0
+17	0	0	0
+17	19	6.174011599272	2.112
+17	19	6.174011599272	2.112
+17	20	6.174011599272	2.112
+17	20	6.174011599272	2.112
+17	26	6.252091599272	0
+17	26	6.252091599272	0
+17	26	6.252091599272	0
+17	26	6.252091599272	0
+17	33	7.252091599272	0.03201
+17	33	7.252091599272	0.03201
+17	35	8.252091599272	0
+17	35	8.252091599272	0
+17	37	9.252091599272	0.03201
+17	37	9.252091599272	0.03201
+17	38	10.252091599272	0
+17	38	10.252091599272	0
+17	199	126.648535983869	2.112
+17	199	126.648535983869	2.112
+17	200	126.648535983869	2.112
+17	200	126.648535983869	2.112
+17	206	126.726615983869	0
+17	206	126.726615983869	0
+17	206	126.726615983869	0
+17	206	126.726615983869	0
+17	242	127.726615983869	0.03201
+17	242	127.726615983869	0.03201
+17	245	128.726615983869	0
+17	245	128.726615983869	0
+17	247	129.726615983869	0.03201
+17	247	129.726615983869	0.03201
+17	248	130.726615983869	0
+17	248	130.726615983869	0
+17	413	247.474359561456	2.112
+17	413	247.474359561456	2.112
+17	414	247.474359561456	2.112
+17	414	247.474359561456	2.112
+17	420	247.552439561456	0
+17	420	247.552439561456	0
+17	420	247.552439561456	0
+17	420	247.552439561456	0
+17	457	248.552439561456	0.03201
+17	457	248.552439561456	0.03201
+17	459	249.552439561456	0
+17	459	249.552439561456	0
+17	461	250.552439561456	0.03201
+17	461	250.552439561456	0.03201
+17	462	251.552439561456	0
+17	462	251.552439561456	0
+17	626	367.769912188872	2.112
+17	626	367.769912188872	2.112
+17	627	367.769912188872	2.112
+17	627	367.769912188872	2.112
+17	633	367.847992188872	0
+17	633	367.847992188872	0
+17	633	367.847992188872	0
+17	633	367.847992188872	0
+17	640	368.847992188872	0.03201
+17	640	368.847992188872	0.03201
+17	642	369.847992188872	0
+17	642	369.847992188872	0
+17	644	370.847992188872	0.03201
+17	644	370.847992188872	0.03201
+17	646	371.847992188872	0
+17	646	371.847992188872	0
+17	859	488.194456665776	2.112
+17	859	488.194456665776	2.112
+17	860	488.194456665776	2.112
+17	860	488.194456665776	2.112
+17	866	488.272536665776	0
+17	866	488.272536665776	0
+17	866	488.272536665776	0
+17	866	488.272536665776	0
+17	873	489.272536665776	0.03201
+17	873	489.272536665776	0.03201
+17	875	490.272536665776	0
+17	875	490.272536665776	0
+17	877	491.272536665776	0.03201
+17	877	491.272536665776	0.03201
+17	879	492.272536665776	0
+17	879	492.272536665776	0
+17	1074	608.222638349514	2.112
+17	1074	608.222638349514	2.112
+17	1075	608.222638349514	2.112
+17	1075	608.222638349514	2.112
+17	1081	608.300718349514	0
+17	1081	608.300718349514	0
+17	1081	608.300718349514	0
+17	1081	608.300718349514	0
+17	1088	609.300718349514	0.03201
+17	1088	609.300718349514	0.03201
+17	1090	610.300718349514	0
+17	1090	610.300718349514	0
+17	1092	611.300718349514	0.03201
+17	1092	611.300718349514	0.03201
+17	1094	612.300718349514	0
+17	1094	612.300718349514	0
+17	1257	728.912165708374	2.112
+17	1257	728.912165708374	2.112
+17	1258	728.912165708374	2.112
+17	1258	728.912165708374	2.112
+17	1264	728.990245708374	0
+17	1264	728.990245708374	0
+17	1264	728.990245708374	0
+17	1264	728.990245708374	0
+17	1271	729.990245708374	0.03201
+17	1271	729.990245708374	0.03201
+17	1273	730.990245708374	0
+17	1273	730.990245708374	0
+17	1275	731.990245708374	0.03201
+17	1275	731.990245708374	0.03201
+17	1277	732.990245708374	0
+17	1277	732.990245708374	0
+17	1474	848.961504865205	2.112
+17	1474	848.961504865205	2.112
+17	1475	848.961504865205	2.112
+17	1475	848.961504865205	2.112
+17	1481	849.039584865205	0
+17	1481	849.039584865205	0
+17	1481	849.039584865205	0
+17	1481	849.039584865205	0
+17	1501	850.039584865205	0.03201
+17	1501	850.039584865205	0.03201
+17	1503	851.039584865205	0
+17	1503	851.039584865205	0
+17	1505	852.039584865205	0.03201
+17	1505	852.039584865205	0.03201
+17	1507	853.039584865205	0
+17	1507	853.039584865205	0
+17	1672	915.365340377719	2.112
+17	1672	915.365340377719	2.112
+17	1673	915.365340377719	2.112
+17	1673	915.365340377719	2.112
+17	1679	915.443420377719	0
+17	1679	915.443420377719	0
+17	1679	915.443420377719	0
+17	1679	915.443420377719	0
+17	1685	916.443420377719	0.03201
+17	1685	916.443420377719	0.03201
+17	1686	917.443420377719	0
+17	1686	917.443420377719	0
+17	1687	918.443420377719	0.03201
+17	1687	918.443420377719	0.03201
+17	1688	919.443420377719	0
+17	1688	919.443420377719	0
+17	1695	969.214464575518	2.112
+17	1695	969.214464575518	2.112
+17	1696	969.214464575518	2.112
+17	1696	969.214464575518	2.112
+17	1702	969.292544575518	0
+17	1702	969.292544575518	0
+17	1702	969.292544575518	0
+17	1702	969.292544575518	0
+17	1722	970.292544575518	0.03201
+17	1722	970.292544575518	0.03201
+17	1724	971.292544575518	0
+17	1724	971.292544575518	0
+17	1726	972.292544575518	0.03201
+17	1726	972.292544575518	0.03201
+17	1728	973.292544575518	0
+17	1728	973.292544575518	0
+18	0	0	0
+18	0	0	0
+18	0	0	0
+18	0	0	0
+18	55	14.65351266088	9.8813129168249e-324
+18	55	14.65351266088	9.8813129168249e-324
+18	56	14.65351266088	9.8813129168249e-324
+18	56	14.65351266088	9.8813129168249e-324
+18	62	14.73159266088	0
+18	62	14.73159266088	0
+18	62	14.73159266088	0
+18	62	14.73159266088	0
+18	128	15.73159266088	0.03201
+18	128	15.73159266088	0.03201
+18	133	15.877068732367	0.03201
+18	133	15.877068732367	0.03201
+18	145	15.955148732367	0
+18	145	15.955148732367	0
+18	145	15.955148732367	0
+18	145	15.955148732367	0
+18	146	15.955148732367	0.03201
+18	146	15.955148732367	0.03201
+18	175	16.73159266088	0
+18	175	16.73159266088	0
+18	178	17.73159266088	0.03201
+18	178	17.73159266088	0.03201
+18	180	18.73159266088	0
+18	180	18.73159266088	0
+18	264	134.972972609569	9.8813129168249e-324
+18	264	134.972972609569	9.8813129168249e-324
+18	265	134.972972609569	9.8813129168249e-324
+18	265	134.972972609569	9.8813129168249e-324
+18	271	135.051052609569	0
+18	271	135.051052609569	0
+18	271	135.051052609569	0
+18	271	135.051052609569	0
+18	336	136.051052609569	0.03201
+18	336	136.051052609569	0.03201
+18	341	136.206275145025	0.03201
+18	341	136.206275145025	0.03201
+18	353	136.284355145025	0
+18	353	136.284355145025	0
+18	353	136.284355145025	0
+18	353	136.284355145025	0
+18	353	136.284355145025	0
+18	353	136.284355145025	0.03201
+18	353	136.284355145025	0.03201
+18	383	137.051052609569	0
+18	383	137.051052609569	0
+18	386	138.051052609569	0.03201
+18	386	138.051052609569	0.03201
+18	389	139.051052609569	0
+18	389	139.051052609569	0
+18	478	255.474230448716	9.8813129168249e-324
+18	478	255.474230448716	9.8813129168249e-324
+18	479	255.474230448716	9.8813129168249e-324
+18	479	255.474230448716	9.8813129168249e-324
+18	486	255.552310448716	0
+18	486	255.552310448716	0
+18	486	255.552310448716	0
+18	486	255.552310448716	0
+18	551	256.552310448716	0.03201
+18	551	256.552310448716	0.03201
+18	556	256.840228524725	0.03201
+18	556	256.840228524725	0.03201
+18	568	256.918308524725	0
+18	568	256.918308524725	0
+18	568	256.918308524725	0
+18	568	256.918308524725	0
+18	569	256.918308524725	0.03201
+18	569	256.918308524725	0.03201
+18	598	257.552310448716	0
+18	598	257.552310448716	0
+18	601	258.552310448716	0.03201
+18	601	258.552310448716	0.03201
+18	603	259.552310448716	0
+18	603	259.552310448716	0
+18	663	376.354979153956	9.8813129168249e-324
+18	663	376.354979153956	9.8813129168249e-324
+18	664	376.354979153956	9.8813129168249e-324
+18	664	376.354979153956	9.8813129168249e-324
+18	670	376.433059153956	0
+18	670	376.433059153956	0
+18	670	376.433059153956	0
+18	670	376.433059153956	0
+18	743	377.433059153956	0.03201
+18	743	377.433059153956	0.03201
+18	780	378.433059153956	0
+18	780	378.433059153956	0
+18	785	379.433059153956	0.03201
+18	785	379.433059153956	0.03201
+18	787	380.433059153956	0
+18	787	380.433059153956	0
+18	926	497.351580010495	9.8813129168249e-324
+18	926	497.351580010495	9.8813129168249e-324
+18	927	497.351580010495	9.8813129168249e-324
+18	927	497.351580010495	9.8813129168249e-324
+18	934	497.429660010495	0
+18	934	497.429660010495	0
+18	934	497.429660010495	0
+18	934	497.429660010495	0
+18	1042	498.429660010495	0.03201
+18	1042	498.429660010495	0.03201
+18	1046	499.429660010495	0
+18	1046	499.429660010495	0
+18	1049	500.429660010495	0.03201
+18	1049	500.429660010495	0.03201
+18	1051	501.429660010495	0
+18	1051	501.429660010495	0
+18	1183	618.332983553876	9.8813129168249e-324
+18	1183	618.332983553876	9.8813129168249e-324
+18	1184	618.332983553876	9.8813129168249e-324
+18	1184	618.332983553876	9.8813129168249e-324
+18	1190	618.411063553876	0
+18	1190	618.411063553876	0
+18	1190	618.411063553876	0
+18	1190	618.411063553876	0
+18	1227	619.411063553876	0.03201
+18	1227	619.411063553876	0.03201
+18	1230	620.411063553876	0
+18	1230	620.411063553876	0
+18	1234	621.411063553876	0.03201
+18	1234	621.411063553876	0.03201
+18	1236	622.411063553876	0
+18	1236	622.411063553876	0
+18	1366	739.118673711085	9.8813129168249e-324
+18	1366	739.118673711085	9.8813129168249e-324
+18	1367	739.118673711085	9.8813129168249e-324
+18	1367	739.118673711085	9.8813129168249e-324
+18	1373	739.196753711085	0
+18	1373	739.196753711085	0
+18	1373	739.196753711085	0
+18	1373	739.196753711085	0
+18	1410	740.196753711085	0.03201
+18	1410	740.196753711085	0.03201
+18	1414	741.196753711085	0
+18	1414	741.196753711085	0
+18	1417	742.196753711085	0.03201
+18	1417	742.196753711085	0.03201
+18	1419	743.196753711085	0
+18	1419	743.196753711085	0
+18	1421	797.42086429445	9.8813129168249e-324
+18	1421	797.42086429445	9.8813129168249e-324
+18	1422	797.42086429445	9.8813129168249e-324
+18	1422	797.42086429445	9.8813129168249e-324
+18	1428	797.49894429445	0
+18	1428	797.49894429445	0
+18	1428	797.49894429445	0
+18	1428	797.49894429445	0
+18	1464	798.49894429445	0.03201
+18	1464	798.49894429445	0.03201
+18	1465	799.49894429445	0
+18	1465	799.49894429445	0
+18	1466	800.49894429445	0.03201
+18	1466	800.49894429445	0.03201
+18	1467	801.49894429445	0
+18	1467	801.49894429445	0
+18	1541	859.976239416284	9.8813129168249e-324
+18	1541	859.976239416284	9.8813129168249e-324
+18	1542	859.976239416284	9.8813129168249e-324
+18	1542	859.976239416284	9.8813129168249e-324
+18	1548	860.054319416284	0
+18	1548	860.054319416284	0
+18	1548	860.054319416284	0
+18	1548	860.054319416284	0
+18	1615	861.054319416284	0.03201
+18	1615	861.054319416284	0.03201
+18	1618	862.054319416284	0
+18	1618	862.054319416284	0
+18	1621	863.054319416284	0.03201
+18	1621	863.054319416284	0.03201
+18	1622	864.054319416284	0
+18	1622	864.054319416284	0
+18	1823	980.927681326635	9.8813129168249e-324
+18	1823	980.927681326635	9.8813129168249e-324
+18	1824	980.927681326635	9.8813129168249e-324
+18	1824	980.927681326635	9.8813129168249e-324
+18	1830	981.005761326635	0
+18	1830	981.005761326635	0
+18	1830	981.005761326635	0
+18	1830	981.005761326635	0
+18	1898	982.005761326635	0.03201
+18	1898	982.005761326635	0.03201
+18	1901	983.005761326635	0
+18	1901	983.005761326635	0
+18	1903	984.005761326635	0.03201
+18	1903	984.005761326635	0.03201
+18	1904	985.005761326635	0
+18	1904	985.005761326635	0
+19	0	0	0
+19	0	0	0
+19	0	0	0
+19	0	0	0
+19	130	15.877068644855	9.8813129168249e-324
+19	130	15.877068644855	9.8813129168249e-324
+19	131	15.877068644855	9.8813129168249e-324
+19	131	15.877068644855	9.8813129168249e-324
+19	137	15.955148644855	0
+19	137	15.955148644855	0
+19	137	15.955148644855	0
+19	137	15.955148644855	0
+19	176	16.955148644855	0.03201
+19	176	16.955148644855	0.03201
+19	179	17.955148644855	0
+19	179	17.955148644855	0
+19	181	18.955148644855	0.03201
+19	181	18.955148644855	0.03201
+19	182	19.955148644855	0
+19	182	19.955148644855	0
+19	338	136.206275057513	9.8813129168249e-324
+19	338	136.206275057513	9.8813129168249e-324
+19	339	136.206275057513	9.8813129168249e-324
+19	339	136.206275057513	9.8813129168249e-324
+19	345	136.284355057513	0
+19	345	136.284355057513	0
+19	345	136.284355057513	0
+19	345	136.284355057513	0
+19	384	137.284355057513	0.03201
+19	384	137.284355057513	0.03201
+19	387	138.284355057513	0
+19	387	138.284355057513	0
+19	390	139.284355057513	0.03201
+19	390	139.284355057513	0.03201
+19	391	140.284355057513	0
+19	391	140.284355057513	0
+19	553	256.840228437213	9.8813129168249e-324
+19	553	256.840228437213	9.8813129168249e-324
+19	554	256.840228437213	9.8813129168249e-324
+19	554	256.840228437213	9.8813129168249e-324
+19	560	256.918308437213	0
+19	560	256.918308437213	0
+19	560	256.918308437213	0
+19	560	256.918308437213	0
+19	599	257.918308437213	0.03201
+19	599	257.918308437213	0.03201
+19	602	258.918308437213	0
+19	602	258.918308437213	0
+19	604	259.918308437213	0.03201
+19	604	259.918308437213	0.03201
+19	605	260.918308437213	0
+19	605	260.918308437213	0
+19	736	377.421471066307	9.8813129168249e-324
+19	736	377.421471066307	9.8813129168249e-324
+19	737	377.421471066307	9.8813129168249e-324
+19	737	377.421471066307	9.8813129168249e-324
+19	744	377.499551066307	0
+19	744	377.499551066307	0
+19	744	377.499551066307	0
+19	744	377.499551066307	0
+19	781	378.499551066307	0.03201
+19	781	378.499551066307	0.03201
+19	786	379.499551066307	0
+19	786	379.499551066307	0
+19	788	380.499551066307	0.03201
+19	788	380.499551066307	0.03201
+19	789	381.499551066307	0
+19	789	381.499551066307	0
+19	792	397.867269541672	9.8813129168249e-324
+19	792	397.867269541672	9.8813129168249e-324
+19	793	397.867269541672	9.8813129168249e-324
+19	793	397.867269541672	9.8813129168249e-324
+19	799	397.945349541672	0
+19	799	397.945349541672	0
+19	799	397.945349541672	0
+19	799	397.945349541672	0
+19	834	398.945349541672	0.03201
+19	834	398.945349541672	0.03201
+19	836	399.945349541672	0
+19	836	399.945349541672	0
+19	837	400.945349541672	0.03201
+19	837	400.945349541672	0.03201
+19	838	401.945349541672	0
+19	838	401.945349541672	0
+19	999	497.46631858591	9.8813129168249e-324
+19	999	497.46631858591	9.8813129168249e-324
+19	1000	497.46631858591	9.8813129168249e-324
+19	1000	497.46631858591	9.8813129168249e-324
+19	1006	497.54439858591	0
+19	1006	497.54439858591	0
+19	1006	497.54439858591	0
+19	1006	497.54439858591	0
+19	1043	498.54439858591	0.03201
+19	1043	498.54439858591	0.03201
+19	1048	499.54439858591	0
+19	1048	499.54439858591	0
+19	1050	500.54439858591	0.03201
+19	1050	500.54439858591	0.03201
+19	1052	501.54439858591	0
+19	1052	501.54439858591	0
+19	1112	618.133820981486	9.8813129168249e-324
+19	1112	618.133820981486	9.8813129168249e-324
+19	1113	618.133820981486	9.8813129168249e-324
+19	1113	618.133820981486	9.8813129168249e-324
+19	1119	618.211900981486	0
+19	1119	618.211900981486	0
+19	1119	618.211900981486	0
+19	1119	618.211900981486	0
+19	1226	619.211900981486	0.03201
+19	1226	619.211900981486	0.03201
+19	1229	620.211900981486	0
+19	1229	620.211900981486	0
+19	1233	621.211900981486	0.03201
+19	1233	621.211900981486	0.03201
+19	1235	622.211900981486	0
+19	1235	622.211900981486	0
+19	1295	738.864820368123	9.8813129168249e-324
+19	1295	738.864820368123	9.8813129168249e-324
+19	1296	738.864820368123	9.8813129168249e-324
+19	1296	738.864820368123	9.8813129168249e-324
+19	1302	738.942900368123	0
+19	1302	738.942900368123	0
+19	1302	738.942900368123	0
+19	1302	738.942900368123	0
+19	1409	739.942900368123	0.03201
+19	1409	739.942900368123	0.03201
+19	1413	740.942900368123	0
+19	1413	740.942900368123	0
+19	1416	741.942900368123	0.03201
+19	1416	741.942900368123	0.03201
+19	1418	742.942900368123	0
+19	1418	742.942900368123	0
+19	1525	858.886419998715	9.8813129168249e-324
+19	1525	858.886419998715	9.8813129168249e-324
+19	1526	858.886419998715	9.8813129168249e-324
+19	1526	858.886419998715	9.8813129168249e-324
+19	1532	858.964499998715	0
+19	1532	858.964499998715	0
+19	1532	858.964499998715	0
+19	1532	858.964499998715	0
+19	1539	859.964499998715	0.03201
+19	1539	859.964499998715	0.03201
+19	1546	859.976239503796	0.03201
+19	1546	859.976239503796	0.03201
+19	1558	860.054319503796	0
+19	1558	860.054319503796	0
+19	1558	860.054319503796	0
+19	1558	860.054319503796	0
+19	1559	860.054319503796	0.03201
+19	1559	860.054319503796	0.03201
+19	1613	860.964499998715	0
+19	1613	860.964499998715	0
+19	1617	861.964499998715	0.03201
+19	1617	861.964499998715	0.03201
+19	1619	862.964499998715	0
+19	1619	862.964499998715	0
+19	1624	879.669267215045	9.8813129168249e-324
+19	1624	879.669267215045	9.8813129168249e-324
+19	1625	879.669267215045	9.8813129168249e-324
+19	1625	879.669267215045	9.8813129168249e-324
+19	1631	879.747347215045	0
+19	1631	879.747347215045	0
+19	1631	879.747347215045	0
+19	1631	879.747347215045	0
+19	1667	880.747347215045	0.03201
+19	1667	880.747347215045	0.03201
+19	1668	881.747347215045	0
+19	1668	881.747347215045	0
+19	1669	882.747347215045	0.03201
+19	1669	882.747347215045	0.03201
+19	1670	883.747347215045	0
+19	1670	883.747347215045	0
+19	1776	979.191804431845	9.8813129168249e-324
+19	1776	979.191804431845	9.8813129168249e-324
+19	1777	979.191804431845	9.8813129168249e-324
+19	1777	979.191804431845	9.8813129168249e-324
+19	1783	979.269884431845	0
+19	1783	979.269884431845	0
+19	1783	979.269884431845	0
+19	1783	979.269884431845	0
+19	1820	980.269884431845	0.03201
+19	1820	980.269884431845	0.03201
+19	1828	980.927681414147	0.03201
+19	1828	980.927681414147	0.03201
+19	1841	981.005761414147	0
+19	1841	981.005761414147	0
+19	1841	981.005761414147	0
+19	1841	981.005761414147	0
+19	1842	981.005761414147	0.03201
+19	1842	981.005761414147	0.03201
+19	1895	981.269884431845	0
+19	1895	981.269884431845	0
+19	1899	982.269884431845	0.03201
+19	1899	982.269884431845	0.03201
+19	1902	983.269884431845	0
+19	1902	983.269884431845	0
+20	0	0	0
+20	0	0	0
+20	0	0	1
+20	40	13.501077841502	3
+20	47	13.579157841502	1
+20	53	14.579157841502	2
+20	64	14.731592728428	1
+20	65	14.731592728428	2
+20	127	15.579157841502	1
+20	174	16.579157841502	2
+20	177	17.579157841502	1
+20	250	134.27132977359	3
+20	257	134.34940977359	1
+20	334	135.34940977359	2
+20	354	136.284355157526	1
+20	355	136.284355157526	2
+20	382	136.34940977359	1
+20	385	137.34940977359	2
+20	388	138.34940977359	1
+20	464	254.467183997389	3
+20	471	254.545263997389	1
+20	485	255.545263997389	2
+20	550	256.545263997389	1
+20	597	257.545263997389	2
+20	600	258.545263997389	1
+20	648	374.632621740922	3
+20	655	374.710701740922	1
+20	661	375.710701740922	2
+20	672	376.433059221504	1
+20	673	376.433059221504	2
+20	734	376.710701740922	1
+20	779	377.710701740922	2
+20	782	378.710701740922	1
+20	881	495.309732241323	3
+20	888	495.387812241323	1
+20	924	496.387812241323	2
+20	936	497.429660078043	1
+20	937	497.429660078043	2
+20	937	497.429660078043	1
+20	1041	498.387812241323	2
+20	1045	499.387812241323	1
+20	1096	615.58566602855	3
+20	1103	615.66374602855	1
+20	1109	616.66374602855	2
+20	1110	617.66374602855	1
+20	1225	618.66374602855	2
+20	1228	619.66374602855	1
+20	1279	736.482557066251	3
+20	1286	736.560637066251	1
+20	1292	737.560637066251	2
+20	1293	738.560637066251	1
+20	1408	739.560637066251	2
+20	1412	740.560637066251	1
+20	1510	857.26970016677	3
+20	1517	857.34778016677	1
+20	1523	858.34778016677	2
+20	1535	858.964500098728	1
+20	1535	858.964500098728	1
+20	1535	858.964500098728	2
+20	1538	859.34778016677	1
+20	1612	860.34778016677	2
+20	1616	861.34778016677	1
+20	1731	977.57765625883	3
+20	1738	977.65573625883	1
+20	1773	978.65573625883	2
+20	1792	979.269884531858	1
+20	1793	979.269884531858	2
+20	1819	979.65573625883	1
+20	1821	980.65573625883	2
+20	1832	981.005761394183	1
+20	1833	981.005761394183	2
+20	1896	981.65573625883	1
+21	0	0	0
+21	0	0	0
+21	0	0	0
+21	40	13.501077841502	2.112
+21	40	13.501077841502	2.112
+21	41	13.501077841502	2.112
+21	41	13.501077841502	2.112
+21	47	13.579157841502	0
+21	47	13.579157841502	0
+21	47	13.579157841502	0
+21	47	13.579157841502	0
+21	53	14.579157841502	0.03201
+21	53	14.579157841502	0.03201
+21	58	14.653512728428	0.03201
+21	58	14.653512728428	0.03201
+21	64	14.731592728428	0
+21	64	14.731592728428	0
+21	64	14.731592728428	0
+21	64	14.731592728428	0
+21	65	14.731592728428	0.03201
+21	65	14.731592728428	0.03201
+21	127	15.579157841502	0
+21	127	15.579157841502	0
+21	174	16.579157841502	0.03201
+21	174	16.579157841502	0.03201
+21	177	17.579157841502	0
+21	177	17.579157841502	0
+21	250	134.27132977359	2.112
+21	250	134.27132977359	2.112
+21	251	134.27132977359	2.112
+21	251	134.27132977359	2.112
+21	257	134.34940977359	0
+21	257	134.34940977359	0
+21	257	134.34940977359	0
+21	257	134.34940977359	0
+21	334	135.34940977359	0.03201
+21	334	135.34940977359	0.03201
+21	342	136.206275157526	0.03201
+21	342	136.206275157526	0.03201
+21	354	136.284355157526	0
+21	354	136.284355157526	0
+21	354	136.284355157526	0
+21	354	136.284355157526	0
+21	355	136.284355157526	0.03201
+21	355	136.284355157526	0.03201
+21	382	136.34940977359	0
+21	382	136.34940977359	0
+21	385	137.34940977359	0.03201
+21	385	137.34940977359	0.03201
+21	388	138.34940977359	0
+21	388	138.34940977359	0
+21	464	254.467183997389	2.112
+21	464	254.467183997389	2.112
+21	465	254.467183997389	2.112
+21	465	254.467183997389	2.112
+21	471	254.545263997389	0
+21	471	254.545263997389	0
+21	471	254.545263997389	0
+21	471	254.545263997389	0
+21	485	255.545263997389	0.03201
+21	485	255.545263997389	0.03201
+21	550	256.545263997389	0
+21	550	256.545263997389	0
+21	597	257.545263997389	0.03201
+21	597	257.545263997389	0.03201
+21	600	258.545263997389	0
+21	600	258.545263997389	0
+21	648	374.632621740922	2.112
+21	648	374.632621740922	2.112
+21	649	374.632621740922	2.112
+21	649	374.632621740922	2.112
+21	655	374.710701740922	0
+21	655	374.710701740922	0
+21	655	374.710701740922	0
+21	655	374.710701740922	0
+21	661	375.710701740922	0.03201
+21	661	375.710701740922	0.03201
+21	666	376.354979221504	0.03201
+21	666	376.354979221504	0.03201
+21	672	376.433059221504	0
+21	672	376.433059221504	0
+21	672	376.433059221504	0
+21	672	376.433059221504	0
+21	673	376.433059221504	0.03201
+21	673	376.433059221504	0.03201
+21	734	376.710701740922	0
+21	734	376.710701740922	0
+21	779	377.710701740922	0.03201
+21	779	377.710701740922	0.03201
+21	782	378.710701740922	0
+21	782	378.710701740922	0
+21	881	495.309732241323	2.112
+21	881	495.309732241323	2.112
+21	882	495.309732241323	2.112
+21	882	495.309732241323	2.112
+21	888	495.387812241323	0
+21	888	495.387812241323	0
+21	888	495.387812241323	0
+21	888	495.387812241323	0
+21	924	496.387812241323	0.03201
+21	924	496.387812241323	0.03201
+21	929	497.351580078043	0.03201
+21	929	497.351580078043	0.03201
+21	936	497.429660078043	0
+21	936	497.429660078043	0
+21	936	497.429660078043	0
+21	936	497.429660078043	0
+21	937	497.429660078043	0.03201
+21	937	497.429660078043	0
+21	937	497.429660078043	0
+21	937	497.429660078043	0
+21	1041	498.387812241323	0.03201
+21	1041	498.387812241323	0.03201
+21	1045	499.387812241323	0
+21	1045	499.387812241323	0
+21	1096	615.58566602855	2.112
+21	1096	615.58566602855	2.112
+21	1097	615.58566602855	2.112
+21	1097	615.58566602855	2.112
+21	1103	615.66374602855	0
+21	1103	615.66374602855	0
+21	1103	615.66374602855	0
+21	1103	615.66374602855	0
+21	1109	616.66374602855	0.03201
+21	1109	616.66374602855	0.03201
+21	1110	617.66374602855	0
+21	1110	617.66374602855	0
+21	1225	618.66374602855	0.03201
+21	1225	618.66374602855	0.03201
+21	1228	619.66374602855	0
+21	1228	619.66374602855	0
+21	1279	736.482557066251	2.112
+21	1279	736.482557066251	2.112
+21	1280	736.482557066251	2.112
+21	1280	736.482557066251	2.112
+21	1286	736.560637066251	0
+21	1286	736.560637066251	0
+21	1286	736.560637066251	0
+21	1286	736.560637066251	0
+21	1292	737.560637066251	0.03201
+21	1292	737.560637066251	0.03201
+21	1293	738.560637066251	0
+21	1293	738.560637066251	0
+21	1408	739.560637066251	0.03201
+21	1408	739.560637066251	0.03201
+21	1412	740.560637066251	0
+21	1412	740.560637066251	0
+21	1510	857.26970016677	2.112
+21	1510	857.26970016677	2.112
+21	1511	857.26970016677	2.112
+21	1511	857.26970016677	2.112
+21	1517	857.34778016677	0
+21	1517	857.34778016677	0
+21	1517	857.34778016677	0
+21	1517	857.34778016677	0
+21	1523	858.34778016677	0.03201
+21	1523	858.34778016677	0.03201
+21	1529	858.886420098728	0.03201
+21	1529	858.886420098728	0.03201
+21	1535	858.964500098728	0
+21	1535	858.964500098728	0
+21	1535	858.964500098728	0
+21	1535	858.964500098728	0
+21	1535	858.964500098728	0
+21	1535	858.964500098728	0.03201
+21	1535	858.964500098728	0.03201
+21	1538	859.34778016677	0
+21	1538	859.34778016677	0
+21	1612	860.34778016677	0.03201
+21	1612	860.34778016677	0.03201
+21	1616	861.34778016677	0
+21	1616	861.34778016677	0
+21	1731	977.57765625883	2.112
+21	1731	977.57765625883	2.112
+21	1732	977.57765625883	2.112
+21	1732	977.57765625883	2.112
+21	1738	977.65573625883	0
+21	1738	977.65573625883	0
+21	1738	977.65573625883	0
+21	1738	977.65573625883	0
+21	1773	978.65573625883	0.03201
+21	1773	978.65573625883	0.03201
+21	1780	979.191804531858	0.03201
+21	1780	979.191804531858	0.03201
+21	1792	979.269884531858	0
+21	1792	979.269884531858	0
+21	1792	979.269884531858	0
+21	1792	979.269884531858	0
+21	1793	979.269884531858	0.03201
+21	1793	979.269884531858	0.03201
+21	1819	979.65573625883	0
+21	1819	979.65573625883	0
+21	1821	980.65573625883	0.03201
+21	1821	980.65573625883	0.03201
+21	1826	980.927681394183	0.03201
+21	1826	980.927681394183	0.03201
+21	1832	981.005761394183	0
+21	1832	981.005761394183	0
+21	1832	981.005761394183	0
+21	1832	981.005761394183	0
+21	1833	981.005761394183	0.03201
+21	1833	981.005761394183	0.03201
+21	1896	981.65573625883	0
+21	1896	981.65573625883	0
+22	0	0	0
+22	0	0	0
+22	0	0	1
+22	4	4.683154143626	3
+22	11	4.761234143626	1
+22	17	5.761234143626	2
+22	28	6.252091700516	1
+22	28	6.252091700516	1
+22	28	6.252091700516	2
+22	32	6.761234143626	1
+22	34	7.761234143626	2
+22	36	8.761234143626	1
+22	184	125.533481779043	3
+22	191	125.611561779043	1
+22	197	126.611561779043	2
+22	208	126.726616085113	1
+22	208	126.726616085113	1
+22	208	126.726616085113	2
+22	241	127.611561779043	1
+22	244	128.611561779043	2
+22	246	129.611561779043	1
+22	398	246.207523440943	3
+22	405	246.285603440943	1
+22	411	247.285603440943	2
+22	422	247.5524396627	1
+22	422	247.5524396627	1
+22	422	247.5524396627	2
+22	455	248.285603440943	1
+22	458	249.285603440943	2
+22	460	250.285603440943	1
+22	612	367.086106021424	3
+22	619	367.164186021424	1
+22	639	368.164186021424	2
+22	641	369.164186021424	1
+22	643	370.164186021424	2
+22	645	371.164186021424	1
+22	845	487.775989660529	3
+22	852	487.854069660529	1
+22	872	488.854069660529	2
+22	874	489.854069660529	1
+22	876	490.854069660529	2
+22	878	491.854069660529	1
+22	1060	607.853025932332	3
+22	1067	607.931105932332	1
+22	1087	608.931105932332	2
+22	1089	609.931105932332	1
+22	1091	610.931105932332	2
+22	1093	611.931105932332	1
+22	1243	728.697488104693	3
+22	1250	728.775568104693	1
+22	1270	729.775568104693	2
+22	1272	730.775568104693	1
+22	1274	731.775568104693	2
+22	1276	732.775568104693	1
+22	1488	849.094935426723	3
+22	1495	849.173015426723	1
+22	1502	850.173015426723	2
+22	1504	851.173015426723	1
+22	1506	852.173015426723	2
+22	1508	853.173015426723	1
+22	1709	970.019781906159	3
+22	1716	970.097861906159	1
+22	1723	971.097861906159	2
+22	1725	972.097861906159	1
+22	1727	973.097861906159	2
+22	1729	974.097861906159	1
+23	0	0	0
+23	0	0	0
+23	0	0	0
+23	4	4.683154143626	2.112
+23	4	4.683154143626	2.112
+23	5	4.683154143626	2.112
+23	5	4.683154143626	2.112
+23	11	4.761234143626	0
+23	11	4.761234143626	0
+23	11	4.761234143626	0
+23	11	4.761234143626	0
+23	17	5.761234143626	0.03201
+23	17	5.761234143626	0.03201
+23	22	6.174011700516	0.03201
+23	22	6.174011700516	0.03201
+23	28	6.252091700516	0
+23	28	6.252091700516	0
+23	28	6.252091700516	0
+23	28	6.252091700516	0
+23	28	6.252091700516	0
+23	28	6.252091700516	0.03201
+23	28	6.252091700516	0.03201
+23	32	6.761234143626	0
+23	32	6.761234143626	0
+23	34	7.761234143626	0.03201
+23	34	7.761234143626	0.03201
+23	36	8.761234143626	0
+23	36	8.761234143626	0
+23	184	125.533481779043	2.112
+23	184	125.533481779043	2.112
+23	185	125.533481779043	2.112
+23	185	125.533481779043	2.112
+23	191	125.611561779043	0
+23	191	125.611561779043	0
+23	191	125.611561779043	0
+23	191	125.611561779043	0
+23	197	126.611561779043	0.03201
+23	197	126.611561779043	0.03201
+23	202	126.648536085113	0.03201
+23	202	126.648536085113	0.03201
+23	208	126.726616085113	0
+23	208	126.726616085113	0
+23	208	126.726616085113	0
+23	208	126.726616085113	0
+23	208	126.726616085113	0
+23	208	126.726616085113	0.03201
+23	208	126.726616085113	0.03201
+23	241	127.611561779043	0
+23	241	127.611561779043	0
+23	244	128.611561779043	0.03201
+23	244	128.611561779043	0.03201
+23	246	129.611561779043	0
+23	246	129.611561779043	0
+23	398	246.207523440943	2.112
+23	398	246.207523440943	2.112
+23	399	246.207523440943	2.112
+23	399	246.207523440943	2.112
+23	405	246.285603440943	0
+23	405	246.285603440943	0
+23	405	246.285603440943	0
+23	405	246.285603440943	0
+23	411	247.285603440943	0.03201
+23	411	247.285603440943	0.03201
+23	416	247.4743596627	0.03201
+23	416	247.4743596627	0.03201
+23	422	247.5524396627	0
+23	422	247.5524396627	0
+23	422	247.5524396627	0
+23	422	247.5524396627	0
+23	422	247.5524396627	0
+23	422	247.5524396627	0.03201
+23	422	247.5524396627	0.03201
+23	455	248.285603440943	0
+23	455	248.285603440943	0
+23	458	249.285603440943	0.03201
+23	458	249.285603440943	0.03201
+23	460	250.285603440943	0
+23	460	250.285603440943	0
+23	612	367.086106021424	2.112
+23	612	367.086106021424	2.112
+23	613	367.086106021424	2.112
+23	613	367.086106021424	2.112
+23	619	367.164186021424	0
+23	619	367.164186021424	0
+23	619	367.164186021424	0
+23	619	367.164186021424	0
+23	639	368.164186021424	0.03201
+23	639	368.164186021424	0.03201
+23	641	369.164186021424	0
+23	641	369.164186021424	0
+23	643	370.164186021424	0.03201
+23	643	370.164186021424	0.03201
+23	645	371.164186021424	0
+23	645	371.164186021424	0
+23	845	487.775989660529	2.112
+23	845	487.775989660529	2.112
+23	846	487.775989660529	2.112
+23	846	487.775989660529	2.112
+23	852	487.854069660529	0
+23	852	487.854069660529	0
+23	852	487.854069660529	0
+23	852	487.854069660529	0
+23	872	488.854069660529	0.03201
+23	872	488.854069660529	0.03201
+23	874	489.854069660529	0
+23	874	489.854069660529	0
+23	876	490.854069660529	0.03201
+23	876	490.854069660529	0.03201
+23	878	491.854069660529	0
+23	878	491.854069660529	0
+23	1060	607.853025932332	2.112
+23	1060	607.853025932332	2.112
+23	1061	607.853025932332	2.112
+23	1061	607.853025932332	2.112
+23	1067	607.931105932332	0
+23	1067	607.931105932332	0
+23	1067	607.931105932332	0
+23	1067	607.931105932332	0
+23	1087	608.931105932332	0.03201
+23	1087	608.931105932332	0.03201
+23	1089	609.931105932332	0
+23	1089	609.931105932332	0
+23	1091	610.931105932332	0.03201
+23	1091	610.931105932332	0.03201
+23	1093	611.931105932332	0
+23	1093	611.931105932332	0
+23	1243	728.697488104693	2.112
+23	1243	728.697488104693	2.112
+23	1244	728.697488104693	2.112
+23	1244	728.697488104693	2.112
+23	1250	728.775568104693	0
+23	1250	728.775568104693	0
+23	1250	728.775568104693	0
+23	1250	728.775568104693	0
+23	1270	729.775568104693	0.03201
+23	1270	729.775568104693	0.03201
+23	1272	730.775568104693	0
+23	1272	730.775568104693	0
+23	1274	731.775568104693	0.03201
+23	1274	731.775568104693	0.03201
+23	1276	732.775568104693	0
+23	1276	732.775568104693	0
+23	1488	849.094935426723	2.112
+23	1488	849.094935426723	2.112
+23	1489	849.094935426723	2.112
+23	1489	849.094935426723	2.112
+23	1495	849.173015426723	0
+23	1495	849.173015426723	0
+23	1495	849.173015426723	0
+23	1495	849.173015426723	0
+23	1502	850.173015426723	0.03201
+23	1502	850.173015426723	0.03201
+23	1504	851.173015426723	0
+23	1504	851.173015426723	0
+23	1506	852.173015426723	0.03201
+23	1506	852.173015426723	0.03201
+23	1508	853.173015426723	0
+23	1508	853.173015426723	0
+23	1709	970.019781906159	2.112
+23	1709	970.019781906159	2.112
+23	1710	970.019781906159	2.112
+23	1710	970.019781906159	2.112
+23	1716	970.097861906159	0
+23	1716	970.097861906159	0
+23	1716	970.097861906159	0
+23	1716	970.097861906159	0
+23	1723	971.097861906159	0.03201
+23	1723	971.097861906159	0.03201
+23	1725	972.097861906159	0
+23	1725	972.097861906159	0
+23	1727	973.097861906159	0.03201
+23	1727	973.097861906159	0.03201
+23	1729	974.097861906159	0
+23	1729	974.097861906159	0
+24	0	0	0
+24	0	0	0
+24	0	0	1
+24	19	6.174011599272	3
+24	26	6.252091599272	1
+24	33	7.252091599272	2
+24	35	8.252091599272	1
+24	37	9.252091599272	2
+24	38	10.252091599272	1
+24	199	126.648535983869	3
+24	206	126.726615983869	1
+24	242	127.726615983869	2
+24	245	128.726615983869	1
+24	247	129.726615983869	2
+24	248	130.726615983869	1
+24	413	247.474359561456	3
+24	420	247.552439561456	1
+24	457	248.552439561456	2
+24	459	249.552439561456	1
+24	461	250.552439561456	2
+24	462	251.552439561456	1
+24	626	367.769912188872	3
+24	633	367.847992188872	1
+24	640	368.847992188872	2
+24	642	369.847992188872	1
+24	644	370.847992188872	2
+24	646	371.847992188872	1
+24	859	488.194456665776	3
+24	866	488.272536665776	1
+24	873	489.272536665776	2
+24	875	490.272536665776	1
+24	877	491.272536665776	2
+24	879	492.272536665776	1
+24	1074	608.222638349514	3
+24	1081	608.300718349514	1
+24	1088	609.300718349514	2
+24	1090	610.300718349514	1
+24	1092	611.300718349514	2
+24	1094	612.300718349514	1
+24	1257	728.912165708374	3
+24	1264	728.990245708374	1
+24	1271	729.990245708374	2
+24	1273	730.990245708374	1
+24	1275	731.990245708374	2
+24	1277	732.990245708374	1
+24	1474	848.961504865205	3
+24	1481	849.039584865205	1
+24	1501	850.039584865205	2
+24	1503	851.039584865205	1
+24	1505	852.039584865205	2
+24	1507	853.039584865205	1
+24	1672	915.365340377719	3
+24	1679	915.443420377719	1
+24	1685	916.443420377719	2
+24	1686	917.443420377719	1
+24	1687	918.443420377719	2
+24	1688	919.443420377719	1
+24	1695	969.214464575518	3
+24	1702	969.292544575518	1
+24	1722	970.292544575518	2
+24	1724	971.292544575518	1
+24	1726	972.292544575518	2
+24	1728	973.292544575518	1
+25	0	0	0
+25	0	0	0
+25	0	0	0
+25	19	6.174011599272	2.112
+25	19	6.174011599272	2.112
+25	20	6.174011599272	2.112
+25	20	6.174011599272	2.112
+25	26	6.252091599272	0
+25	26	6.252091599272	0
+25	26	6.252091599272	0
+25	26	6.252091599272	0
+25	33	7.252091599272	0.03201
+25	33	7.252091599272	0.03201
+25	35	8.252091599272	0
+25	35	8.252091599272	0
+25	37	9.252091599272	0.03201
+25	37	9.252091599272	0.03201
+25	38	10.252091599272	0
+25	38	10.252091599272	0
+25	199	126.648535983869	2.112
+25	199	126.648535983869	2.112
+25	200	126.648535983869	2.112
+25	200	126.648535983869	2.112
+25	206	126.726615983869	0
+25	206	126.726615983869	0
+25	206	126.726615983869	0
+25	206	126.726615983869	0
+25	242	127.726615983869	0.03201
+25	242	127.726615983869	0.03201
+25	245	128.726615983869	0
+25	245	128.726615983869	0
+25	247	129.726615983869	0.03201
+25	247	129.726615983869	0.03201
+25	248	130.726615983869	0
+25	248	130.726615983869	0
+25	413	247.474359561456	2.112
+25	413	247.474359561456	2.112
+25	414	247.474359561456	2.112
+25	414	247.474359561456	2.112
+25	420	247.552439561456	0
+25	420	247.552439561456	0
+25	420	247.552439561456	0
+25	420	247.552439561456	0
+25	457	248.552439561456	0.03201
+25	457	248.552439561456	0.03201
+25	459	249.552439561456	0
+25	459	249.552439561456	0
+25	461	250.552439561456	0.03201
+25	461	250.552439561456	0.03201
+25	462	251.552439561456	0
+25	462	251.552439561456	0
+25	626	367.769912188872	2.112
+25	626	367.769912188872	2.112
+25	627	367.769912188872	2.112
+25	627	367.769912188872	2.112
+25	633	367.847992188872	0
+25	633	367.847992188872	0
+25	633	367.847992188872	0
+25	633	367.847992188872	0
+25	640	368.847992188872	0.03201
+25	640	368.847992188872	0.03201
+25	642	369.847992188872	0
+25	642	369.847992188872	0
+25	644	370.847992188872	0.03201
+25	644	370.847992188872	0.03201
+25	646	371.847992188872	0
+25	646	371.847992188872	0
+25	859	488.194456665776	2.112
+25	859	488.194456665776	2.112
+25	860	488.194456665776	2.112
+25	860	488.194456665776	2.112
+25	866	488.272536665776	0
+25	866	488.272536665776	0
+25	866	488.272536665776	0
+25	866	488.272536665776	0
+25	873	489.272536665776	0.03201
+25	873	489.272536665776	0.03201
+25	875	490.272536665776	0
+25	875	490.272536665776	0
+25	877	491.272536665776	0.03201
+25	877	491.272536665776	0.03201
+25	879	492.272536665776	0
+25	879	492.272536665776	0
+25	1074	608.222638349514	2.112
+25	1074	608.222638349514	2.112
+25	1075	608.222638349514	2.112
+25	1075	608.222638349514	2.112
+25	1081	608.300718349514	0
+25	1081	608.300718349514	0
+25	1081	608.300718349514	0
+25	1081	608.300718349514	0
+25	1088	609.300718349514	0.03201
+25	1088	609.300718349514	0.03201
+25	1090	610.300718349514	0
+25	1090	610.300718349514	0
+25	1092	611.300718349514	0.03201
+25	1092	611.300718349514	0.03201
+25	1094	612.300718349514	0
+25	1094	612.300718349514	0
+25	1257	728.912165708374	2.112
+25	1257	728.912165708374	2.112
+25	1258	728.912165708374	2.112
+25	1258	728.912165708374	2.112
+25	1264	728.990245708374	0
+25	1264	728.990245708374	0
+25	1264	728.990245708374	0
+25	1264	728.990245708374	0
+25	1271	729.990245708374	0.03201
+25	1271	729.990245708374	0.03201
+25	1273	730.990245708374	0
+25	1273	730.990245708374	0
+25	1275	731.990245708374	0.03201
+25	1275	731.990245708374	0.03201
+25	1277	732.990245708374	0
+25	1277	732.990245708374	0
+25	1474	848.961504865205	2.112
+25	1474	848.961504865205	2.112
+25	1475	848.961504865205	2.112
+25	1475	848.961504865205	2.112
+25	1481	849.039584865205	0
+25	1481	849.039584865205	0
+25	1481	849.039584865205	0
+25	1481	849.039584865205	0
+25	1501	850.039584865205	0.03201
+25	1501	850.039584865205	0.03201
+25	1503	851.039584865205	0
+25	1503	851.039584865205	0
+25	1505	852.039584865205	0.03201
+25	1505	852.039584865205	0.03201
+25	1507	853.039584865205	0
+25	1507	853.039584865205	0
+25	1672	915.365340377719	2.112
+25	1672	915.365340377719	2.112
+25	1673	915.365340377719	2.112
+25	1673	915.365340377719	2.112
+25	1679	915.443420377719	0
+25	1679	915.443420377719	0
+25	1679	915.443420377719	0
+25	1679	915.443420377719	0
+25	1685	916.443420377719	0.03201
+25	1685	916.443420377719	0.03201
+25	1686	917.443420377719	0
+25	1686	917.443420377719	0
+25	1687	918.443420377719	0.03201
+25	1687	918.443420377719	0.03201
+25	1688	919.443420377719	0
+25	1688	919.443420377719	0
+25	1695	969.214464575518	2.112
+25	1695	969.214464575518	2.112
+25	1696	969.214464575518	2.112
+25	1696	969.214464575518	2.112
+25	1702	969.292544575518	0
+25	1702	969.292544575518	0
+25	1702	969.292544575518	0
+25	1702	969.292544575518	0
+25	1722	970.292544575518	0.03201
+25	1722	970.292544575518	0.03201
+25	1724	971.292544575518	0
+25	1724	971.292544575518	0
+25	1726	972.292544575518	0.03201
+25	1726	972.292544575518	0.03201
+25	1728	973.292544575518	0
+25	1728	973.292544575518	0
+26	0	0	0
+26	0	0	0
+26	0	0	1
+26	55	14.65351266088	3
+26	62	14.73159266088	1
+26	128	15.73159266088	2
+26	145	15.955148732367	1
+26	146	15.955148732367	2
+26	175	16.73159266088	1
+26	178	17.73159266088	2
+26	180	18.73159266088	1
+26	264	134.972972609569	3
+26	271	135.051052609569	1
+26	336	136.051052609569	2
+26	353	136.284355145025	1
+26	353	136.284355145025	1
+26	353	136.284355145025	2
+26	383	137.051052609569	1
+26	386	138.051052609569	2
+26	389	139.051052609569	1
+26	478	255.474230448716	3
+26	486	255.552310448716	1
+26	551	256.552310448716	2
+26	568	256.918308524725	1
+26	569	256.918308524725	2
+26	598	257.552310448716	1
+26	601	258.552310448716	2
+26	603	259.552310448716	1
+26	663	376.354979153956	3
+26	670	376.433059153956	1
+26	743	377.433059153956	2
+26	780	378.433059153956	1
+26	785	379.433059153956	2
+26	787	380.433059153956	1
+26	926	497.351580010495	3
+26	934	497.429660010495	1
+26	1042	498.429660010495	2
+26	1046	499.429660010495	1
+26	1049	500.429660010495	2
+26	1051	501.429660010495	1
+26	1183	618.332983553876	3
+26	1190	618.411063553876	1
+26	1227	619.411063553876	2
+26	1230	620.411063553876	1
+26	1234	621.411063553876	2
+26	1236	622.411063553876	1
+26	1366	739.118673711085	3
+26	1373	739.196753711085	1
+26	1410	740.196753711085	2
+26	1414	741.196753711085	1
+26	1417	742.196753711085	2
+26	1419	743.196753711085	1
+26	1421	797.42086429445	3
+26	1428	797.49894429445	1
+26	1464	798.49894429445	2
+26	1465	799.49894429445	1
+26	1466	800.49894429445	2
+26	1467	801.49894429445	1
+26	1541	859.976239416284	3
+26	1548	860.054319416284	1
+26	1615	861.054319416284	2
+26	1618	862.054319416284	1
+26	1621	863.054319416284	2
+26	1622	864.054319416284	1
+26	1823	980.927681326635	3
+26	1830	981.005761326635	1
+26	1898	982.005761326635	2
+26	1901	983.005761326635	1
+26	1903	984.005761326635	2
+26	1904	985.005761326635	1
+27	0	0	0
+27	0	0	0
+27	0	0	0
+27	55	14.65351266088	9.8813129168249e-324
+27	55	14.65351266088	9.8813129168249e-324
+27	56	14.65351266088	9.8813129168249e-324
+27	56	14.65351266088	9.8813129168249e-324
+27	62	14.73159266088	0
+27	62	14.73159266088	0
+27	62	14.73159266088	0
+27	62	14.73159266088	0
+27	128	15.73159266088	0.03201
+27	128	15.73159266088	0.03201
+27	133	15.877068732367	0.03201
+27	133	15.877068732367	0.03201
+27	145	15.955148732367	0
+27	145	15.955148732367	0
+27	145	15.955148732367	0
+27	145	15.955148732367	0
+27	146	15.955148732367	0.03201
+27	146	15.955148732367	0.03201
+27	175	16.73159266088	0
+27	175	16.73159266088	0
+27	178	17.73159266088	0.03201
+27	178	17.73159266088	0.03201
+27	180	18.73159266088	0
+27	180	18.73159266088	0
+27	264	134.972972609569	9.8813129168249e-324
+27	264	134.972972609569	9.8813129168249e-324
+27	265	134.972972609569	9.8813129168249e-324
+27	265	134.972972609569	9.8813129168249e-324
+27	271	135.051052609569	0
+27	271	135.051052609569	0
+27	271	135.051052609569	0
+27	271	135.051052609569	0
+27	336	136.051052609569	0.03201
+27	336	136.051052609569	0.03201
+27	341	136.206275145025	0.03201
+27	341	136.206275145025	0.03201
+27	353	136.284355145025	0
+27	353	136.284355145025	0
+27	353	136.284355145025	0
+27	353	136.284355145025	0
+27	353	136.284355145025	0
+27	353	136.284355145025	0.03201
+27	353	136.284355145025	0.03201
+27	383	137.051052609569	0
+27	383	137.051052609569	0
+27	386	138.051052609569	0.03201
+27	386	138.051052609569	0.03201
+27	389	139.051052609569	0
+27	389	139.051052609569	0
+27	478	255.474230448716	9.8813129168249e-324
+27	478	255.474230448716	9.8813129168249e-324
+27	479	255.474230448716	9.8813129168249e-324
+27	479	255.474230448716	9.8813129168249e-324
+27	486	255.552310448716	0
+27	486	255.552310448716	0
+27	486	255.552310448716	0
+27	486	255.552310448716	0
+27	551	256.552310448716	0.03201
+27	551	256.552310448716	0.03201
+27	556	256.840228524725	0.03201
+27	556	256.840228524725	0.03201
+27	568	256.918308524725	0
+27	568	256.918308524725	0
+27	568	256.918308524725	0
+27	568	256.918308524725	0
+27	569	256.918308524725	0.03201
+27	569	256.918308524725	0.03201
+27	598	257.552310448716	0
+27	598	257.552310448716	0
+27	601	258.552310448716	0.03201
+27	601	258.552310448716	0.03201
+27	603	259.552310448716	0
+27	603	259.552310448716	0
+27	663	376.354979153956	9.8813129168249e-324
+27	663	376.354979153956	9.8813129168249e-324
+27	664	376.354979153956	9.8813129168249e-324
+27	664	376.354979153956	9.8813129168249e-324
+27	670	376.433059153956	0
+27	670	376.433059153956	0
+27	670	376.433059153956	0
+27	670	376.433059153956	0
+27	743	377.433059153956	0.03201
+27	743	377.433059153956	0.03201
+27	780	378.433059153956	0
+27	780	378.433059153956	0
+27	785	379.433059153956	0.03201
+27	785	379.433059153956	0.03201
+27	787	380.433059153956	0
+27	787	380.433059153956	0
+27	926	497.351580010495	9.8813129168249e-324
+27	926	497.351580010495	9.8813129168249e-324
+27	927	497.351580010495	9.8813129168249e-324
+27	927	497.351580010495	9.8813129168249e-324
+27	934	497.429660010495	0
+27	934	497.429660010495	0
+27	934	497.429660010495	0
+27	934	497.429660010495	0
+27	1042	498.429660010495	0.03201
+27	1042	498.429660010495	0.03201
+27	1046	499.429660010495	0
+27	1046	499.429660010495	0
+27	1049	500.429660010495	0.03201
+27	1049	500.429660010495	0.03201
+27	1051	501.429660010495	0
+27	1051	501.429660010495	0
+27	1183	618.332983553876	9.8813129168249e-324
+27	1183	618.332983553876	9.8813129168249e-324
+27	1184	618.332983553876	9.8813129168249e-324
+27	1184	618.332983553876	9.8813129168249e-324
+27	1190	618.411063553876	0
+27	1190	618.411063553876	0
+27	1190	618.411063553876	0
+27	1190	618.411063553876	0
+27	1227	619.411063553876	0.03201
+27	1227	619.411063553876	0.03201
+27	1230	620.411063553876	0
+27	1230	620.411063553876	0
+27	1234	621.411063553876	0.03201
+27	1234	621.411063553876	0.03201
+27	1236	622.411063553876	0
+27	1236	622.411063553876	0
+27	1366	739.118673711085	9.8813129168249e-324
+27	1366	739.118673711085	9.8813129168249e-324
+27	1367	739.118673711085	9.8813129168249e-324
+27	1367	739.118673711085	9.8813129168249e-324
+27	1373	739.196753711085	0
+27	1373	739.196753711085	0
+27	1373	739.196753711085	0
+27	1373	739.196753711085	0
+27	1410	740.196753711085	0.03201
+27	1410	740.196753711085	0.03201
+27	1414	741.196753711085	0
+27	1414	741.196753711085	0
+27	1417	742.196753711085	0.03201
+27	1417	742.196753711085	0.03201
+27	1419	743.196753711085	0
+27	1419	743.196753711085	0
+27	1421	797.42086429445	9.8813129168249e-324
+27	1421	797.42086429445	9.8813129168249e-324
+27	1422	797.42086429445	9.8813129168249e-324
+27	1422	797.42086429445	9.8813129168249e-324
+27	1428	797.49894429445	0
+27	1428	797.49894429445	0
+27	1428	797.49894429445	0
+27	1428	797.49894429445	0
+27	1464	798.49894429445	0.03201
+27	1464	798.49894429445	0.03201
+27	1465	799.49894429445	0
+27	1465	799.49894429445	0
+27	1466	800.49894429445	0.03201
+27	1466	800.49894429445	0.03201
+27	1467	801.49894429445	0
+27	1467	801.49894429445	0
+27	1541	859.976239416284	9.8813129168249e-324
+27	1541	859.976239416284	9.8813129168249e-324
+27	1542	859.976239416284	9.8813129168249e-324
+27	1542	859.976239416284	9.8813129168249e-324
+27	1548	860.054319416284	0
+27	1548	860.054319416284	0
+27	1548	860.054319416284	0
+27	1548	860.054319416284	0
+27	1615	861.054319416284	0.03201
+27	1615	861.054319416284	0.03201
+27	1618	862.054319416284	0
+27	1618	862.054319416284	0
+27	1621	863.054319416284	0.03201
+27	1621	863.054319416284	0.03201
+27	1622	864.054319416284	0
+27	1622	864.054319416284	0
+27	1823	980.927681326635	9.8813129168249e-324
+27	1823	980.927681326635	9.8813129168249e-324
+27	1824	980.927681326635	9.8813129168249e-324
+27	1824	980.927681326635	9.8813129168249e-324
+27	1830	981.005761326635	0
+27	1830	981.005761326635	0
+27	1830	981.005761326635	0
+27	1830	981.005761326635	0
+27	1898	982.005761326635	0.03201
+27	1898	982.005761326635	0.03201
+27	1901	983.005761326635	0
+27	1901	983.005761326635	0
+27	1903	984.005761326635	0.03201
+27	1903	984.005761326635	0.03201
+27	1904	985.005761326635	0
+27	1904	985.005761326635	0
+28	0	0	0
+28	0	0	0
+28	0	0	1
+28	130	15.877068644855	3
+28	137	15.955148644855	1
+28	176	16.955148644855	2
+28	179	17.955148644855	1
+28	181	18.955148644855	2
+28	182	19.955148644855	1
+28	338	136.206275057513	3
+28	345	136.284355057513	1
+28	384	137.284355057513	2
+28	387	138.284355057513	1
+28	390	139.284355057513	2
+28	391	140.284355057513	1
+28	553	256.840228437213	3
+28	560	256.918308437213	1
+28	599	257.918308437213	2
+28	602	258.918308437213	1
+28	604	259.918308437213	2
+28	605	260.918308437213	1
+28	736	377.421471066307	3
+28	744	377.499551066307	1
+28	781	378.499551066307	2
+28	786	379.499551066307	1
+28	788	380.499551066307	2
+28	789	381.499551066307	1
+28	792	397.867269541672	3
+28	799	397.945349541672	1
+28	834	398.945349541672	2
+28	836	399.945349541672	1
+28	837	400.945349541672	2
+28	838	401.945349541672	1
+28	999	497.46631858591	3
+28	1006	497.54439858591	1
+28	1043	498.54439858591	2
+28	1048	499.54439858591	1
+28	1050	500.54439858591	2
+28	1052	501.54439858591	1
+28	1112	618.133820981486	3
+28	1119	618.211900981486	1
+28	1226	619.211900981486	2
+28	1229	620.211900981486	1
+28	1233	621.211900981486	2
+28	1235	622.211900981486	1
+28	1295	738.864820368123	3
+28	1302	738.942900368123	1
+28	1409	739.942900368123	2
+28	1413	740.942900368123	1
+28	1416	741.942900368123	2
+28	1418	742.942900368123	1
+28	1525	858.886419998715	3
+28	1532	858.964499998715	1
+28	1539	859.964499998715	2
+28	1558	860.054319503796	1
+28	1559	860.054319503796	2
+28	1613	860.964499998715	1
+28	1617	861.964499998715	2
+28	1619	862.964499998715	1
+28	1624	879.669267215045	3
+28	1631	879.747347215045	1
+28	1667	880.747347215045	2
+28	1668	881.747347215045	1
+28	1669	882.747347215045	2
+28	1670	883.747347215045	1
+28	1776	979.191804431845	3
+28	1783	979.269884431845	1
+28	1820	980.269884431845	2
+28	1841	981.005761414147	1
+28	1842	981.005761414147	2
+28	1895	981.269884431845	1
+28	1899	982.269884431845	2
+28	1902	983.269884431845	1
+29	0	0	0
+29	0	0	0
+29	0	0	0
+29	130	15.877068644855	9.8813129168249e-324
+29	130	15.877068644855	9.8813129168249e-324
+29	131	15.877068644855	9.8813129168249e-324
+29	131	15.877068644855	9.8813129168249e-324
+29	137	15.955148644855	0
+29	137	15.955148644855	0
+29	137	15.955148644855	0
+29	137	15.955148644855	0
+29	176	16.955148644855	0.03201
+29	176	16.955148644855	0.03201
+29	179	17.955148644855	0
+29	179	17.955148644855	0
+29	181	18.955148644855	0.03201
+29	181	18.955148644855	0.03201
+29	182	19.955148644855	0
+29	182	19.955148644855	0
+29	338	136.206275057513	9.8813129168249e-324
+29	338	136.206275057513	9.8813129168249e-324
+29	339	136.206275057513	9.8813129168249e-324
+29	339	136.206275057513	9.8813129168249e-324
+29	345	136.284355057513	0
+29	345	136.284355057513	0
+29	345	136.284355057513	0
+29	345	136.284355057513	0
+29	384	137.284355057513	0.03201
+29	384	137.284355057513	0.03201
+29	387	138.284355057513	0
+29	387	138.284355057513	0
+29	390	139.284355057513	0.03201
+29	390	139.284355057513	0.03201
+29	391	140.284355057513	0
+29	391	140.284355057513	0
+29	553	256.840228437213	9.8813129168249e-324
+29	553	256.840228437213	9.8813129168249e-324
+29	554	256.840228437213	9.8813129168249e-324
+29	554	256.840228437213	9.8813129168249e-324
+29	560	256.918308437213	0
+29	560	256.918308437213	0
+29	560	256.918308437213	0
+29	560	256.918308437213	0
+29	599	257.918308437213	0.03201
+29	599	257.918308437213	0.03201
+29	602	258.918308437213	0
+29	602	258.918308437213	0
+29	604	259.918308437213	0.03201
+29	604	259.918308437213	0.03201
+29	605	260.918308437213	0
+29	605	260.918308437213	0
+29	736	377.421471066307	9.8813129168249e-324
+29	736	377.421471066307	9.8813129168249e-324
+29	737	377.421471066307	9.8813129168249e-324
+29	737	377.421471066307	9.8813129168249e-324
+29	744	377.499551066307	0
+29	744	377.499551066307	0
+29	744	377.499551066307	0
+29	744	377.499551066307	0
+29	781	378.499551066307	0.03201
+29	781	378.499551066307	0.03201
+29	786	379.499551066307	0
+29	786	379.499551066307	0
+29	788	380.499551066307	0.03201
+29	788	380.499551066307	0.03201
+29	789	381.499551066307	0
+29	789	381.499551066307	0
+29	792	397.867269541672	9.8813129168249e-324
+29	792	397.867269541672	9.8813129168249e-324
+29	793	397.867269541672	9.8813129168249e-324
+29	793	397.867269541672	9.8813129168249e-324
+29	799	397.945349541672	0
+29	799	397.945349541672	0
+29	799	397.945349541672	0
+29	799	397.945349541672	0
+29	834	398.945349541672	0.03201
+29	834	398.945349541672	0.03201
+29	836	399.945349541672	0
+29	836	399.945349541672	0
+29	837	400.945349541672	0.03201
+29	837	400.945349541672	0.03201
+29	838	401.945349541672	0
+29	838	401.945349541672	0
+29	999	497.46631858591	9.8813129168249e-324
+29	999	497.46631858591	9.8813129168249e-324
+29	1000	497.46631858591	9.8813129168249e-324
+29	1000	497.46631858591	9.8813129168249e-324
+29	1006	497.54439858591	0
+29	1006	497.54439858591	0
+29	1006	497.54439858591	0
+29	1006	497.54439858591	0
+29	1043	498.54439858591	0.03201
+29	1043	498.54439858591	0.03201
+29	1048	499.54439858591	0
+29	1048	499.54439858591	0
+29	1050	500.54439858591	0.03201
+29	1050	500.54439858591	0.03201
+29	1052	501.54439858591	0
+29	1052	501.54439858591	0
+29	1112	618.133820981486	9.8813129168249e-324
+29	1112	618.133820981486	9.8813129168249e-324
+29	1113	618.133820981486	9.8813129168249e-324
+29	1113	618.133820981486	9.8813129168249e-324
+29	1119	618.211900981486	0
+29	1119	618.211900981486	0
+29	1119	618.211900981486	0
+29	1119	618.211900981486	0
+29	1226	619.211900981486	0.03201
+29	1226	619.211900981486	0.03201
+29	1229	620.211900981486	0
+29	1229	620.211900981486	0
+29	1233	621.211900981486	0.03201
+29	1233	621.211900981486	0.03201
+29	1235	622.211900981486	0
+29	1235	622.211900981486	0
+29	1295	738.864820368123	9.8813129168249e-324
+29	1295	738.864820368123	9.8813129168249e-324
+29	1296	738.864820368123	9.8813129168249e-324
+29	1296	738.864820368123	9.8813129168249e-324
+29	1302	738.942900368123	0
+29	1302	738.942900368123	0
+29	1302	738.942900368123	0
+29	1302	738.942900368123	0
+29	1409	739.942900368123	0.03201
+29	1409	739.942900368123	0.03201
+29	1413	740.942900368123	0
+29	1413	740.942900368123	0
+29	1416	741.942900368123	0.03201
+29	1416	741.942900368123	0.03201
+29	1418	742.942900368123	0
+29	1418	742.942900368123	0
+29	1525	858.886419998715	9.8813129168249e-324
+29	1525	858.886419998715	9.8813129168249e-324
+29	1526	858.886419998715	9.8813129168249e-324
+29	1526	858.886419998715	9.8813129168249e-324
+29	1532	858.964499998715	0
+29	1532	858.964499998715	0
+29	1532	858.964499998715	0
+29	1532	858.964499998715	0
+29	1539	859.964499998715	0.03201
+29	1539	859.964499998715	0.03201
+29	1546	859.976239503796	0.03201
+29	1546	859.976239503796	0.03201
+29	1558	860.054319503796	0
+29	1558	860.054319503796	0
+29	1558	860.054319503796	0
+29	1558	860.054319503796	0
+29	1559	860.054319503796	0.03201
+29	1559	860.054319503796	0.03201
+29	1613	860.964499998715	0
+29	1613	860.964499998715	0
+29	1617	861.964499998715	0.03201
+29	1617	861.964499998715	0.03201
+29	1619	862.964499998715	0
+29	1619	862.964499998715	0
+29	1624	879.669267215045	9.8813129168249e-324
+29	1624	879.669267215045	9.8813129168249e-324
+29	1625	879.669267215045	9.8813129168249e-324
+29	1625	879.669267215045	9.8813129168249e-324
+29	1631	879.747347215045	0
+29	1631	879.747347215045	0
+29	1631	879.747347215045	0
+29	1631	879.747347215045	0
+29	1667	880.747347215045	0.03201
+29	1667	880.747347215045	0.03201
+29	1668	881.747347215045	0
+29	1668	881.747347215045	0
+29	1669	882.747347215045	0.03201
+29	1669	882.747347215045	0.03201
+29	1670	883.747347215045	0
+29	1670	883.747347215045	0
+29	1776	979.191804431845	9.8813129168249e-324
+29	1776	979.191804431845	9.8813129168249e-324
+29	1777	979.191804431845	9.8813129168249e-324
+29	1777	979.191804431845	9.8813129168249e-324
+29	1783	979.269884431845	0
+29	1783	979.269884431845	0
+29	1783	979.269884431845	0
+29	1783	979.269884431845	0
+29	1820	980.269884431845	0.03201
+29	1820	980.269884431845	0.03201
+29	1828	980.927681414147	0.03201
+29	1828	980.927681414147	0.03201
+29	1841	981.005761414147	0
+29	1841	981.005761414147	0
+29	1841	981.005761414147	0
+29	1841	981.005761414147	0
+29	1842	981.005761414147	0.03201
+29	1842	981.005761414147	0.03201
+29	1895	981.269884431845	0
+29	1895	981.269884431845	0
+29	1899	982.269884431845	0.03201
+29	1899	982.269884431845	0.03201
+29	1902	983.269884431845	0
+29	1902	983.269884431845	0
+30	0	0	0
+30	0	0	0
+30	0	0	4
+31	0	0	1
+32	0	0	1
+33	4	4.683154143626	80
+33	184	125.533481779043	80
+33	398	246.207523440943	80
+33	612	367.086106021424	80
+33	845	487.775989660529	80
+33	1060	607.853025932332	80
+33	1243	728.697488104693	80
+33	1488	849.094935426723	80
+33	1709	970.019781906159	80
+34	4	4.683154143626	0
+34	184	125.533481779043	0
+34	398	246.207523440943	0
+34	612	367.086106021424	0
+34	845	487.775989660529	0
+34	1060	607.853025932332	0
+34	1243	728.697488104693	0
+34	1488	849.094935426723	0
+34	1709	970.019781906159	0
+35	4	4.683154143626	80
+35	184	125.533481779043	80
+35	398	246.207523440943	80
+35	612	367.086106021424	80
+35	845	487.775989660529	80
+35	1060	607.853025932332	80
+35	1243	728.697488104693	80
+35	1488	849.094935426723	80
+35	1709	970.019781906159	80
+36	4	4.683154143626	0
+36	11	4.761234143626	-0.16490496
+36	17	5.761234143626	-0.16490496
+36	22	6.174011700516	-0.17811796959605
+36	28	6.252091700516	-0.18061731039605
+36	32	6.761234143626	-0.19691496
+36	34	7.761234143626	-0.19691496
+36	36	8.761234143626	-0.22892496
+36	184	125.533481779043	-0.22892496
+36	191	125.611561779043	-0.39382992
+36	197	126.611561779043	-0.39382992
+36	202	126.648536085113	-0.3950134675373
+36	208	126.726616085113	-0.3975128083373
+36	241	127.611561779043	-0.42583992
+36	244	128.611561779043	-0.42583992
+36	246	129.611561779043	-0.45784992
+36	398	246.207523440943	-0.45784992
+36	405	246.285603440943	-0.62275488
+36	411	247.285603440943	-0.62275488
+36	416	247.4743596627	-0.62879696665844
+36	422	247.5524396627	-0.63129630745844
+36	455	248.285603440943	-0.65476488
+36	458	249.285603440943	-0.65476488
+36	460	250.285603440943	-0.68677488
+36	612	367.086106021424	-0.68677488
+36	619	367.164186021424	-0.85167984
+36	639	368.164186021424	-0.85167984
+36	641	369.164186021424	-0.88368984
+36	643	370.164186021424	-0.88368984
+36	645	371.164186021424	-0.91569984
+36	845	487.775989660529	-0.91569984
+36	852	487.854069660529	-1.0806048
+36	872	488.854069660529	-1.0806048
+36	874	489.854069660529	-1.1126148
+36	876	490.854069660529	-1.1126148
+36	878	491.854069660529	-1.1446248
+36	1060	607.853025932332	-1.1446248
+36	1067	607.931105932332	-1.30952976
+36	1087	608.931105932332	-1.30952976
+36	1089	609.931105932332	-1.34153976
+36	1091	610.931105932332	-1.34153976
+36	1093	611.931105932332	-1.37354976
+36	1243	728.697488104693	-1.37354976
+36	1250	728.775568104693	-1.53845472
+36	1270	729.775568104693	-1.53845472
+36	1272	730.775568104693	-1.57046472
+36	1274	731.775568104693	-1.57046472
+36	1276	732.775568104693	-1.60247472
+36	1488	849.094935426723	-1.60247472
+36	1495	849.173015426723	-1.76737968
+36	1502	850.173015426723	-1.76737968
+36	1504	851.173015426723	-1.79938968
+36	1506	852.173015426723	-1.79938968
+36	1508	853.173015426723	-1.83139968
+36	1709	970.019781906159	-1.83139968
+36	1716	970.097861906159	-1.99630464
+36	1723	971.097861906159	-1.99630464
+36	1725	972.097861906159	-2.02831464
+36	1727	973.097861906159	-2.02831464
+36	1729	974.097861906159	-2.06032464
+37	4	4.683154143626	1
+37	5	4.683154143626	2
+37	11	4.761234143626	1
+37	11	4.761234143626	0
+37	184	125.533481779043	1
+37	185	125.533481779043	2
+37	191	125.611561779043	1
+37	191	125.611561779043	0
+37	398	246.207523440943	1
+37	399	246.207523440943	2
+37	405	246.285603440943	1
+37	405	246.285603440943	0
+37	612	367.086106021424	1
+37	613	367.086106021424	2
+37	619	367.164186021424	1
+37	619	367.164186021424	0
+37	845	487.775989660529	1
+37	846	487.775989660529	2
+37	852	487.854069660529	1
+37	852	487.854069660529	0
+37	1060	607.853025932332	1
+37	1061	607.853025932332	2
+37	1067	607.931105932332	1
+37	1067	607.931105932332	0
+37	1243	728.697488104693	1
+37	1244	728.697488104693	2
+37	1250	728.775568104693	1
+37	1250	728.775568104693	0
+37	1488	849.094935426723	1
+37	1489	849.094935426723	2
+37	1495	849.173015426723	1
+37	1495	849.173015426723	0
+37	1709	970.019781906159	1
+37	1710	970.019781906159	2
+37	1716	970.097861906159	1
+37	1716	970.097861906159	0
+38	4	4.683154143626	0
+38	184	125.533481779043	0
+38	398	246.207523440943	0
+38	612	367.086106021424	0
+38	845	487.775989660529	0
+38	1060	607.853025932332	0
+38	1243	728.697488104693	0
+38	1488	849.094935426723	0
+38	1709	970.019781906159	0
+39	4	4.683154143626	0
+39	184	125.533481779043	0
+39	398	246.207523440943	0
+39	612	367.086106021424	0
+39	845	487.775989660529	0
+39	1060	607.853025932332	0
+39	1243	728.697488104693	0
+39	1488	849.094935426723	0
+39	1709	970.019781906159	0
+40	17	5.761234143626	1
+40	22	6.174011700516	3
+40	28	6.252091700516	1
+40	28	6.252091700516	0
+40	28	6.252091700516	1
+40	32	6.761234143626	0
+40	34	7.761234143626	1
+40	36	8.761234143626	0
+40	197	126.611561779043	1
+40	202	126.648536085113	3
+40	208	126.726616085113	1
+40	208	126.726616085113	0
+40	208	126.726616085113	1
+40	241	127.611561779043	0
+40	244	128.611561779043	1
+40	246	129.611561779043	0
+40	411	247.285603440943	1
+40	416	247.4743596627	3
+40	422	247.5524396627	1
+40	422	247.5524396627	0
+40	422	247.5524396627	1
+40	455	248.285603440943	0
+40	458	249.285603440943	1
+40	460	250.285603440943	0
+40	639	368.164186021424	1
+40	641	369.164186021424	0
+40	643	370.164186021424	1
+40	645	371.164186021424	0
+40	872	488.854069660529	1
+40	874	489.854069660529	0
+40	876	490.854069660529	1
+40	878	491.854069660529	0
+40	1087	608.931105932332	1
+40	1089	609.931105932332	0
+40	1091	610.931105932332	1
+40	1093	611.931105932332	0
+40	1270	729.775568104693	1
+40	1272	730.775568104693	0
+40	1274	731.775568104693	1
+40	1276	732.775568104693	0
+40	1502	850.173015426723	1
+40	1504	851.173015426723	0
+40	1506	852.173015426723	1
+40	1508	853.173015426723	0
+40	1723	971.097861906159	1
+40	1725	972.097861906159	0
+40	1727	973.097861906159	1
+40	1729	974.097861906159	0
+41	19	6.174011599272	80
+41	199	126.648535983869	80
+41	413	247.474359561456	80
+41	626	367.769912188872	80
+41	859	488.194456665776	80
+41	1074	608.222638349514	80
+41	1257	728.912165708374	80
+41	1474	848.961504865205	80
+41	1672	915.365340377719	80
+41	1695	969.214464575518	80
+42	19	6.174011599272	0
+42	199	126.648535983869	0
+42	413	247.474359561456	0
+42	626	367.769912188872	0
+42	859	488.194456665776	0
+42	1074	608.222638349514	0
+42	1257	728.912165708374	0
+42	1474	848.961504865205	0
+42	1672	915.365340377719	0
+42	1695	969.214464575518	0
+43	19	6.174011599272	80
+43	199	126.648535983869	80
+43	413	247.474359561456	80
+43	626	367.769912188872	80
+43	859	488.194456665776	80
+43	1074	608.222638349514	80
+43	1257	728.912165708374	80
+43	1474	848.961504865205	80
+43	1672	915.365340377719	80
+43	1695	969.214464575518	80
+44	19	6.174011599272	0
+44	26	6.252091599272	-0.16490496
+44	33	7.252091599272	-0.16490496
+44	35	8.252091599272	-0.19691496
+44	37	9.252091599272	-0.19691496
+44	38	10.252091599272	-0.22892496
+44	199	126.648535983869	-0.22892496
+44	206	126.726615983869	-0.39382992
+44	242	127.726615983869	-0.39382992
+44	245	128.726615983869	-0.42583992
+44	247	129.726615983869	-0.42583992
+44	248	130.726615983869	-0.45784992
+44	413	247.474359561456	-0.45784992
+44	420	247.552439561456	-0.62275488
+44	457	248.552439561456	-0.62275488
+44	459	249.552439561456	-0.65476488
+44	461	250.552439561456	-0.65476488
+44	462	251.552439561456	-0.68677488
+44	626	367.769912188872	-0.68677488
+44	633	367.847992188872	-0.85167984
+44	640	368.847992188872	-0.85167984
+44	642	369.847992188872	-0.88368984
+44	644	370.847992188872	-0.88368984
+44	646	371.847992188872	-0.91569984
+44	859	488.194456665776	-0.91569984
+44	866	488.272536665776	-1.0806048
+44	873	489.272536665776	-1.0806048
+44	875	490.272536665776	-1.1126148
+44	877	491.272536665776	-1.1126148
+44	879	492.272536665776	-1.1446248
+44	1074	608.222638349514	-1.1446248
+44	1081	608.300718349514	-1.30952976
+44	1088	609.300718349514	-1.30952976
+44	1090	610.300718349514	-1.34153976
+44	1092	611.300718349514	-1.34153976
+44	1094	612.300718349514	-1.37354976
+44	1257	728.912165708374	-1.37354976
+44	1264	728.990245708374	-1.53845472
+44	1271	729.990245708374	-1.53845472
+44	1273	730.990245708374	-1.57046472
+44	1275	731.990245708374	-1.57046472
+44	1277	732.990245708374	-1.60247472
+44	1474	848.961504865205	-1.60247472
+44	1481	849.039584865205	-1.76737968
+44	1501	850.039584865205	-1.76737968
+44	1503	851.039584865205	-1.79938968
+44	1505	852.039584865205	-1.79938968
+44	1507	853.039584865205	-1.83139968
+44	1672	915.365340377719	-1.83139968
+44	1679	915.443420377719	-1.99630464
+44	1685	916.443420377719	-1.99630464
+44	1686	917.443420377719	-2.02831464
+44	1687	918.443420377719	-2.02831464
+44	1688	919.443420377719	-2.06032464
+44	1695	969.214464575518	-2.06032464
+44	1702	969.292544575518	-2.2252296
+44	1722	970.292544575518	-2.2252296
+44	1724	971.292544575518	-2.2572396
+44	1726	972.292544575518	-2.2572396
+44	1728	973.292544575518	-2.2892496
+45	19	6.174011599272	1
+45	20	6.174011599272	2
+45	26	6.252091599272	1
+45	26	6.252091599272	0
+45	199	126.648535983869	1
+45	200	126.648535983869	2
+45	206	126.726615983869	1
+45	206	126.726615983869	0
+45	413	247.474359561456	1
+45	414	247.474359561456	2
+45	420	247.552439561456	1
+45	420	247.552439561456	0
+45	626	367.769912188872	1
+45	627	367.769912188872	2
+45	633	367.847992188872	1
+45	633	367.847992188872	0
+45	859	488.194456665776	1
+45	860	488.194456665776	2
+45	866	488.272536665776	1
+45	866	488.272536665776	0
+45	1074	608.222638349514	1
+45	1075	608.222638349514	2
+45	1081	608.300718349514	1
+45	1081	608.300718349514	0
+45	1257	728.912165708374	1
+45	1258	728.912165708374	2
+45	1264	728.990245708374	1
+45	1264	728.990245708374	0
+45	1474	848.961504865205	1
+45	1475	848.961504865205	2
+45	1481	849.039584865205	1
+45	1481	849.039584865205	0
+45	1672	915.365340377719	1
+45	1673	915.365340377719	2
+45	1679	915.443420377719	1
+45	1679	915.443420377719	0
+45	1695	969.214464575518	1
+45	1696	969.214464575518	2
+45	1702	969.292544575518	1
+45	1702	969.292544575518	0
+46	19	6.174011599272	0
+46	199	126.648535983869	0
+46	413	247.474359561456	0
+46	626	367.769912188872	0
+46	859	488.194456665776	0
+46	1074	608.222638349514	0
+46	1257	728.912165708374	0
+46	1474	848.961504865205	0
+46	1672	915.365340377719	0
+46	1695	969.214464575518	0
+47	19	6.174011599272	0
+47	199	126.648535983869	0
+47	413	247.474359561456	0
+47	626	367.769912188872	0
+47	859	488.194456665776	0
+47	1074	608.222638349514	0
+47	1257	728.912165708374	0
+47	1474	848.961504865205	0
+47	1672	915.365340377719	0
+47	1695	969.214464575518	0
+48	33	7.252091599272	1
+48	35	8.252091599272	0
+48	37	9.252091599272	1
+48	38	10.252091599272	0
+48	242	127.726615983869	1
+48	245	128.726615983869	0
+48	247	129.726615983869	1
+48	248	130.726615983869	0
+48	457	248.552439561456	1
+48	459	249.552439561456	0
+48	461	250.552439561456	1
+48	462	251.552439561456	0
+48	640	368.847992188872	1
+48	642	369.847992188872	0
+48	644	370.847992188872	1
+48	646	371.847992188872	0
+48	873	489.272536665776	1
+48	875	490.272536665776	0
+48	877	491.272536665776	1
+48	879	492.272536665776	0
+48	1088	609.300718349514	1
+48	1090	610.300718349514	0
+48	1092	611.300718349514	1
+48	1094	612.300718349514	0
+48	1271	729.990245708374	1
+48	1273	730.990245708374	0
+48	1275	731.990245708374	1
+48	1277	732.990245708374	0
+48	1501	850.039584865205	1
+48	1503	851.039584865205	0
+48	1505	852.039584865205	1
+48	1507	853.039584865205	0
+48	1685	916.443420377719	1
+48	1686	917.443420377719	0
+48	1687	918.443420377719	1
+48	1688	919.443420377719	0
+48	1722	970.292544575518	1
+48	1724	971.292544575518	0
+48	1726	972.292544575518	1
+48	1728	973.292544575518	0
+49	40	13.501077841502	80
+49	250	134.27132977359	80
+49	464	254.467183997389	80
+49	648	374.632621740922	80
+49	881	495.309732241323	80
+49	1096	615.58566602855	80
+49	1279	736.482557066251	80
+49	1510	857.26970016677	80
+49	1731	977.57765625883	80
+50	40	13.501077841502	0
+50	250	134.27132977359	0
+50	464	254.467183997389	0
+50	648	374.632621740922	0
+50	881	495.309732241323	0
+50	1096	615.58566602855	0
+50	1279	736.482557066251	0
+50	1510	857.26970016677	0
+50	1731	977.57765625883	0
+51	40	13.501077841502	80
+51	250	134.27132977359	80
+51	464	254.467183997389	80
+51	648	374.632621740922	80
+51	881	495.309732241323	80
+51	1096	615.58566602855	80
+51	1279	736.482557066251	80
+51	1510	857.26970016677	80
+51	1731	977.57765625883	80
+52	40	13.501077841502	0
+52	47	13.579157841502	-0.16490496
+52	53	14.579157841502	-0.16490496
+52	58	14.653512728428	-0.1672850599305
+52	64	14.731592728428	-0.1697844007305
+52	127	15.579157841502	-0.19691496
+52	174	16.579157841502	-0.19691496
+52	177	17.579157841502	-0.22892496
+52	250	134.27132977359	-0.22892496
+52	257	134.34940977359	-0.39382992
+52	334	135.34940977359	-0.39382992
+52	342	136.206275157526	-0.42125818093979
+52	354	136.284355157526	-0.42375752173979
+52	382	136.34940977359	-0.42583992
+52	385	137.34940977359	-0.42583992
+52	388	138.34940977359	-0.45784992
+52	464	254.467183997389	-0.45784992
+52	471	254.545263997389	-0.62275488
+52	485	255.545263997389	-0.62275488
+52	550	256.545263997389	-0.65476488
+52	597	257.545263997389	-0.65476488
+52	600	258.545263997389	-0.68677488
+52	648	374.632621740922	-0.68677488
+52	655	374.710701740922	-0.85167984
+52	661	375.710701740922	-0.85167984
+52	666	376.354979221504	-0.87230316215343
+52	672	376.433059221504	-0.87480250295343
+52	734	376.710701740922	-0.88368984
+52	779	377.710701740922	-0.88368984
+52	782	378.710701740922	-0.91569984
+52	881	495.309732241323	-0.91569984
+52	888	495.387812241323	-1.0806048
+52	924	496.387812241323	-1.0806048
+52	929	497.351580078043	-1.1114550084534
+52	936	497.429660078043	-1.1139543492534
+52	1041	498.387812241323	-1.1139543492534
+52	1045	499.387812241323	-1.1459643492534
+52	1096	615.58566602855	-1.1459643492534
+52	1103	615.66374602855	-1.3108693092534
+52	1109	616.66374602855	-1.3108693092534
+52	1110	617.66374602855	-1.3428793092534
+52	1225	618.66374602855	-1.3428793092534
+52	1228	619.66374602855	-1.3748893092534
+52	1279	736.482557066251	-1.3748893092534
+52	1286	736.560637066251	-1.5397942692534
+52	1292	737.560637066251	-1.5397942692534
+52	1293	738.560637066251	-1.5718042692534
+52	1408	739.560637066251	-1.5718042692534
+52	1412	740.560637066251	-1.6038142692534
+52	1510	857.26970016677	-1.6038142692534
+52	1517	857.34778016677	-1.7687192292534
+52	1523	858.34778016677	-1.7687192292534
+52	1529	858.886420098728	-1.7859610934754
+52	1535	858.964500098728	-1.7884604342754
+52	1538	859.34778016677	-1.8007292292534
+52	1612	860.34778016677	-1.8007292292534
+52	1616	861.34778016677	-1.8327392292534
+52	1731	977.57765625883	-1.8327392292534
+52	1738	977.65573625883	-1.9976441892534
+52	1773	978.65573625883	-1.9976441892534
+52	1780	979.191804531858	-2.014803734673
+52	1792	979.269884531858	-2.017303075473
+52	1819	979.65573625883	-2.0296541892534
+52	1821	980.65573625883	-2.0296541892534
+52	1826	980.927681394183	-2.0383591530361
+52	1832	981.005761394183	-2.0408584938361
+52	1896	981.65573625883	-2.0616641892534
+53	40	13.501077841502	1
+53	41	13.501077841502	2
+53	47	13.579157841502	1
+53	47	13.579157841502	0
+53	250	134.27132977359	1
+53	251	134.27132977359	2
+53	257	134.34940977359	1
+53	257	134.34940977359	0
+53	464	254.467183997389	1
+53	465	254.467183997389	2
+53	471	254.545263997389	1
+53	471	254.545263997389	0
+53	648	374.632621740922	1
+53	649	374.632621740922	2
+53	655	374.710701740922	1
+53	655	374.710701740922	0
+53	881	495.309732241323	1
+53	882	495.309732241323	2
+53	888	495.387812241323	1
+53	888	495.387812241323	0
+53	1096	615.58566602855	1
+53	1097	615.58566602855	2
+53	1103	615.66374602855	1
+53	1103	615.66374602855	0
+53	1279	736.482557066251	1
+53	1280	736.482557066251	2
+53	1286	736.560637066251	1
+53	1286	736.560637066251	0
+53	1510	857.26970016677	1
+53	1511	857.26970016677	2
+53	1517	857.34778016677	1
+53	1517	857.34778016677	0
+53	1731	977.57765625883	1
+53	1732	977.57765625883	2
+53	1738	977.65573625883	1
+53	1738	977.65573625883	0
+54	40	13.501077841502	0
+54	250	134.27132977359	0
+54	464	254.467183997389	0
+54	648	374.632621740922	0
+54	881	495.309732241323	0
+54	1096	615.58566602855	0
+54	1279	736.482557066251	0
+54	1510	857.26970016677	0
+54	1731	977.57765625883	0
+55	40	13.501077841502	0
+55	250	134.27132977359	0
+55	464	254.467183997389	0
+55	648	374.632621740922	0
+55	881	495.309732241323	0
+55	1096	615.58566602855	0
+55	1279	736.482557066251	0
+55	1510	857.26970016677	0
+55	1731	977.57765625883	0
+56	53	14.579157841502	1
+56	58	14.653512728428	3
+56	64	14.731592728428	1
+56	64	14.731592728428	0
+56	65	14.731592728428	1
+56	127	15.579157841502	0
+56	174	16.579157841502	1
+56	177	17.579157841502	0
+56	334	135.34940977359	1
+56	342	136.206275157526	3
+56	354	136.284355157526	1
+56	354	136.284355157526	0
+56	355	136.284355157526	1
+56	382	136.34940977359	0
+56	385	137.34940977359	1
+56	388	138.34940977359	0
+56	485	255.545263997389	1
+56	550	256.545263997389	0
+56	597	257.545263997389	1
+56	600	258.545263997389	0
+56	661	375.710701740922	1
+56	666	376.354979221504	3
+56	672	376.433059221504	1
+56	672	376.433059221504	0
+56	673	376.433059221504	1
+56	734	376.710701740922	0
+56	779	377.710701740922	1
+56	782	378.710701740922	0
+56	924	496.387812241323	1
+56	929	497.351580078043	3
+56	936	497.429660078043	1
+56	936	497.429660078043	0
+56	937	497.429660078043	1
+56	937	497.429660078043	0
+56	1041	498.387812241323	1
+56	1045	499.387812241323	0
+56	1109	616.66374602855	1
+56	1110	617.66374602855	0
+56	1225	618.66374602855	1
+56	1228	619.66374602855	0
+56	1292	737.560637066251	1
+56	1293	738.560637066251	0
+56	1408	739.560637066251	1
+56	1412	740.560637066251	0
+56	1523	858.34778016677	1
+56	1529	858.886420098728	3
+56	1535	858.964500098728	1
+56	1535	858.964500098728	0
+56	1535	858.964500098728	1
+56	1538	859.34778016677	0
+56	1612	860.34778016677	1
+56	1616	861.34778016677	0
+56	1773	978.65573625883	1
+56	1780	979.191804531858	3
+56	1792	979.269884531858	1
+56	1792	979.269884531858	0
+56	1793	979.269884531858	1
+56	1819	979.65573625883	0
+56	1821	980.65573625883	1
+56	1826	980.927681394183	3
+56	1832	981.005761394183	1
+56	1832	981.005761394183	0
+56	1833	981.005761394183	1
+56	1896	981.65573625883	0
+57	55	14.65351266088	80
+57	264	134.972972609569	80
+57	478	255.474230448716	80
+57	663	376.354979153956	80
+57	926	497.351580010495	80
+57	1183	618.332983553876	80
+57	1366	739.118673711085	80
+57	1421	797.42086429445	80
+57	1541	859.976239416284	80
+57	1823	980.927681326635	80
+58	55	14.65351266088	0
+58	264	134.972972609569	0
+58	478	255.474230448716	0
+58	663	376.354979153956	0
+58	926	497.351580010495	0
+58	1183	618.332983553876	0
+58	1366	739.118673711085	0
+58	1421	797.42086429445	0
+58	1541	859.976239416284	0
+58	1823	980.927681326635	0
+59	55	14.65351266088	80
+59	264	134.972972609569	80
+59	478	255.474230448716	80
+59	663	376.354979153956	80
+59	926	497.351580010495	80
+59	1183	618.332983553876	80
+59	1366	739.118673711085	80
+59	1421	797.42086429445	80
+59	1541	859.976239416284	80
+59	1823	980.927681326635	80
+60	55	14.65351266088	0
+60	62	14.73159266088	0
+60	128	15.73159266088	0
+60	133	15.877068732367	-0.0046566890482989
+60	145	15.955148732367	-0.0071560298482989
+60	175	16.73159266088	-0.03201
+60	178	17.73159266088	-0.03201
+60	180	18.73159266088	-0.06402
+60	264	134.972972609569	-0.06402
+60	271	135.051052609569	-0.06402
+60	336	136.051052609569	-0.06402
+60	341	136.206275145025	-0.068988673359947
+60	353	136.284355145025	-0.071488014159947
+60	383	137.051052609569	-0.09603
+60	386	138.051052609569	-0.09603
+60	389	139.051052609569	-0.12804
+60	478	255.474230448716	-0.12804
+60	486	255.552310448716	-0.12804
+60	551	256.552310448716	-0.12804
+60	556	256.840228524725	-0.13725625761305
+60	568	256.918308524725	-0.13975559841305
+60	598	257.552310448716	-0.16005
+60	601	258.552310448716	-0.16005
+60	603	259.552310448716	-0.19206
+60	663	376.354979153956	-0.19206
+60	670	376.433059153956	-0.19206
+60	743	377.433059153956	-0.19206
+60	780	378.433059153956	-0.22407
+60	785	379.433059153956	-0.22407
+60	787	380.433059153956	-0.25608
+60	926	497.351580010495	-0.25608
+60	934	497.429660010495	-0.25608
+60	1042	498.429660010495	-0.25608
+60	1046	499.429660010495	-0.28809
+60	1049	500.429660010495	-0.28809
+60	1051	501.429660010495	-0.3201
+60	1183	618.332983553876	-0.3201
+60	1190	618.411063553876	-0.3201
+60	1227	619.411063553876	-0.3201
+60	1230	620.411063553876	-0.35211
+60	1234	621.411063553876	-0.35211
+60	1236	622.411063553876	-0.38412
+60	1366	739.118673711085	-0.38412
+60	1373	739.196753711085	-0.38412
+60	1410	740.196753711085	-0.38412
+60	1414	741.196753711085	-0.41613
+60	1417	742.196753711085	-0.41613
+60	1419	743.196753711085	-0.44814
+60	1421	797.42086429445	-0.44814
+60	1428	797.49894429445	-0.44814
+60	1464	798.49894429445	-0.44814
+60	1465	799.49894429445	-0.48015
+60	1466	800.49894429445	-0.48015
+60	1467	801.49894429445	-0.51216
+60	1541	859.976239416284	-0.51216
+60	1548	860.054319416284	-0.51216
+60	1615	861.054319416284	-0.51216
+60	1618	862.054319416284	-0.54417
+60	1621	863.054319416284	-0.54417
+60	1622	864.054319416284	-0.57618
+60	1823	980.927681326635	-0.57618
+60	1830	981.005761326635	-0.57618
+60	1898	982.005761326635	-0.57618
+60	1901	983.005761326635	-0.60819
+60	1903	984.005761326635	-0.60819
+60	1904	985.005761326635	-0.6402
+61	55	14.65351266088	1
+61	56	14.65351266088	2
+61	62	14.73159266088	1
+61	62	14.73159266088	0
+61	264	134.972972609569	1
+61	265	134.972972609569	2
+61	271	135.051052609569	1
+61	271	135.051052609569	0
+61	478	255.474230448716	1
+61	479	255.474230448716	2
+61	486	255.552310448716	1
+61	486	255.552310448716	0
+61	663	376.354979153956	1
+61	664	376.354979153956	2
+61	670	376.433059153956	1
+61	670	376.433059153956	0
+61	926	497.351580010495	1
+61	927	497.351580010495	2
+61	934	497.429660010495	1
+61	934	497.429660010495	0
+61	1183	618.332983553876	1
+61	1184	618.332983553876	2
+61	1190	618.411063553876	1
+61	1190	618.411063553876	0
+61	1366	739.118673711085	1
+61	1367	739.118673711085	2
+61	1373	739.196753711085	1
+61	1373	739.196753711085	0
+61	1421	797.42086429445	1
+61	1422	797.42086429445	2
+61	1428	797.49894429445	1
+61	1428	797.49894429445	0
+61	1541	859.976239416284	1
+61	1542	859.976239416284	2
+61	1548	860.054319416284	1
+61	1548	860.054319416284	0
+61	1823	980.927681326635	1
+61	1824	980.927681326635	2
+61	1830	981.005761326635	1
+61	1830	981.005761326635	0
+62	55	14.65351266088	0
+62	264	134.972972609569	0
+62	478	255.474230448716	0
+62	663	376.354979153956	0
+62	926	497.351580010495	0
+62	1183	618.332983553876	0
+62	1366	739.118673711085	0
+62	1421	797.42086429445	0
+62	1541	859.976239416284	0
+62	1823	980.927681326635	0
+63	55	14.65351266088	0
+63	264	134.972972609569	0
+63	478	255.474230448716	0
+63	663	376.354979153956	0
+63	926	497.351580010495	0
+63	1183	618.332983553876	0
+63	1366	739.118673711085	0
+63	1421	797.42086429445	0
+63	1541	859.976239416284	0
+63	1823	980.927681326635	0
+64	69	14.731592740147	35
+64	141	15.9551487153	35
+64	212	126.726616096746	35
+64	277	135.051052688836	35
+64	349	136.284355127958	35
+64	426	247.552439674333	35
+64	492	255.552310527983	35
+64	564	256.918308507658	35
+64	677	376.433059233223	35
+64	748	377.499551136752	35
+64	803	397.945349612117	35
+64	896	495.387812373851	35
+64	941	497.429660089762	35
+64	1010	497.544398656355	35
+64	1123	618.211901051931	35
+64	1196	618.411063633143	35
+64	1306	738.942900438568	35
+64	1379	739.196753790352	35
+64	1434	797.498944373717	35
+64	1554	860.054319495551	35
+64	1635	879.74734728549	35
+64	1746	977.655736391358	35
+64	1787	979.26988450229	35
+64	1837	981.005761405902	35
+65	70	14.731592740147	28
+65	278	135.051052688836	28
+65	493	255.552310527983	28
+65	678	376.433059233223	28
+65	942	497.429660089762	28
+65	1124	618.211901051931	28
+65	1307	738.942900438568	28
+65	1555	860.054319495551	28
+65	1838	981.005761405902	28
+66	71	14.731592740147	28
+66	86	14.731593992147	55
+66	143	15.9551487153	55
+66	214	126.726616096746	55
+66	279	135.051052688836	28
+66	294	135.051053940836	55
+66	351	136.284355127958	55
+66	428	247.552439674333	55
+66	494	255.552310527983	28
+66	509	255.552311779983	55
+66	566	256.918308507658	55
+66	679	376.433059233223	28
+66	694	376.433060485223	55
+66	750	377.499551136752	55
+66	805	397.945349612117	55
+66	898	495.387812373851	55
+66	943	497.429660089762	28
+66	958	497.429661341762	55
+66	1012	497.544398656355	55
+66	1125	618.211901051931	28
+66	1142	618.211902303931	55
+66	1198	618.411063633143	55
+66	1308	738.942900438568	28
+66	1325	738.942901690568	55
+66	1381	739.196753790352	55
+66	1436	797.498944373717	55
+66	1556	860.054319495551	28
+66	1572	860.054320747551	55
+66	1637	879.74734728549	55
+66	1748	977.655736391358	55
+66	1789	979.26988450229	55
+66	1839	981.005761405902	28
+66	1855	981.005762657902	55
+67	72	14.731592740147	368
+67	87	14.731593992147	584
+67	144	15.9551487153	584
+67	215	126.726616096746	584
+67	280	135.051052688836	368
+67	295	135.051053940836	584
+67	352	136.284355127958	584
+67	429	247.552439674333	584
+67	495	255.552310527983	368
+67	510	255.552311779983	584
+67	567	256.918308507658	584
+67	680	376.433059233223	368
+67	695	376.433060485223	584
+67	751	377.499551136752	584
+67	806	397.945349612117	584
+67	899	495.387812373851	584
+67	944	497.429660089762	368
+67	959	497.429661341762	584
+67	1013	497.544398656355	584
+67	1126	618.211901051931	368
+67	1143	618.211902303931	584
+67	1199	618.411063633143	584
+67	1309	738.942900438568	368
+67	1326	738.942901690568	584
+67	1382	739.196753790352	584
+67	1437	797.498944373717	584
+67	1557	860.054319495551	368
+67	1573	860.054320747551	584
+67	1638	879.74734728549	584
+67	1749	977.655736391358	584
+67	1790	979.26988450229	584
+67	1840	981.005761405902	368
+67	1856	981.005762657902	584
+68	72	14.731592740147	0
+68	87	14.731593992147	0
+68	144	15.9551487153	0
+68	215	126.726616096746	0
+68	280	135.051052688836	0
+68	295	135.051053940836	0
+68	352	136.284355127958	0
+68	429	247.552439674333	0
+68	495	255.552310527983	0
+68	510	255.552311779983	0
+68	567	256.918308507658	0
+68	680	376.433059233223	0
+68	695	376.433060485223	0
+68	751	377.499551136752	0
+68	806	397.945349612117	0
+68	899	495.387812373851	0
+68	944	497.429660089762	0
+68	959	497.429661341762	0
+68	1013	497.544398656355	0
+68	1126	618.211901051931	0
+68	1143	618.211902303931	0
+68	1199	618.411063633143	0
+68	1309	738.942900438568	0
+68	1326	738.942901690568	0
+68	1382	739.196753790352	0
+68	1437	797.498944373717	0
+68	1557	860.054319495551	0
+68	1573	860.054320747551	0
+68	1638	879.74734728549	0
+68	1749	977.655736391358	0
+68	1790	979.26988450229	0
+68	1840	981.005761405902	0
+68	1856	981.005762657902	0
+69	72	14.731592740147	368
+69	87	14.731593992147	584
+69	144	15.9551487153	584
+69	215	126.726616096746	584
+69	280	135.051052688836	368
+69	295	135.051053940836	584
+69	352	136.284355127958	584
+69	429	247.552439674333	584
+69	495	255.552310527983	368
+69	510	255.552311779983	584
+69	567	256.918308507658	584
+69	680	376.433059233223	368
+69	695	376.433060485223	584
+69	751	377.499551136752	584
+69	806	397.945349612117	584
+69	899	495.387812373851	584
+69	944	497.429660089762	368
+69	959	497.429661341762	584
+69	1013	497.544398656355	584
+69	1126	618.211901051931	368
+69	1143	618.211902303931	584
+69	1199	618.411063633143	584
+69	1309	738.942900438568	368
+69	1326	738.942901690568	584
+69	1382	739.196753790352	584
+69	1437	797.498944373717	584
+69	1557	860.054319495551	368
+69	1573	860.054320747551	584
+69	1638	879.74734728549	584
+69	1749	977.655736391358	584
+69	1790	979.26988450229	584
+69	1840	981.005761405902	368
+69	1856	981.005762657902	584
+70	72	14.731592740147	46
+70	87	14.731593992147	73
+70	144	15.9551487153	73
+70	215	126.726616096746	73
+70	280	135.051052688836	46
+70	295	135.051053940836	73
+70	352	136.284355127958	73
+70	429	247.552439674333	73
+70	495	255.552310527983	46
+70	510	255.552311779983	73
+70	567	256.918308507658	73
+70	680	376.433059233223	46
+70	695	376.433060485223	73
+70	751	377.499551136752	73
+70	806	397.945349612117	73
+70	899	495.387812373851	73
+70	944	497.429660089762	46
+70	959	497.429661341762	73
+70	1013	497.544398656355	73
+70	1126	618.211901051931	46
+70	1143	618.211902303931	73
+70	1199	618.411063633143	73
+70	1309	738.942900438568	46
+70	1326	738.942901690568	73
+70	1382	739.196753790352	73
+70	1437	797.498944373717	73
+70	1557	860.054319495551	46
+70	1573	860.054320747551	73
+70	1638	879.74734728549	73
+70	1749	977.655736391358	73
+70	1790	979.26988450229	73
+70	1840	981.005761405902	46
+70	1856	981.005762657902	73
+71	72	14.731592740147	0
+71	87	14.731593992147	0
+71	144	15.9551487153	0
+71	215	126.726616096746	0
+71	280	135.051052688836	0
+71	295	135.051053940836	0
+71	352	136.284355127958	0
+71	429	247.552439674333	0
+71	495	255.552310527983	0
+71	510	255.552311779983	0
+71	567	256.918308507658	0
+71	680	376.433059233223	0
+71	695	376.433060485223	0
+71	751	377.499551136752	0
+71	806	397.945349612117	0
+71	899	495.387812373851	0
+71	944	497.429660089762	0
+71	959	497.429661341762	0
+71	1013	497.544398656355	0
+71	1126	618.211901051931	0
+71	1143	618.211902303931	0
+71	1199	618.411063633143	0
+71	1309	738.942900438568	0
+71	1326	738.942901690568	0
+71	1382	739.196753790352	0
+71	1437	797.498944373717	0
+71	1557	860.054319495551	0
+71	1573	860.054320747551	0
+71	1638	879.74734728549	0
+71	1749	977.655736391358	0
+71	1790	979.26988450229	0
+71	1840	981.005761405902	0
+71	1856	981.005762657902	0
+72	72	14.731592740147	0
+72	87	14.731593992147	0
+72	144	15.9551487153	0
+72	215	126.726616096746	0
+72	280	135.051052688836	0
+72	295	135.051053940836	0
+72	352	136.284355127958	0
+72	429	247.552439674333	0
+72	495	255.552310527983	0
+72	510	255.552311779983	0
+72	567	256.918308507658	0
+72	680	376.433059233223	0
+72	695	376.433060485223	0
+72	751	377.499551136752	0
+72	806	397.945349612117	0
+72	899	495.387812373851	0
+72	944	497.429660089762	0
+72	959	497.429661341762	0
+72	1013	497.544398656355	0
+72	1126	618.211901051931	0
+72	1143	618.211902303931	0
+72	1199	618.411063633143	0
+72	1309	738.942900438568	0
+72	1326	738.942901690568	0
+72	1382	739.196753790352	0
+72	1437	797.498944373717	0
+72	1557	860.054319495551	0
+72	1573	860.054320747551	0
+72	1638	879.74734728549	0
+72	1749	977.655736391358	0
+72	1790	979.26988450229	0
+72	1840	981.005761405902	0
+72	1856	981.005762657902	0
+73	75	14.731593316147	64
+73	89	14.731594640147	73
+73	150	15.9551493633	73
+73	218	126.726616744746	73
+73	283	135.051053264836	64
+73	297	135.051054588836	73
+73	358	136.284355775958	73
+73	432	247.552440322333	73
+73	498	255.552311103983	64
+73	512	255.552312427983	73
+73	573	256.918309155658	73
+73	683	376.433059809223	64
+73	697	376.433061133223	73
+73	756	377.499551784752	73
+73	811	397.945350260117	73
+73	900	495.387813021851	73
+73	947	497.429660665762	64
+73	961	497.429661989762	73
+73	1018	497.544399304355	73
+73	1131	618.211901627931	64
+73	1145	618.211902951931	73
+73	1202	618.411064281143	73
+73	1314	738.942901014568	64
+73	1328	738.942902338568	73
+73	1385	739.196754438352	73
+73	1440	797.498945021717	73
+73	1561	860.054320071551	64
+73	1575	860.054321395551	73
+73	1643	879.74734793349	73
+73	1750	977.655737039358	73
+73	1796	979.26988515029	73
+73	1844	981.005761981902	64
+73	1858	981.005763305902	73
+74	76	14.731593366147	64
+74	90	14.731594690147	73
+74	151	15.9551494133	73
+74	219	126.726616794746	73
+74	284	135.051053314836	64
+74	298	135.051054638836	73
+74	359	136.284355825958	73
+74	433	247.552440372333	73
+74	499	255.552311153983	64
+74	513	255.552312477983	73
+74	574	256.918309205658	73
+74	684	376.433059859223	64
+74	698	376.433061183223	73
+74	757	377.499551834752	73
+74	812	397.945350310117	73
+74	901	495.387813071851	73
+74	948	497.429660715762	64
+74	962	497.429662039762	73
+74	1019	497.544399354355	73
+74	1132	618.211901677931	64
+74	1146	618.211903001931	73
+74	1203	618.411064331143	73
+74	1315	738.942901064568	64
+74	1329	738.942902388568	73
+74	1386	739.196754488352	73
+74	1441	797.498945071717	73
+74	1562	860.054320121551	64
+74	1576	860.054321445551	73
+74	1644	879.74734798349	73
+74	1751	977.655737089358	73
+74	1797	979.26988520029	73
+74	1845	981.005762031902	64
+74	1859	981.005763355902	73
+75	76	14.731593366147	64
+75	90	14.731594690147	73
+75	151	15.9551494133	73
+75	219	126.726616794746	73
+75	284	135.051053314836	64
+75	298	135.051054638836	73
+75	359	136.284355825958	73
+75	433	247.552440372333	73
+75	499	255.552311153983	64
+75	513	255.552312477983	73
+75	574	256.918309205658	73
+75	684	376.433059859223	64
+75	698	376.433061183223	73
+75	757	377.499551834752	73
+75	812	397.945350310117	73
+75	901	495.387813071851	73
+75	948	497.429660715762	64
+75	962	497.429662039762	73
+75	1019	497.544399354355	73
+75	1132	618.211901677931	64
+75	1146	618.211903001931	73
+75	1203	618.411064331143	73
+75	1315	738.942901064568	64
+75	1329	738.942902388568	73
+75	1386	739.196754488352	73
+75	1441	797.498945071717	73
+75	1562	860.054320121551	64
+75	1576	860.054321445551	73
+75	1644	879.74734798349	73
+75	1751	977.655737089358	73
+75	1797	979.26988520029	73
+75	1845	981.005762031902	64
+75	1859	981.005763355902	73
+76	77	14.731593366147	46
+76	91	14.731594690147	55
+76	152	15.9551494133	55
+76	220	126.726616794746	55
+76	285	135.051053314836	46
+76	299	135.051054638836	55
+76	360	136.284355825958	55
+76	434	247.552440372333	55
+76	500	255.552311153983	46
+76	514	255.552312477983	55
+76	575	256.918309205658	55
+76	685	376.433059859223	46
+76	699	376.433061183223	55
+76	758	377.499551834752	55
+76	813	397.945350310117	55
+76	902	495.387813071851	55
+76	949	497.429660715762	46
+76	963	497.429662039762	55
+76	1020	497.544399354355	55
+76	1133	618.211901677931	46
+76	1147	618.211903001931	55
+76	1204	618.411064331143	55
+76	1316	738.942901064568	46
+76	1330	738.942902388568	55
+76	1387	739.196754488352	55
+76	1442	797.498945071717	55
+76	1563	860.054320121551	46
+76	1577	860.054321445551	55
+76	1645	879.74734798349	55
+76	1752	977.655737089358	55
+76	1798	979.26988520029	55
+76	1846	981.005762031902	46
+76	1860	981.005763355902	55
+77	78	14.731593366147	28
+77	286	135.051053314836	28
+77	501	255.552311153983	28
+77	686	376.433059859223	28
+77	950	497.429660715762	28
+77	1134	618.211901677931	28
+77	1317	738.942901064568	28
+77	1564	860.054320121551	28
+77	1847	981.005762031902	28
+78	79	14.731593366147	28
+78	287	135.051053314836	28
+78	502	255.552311153983	28
+78	687	376.433059859223	28
+78	951	497.429660715762	28
+78	1135	618.211901677931	28
+78	1318	738.942901064568	28
+78	1565	860.054320121551	28
+78	1848	981.005762031902	28
+79	80	14.731593366147	368
+79	288	135.051053314836	368
+79	503	255.552311153983	368
+79	688	376.433059859223	368
+79	952	497.429660715762	368
+79	1136	618.211901677931	368
+79	1319	738.942901064568	368
+79	1566	860.054320121551	368
+79	1849	981.005762031902	368
+80	80	14.731593366147	0
+80	288	135.051053314836	0
+80	503	255.552311153983	0
+80	688	376.433059859223	0
+80	952	497.429660715762	0
+80	1136	618.211901677931	0
+80	1319	738.942901064568	0
+80	1566	860.054320121551	0
+80	1849	981.005762031902	0
+81	80	14.731593366147	368
+81	288	135.051053314836	368
+81	503	255.552311153983	368
+81	688	376.433059859223	368
+81	952	497.429660715762	368
+81	1136	618.211901677931	368
+81	1319	738.942901064568	368
+81	1566	860.054320121551	368
+81	1849	981.005762031902	368
+82	80	14.731593366147	46
+82	288	135.051053314836	46
+82	503	255.552311153983	46
+82	688	376.433059859223	46
+82	952	497.429660715762	46
+82	1136	618.211901677931	46
+82	1319	738.942901064568	46
+82	1566	860.054320121551	46
+82	1849	981.005762031902	46
+83	80	14.731593366147	0
+83	288	135.051053314836	0
+83	503	255.552311153983	0
+83	688	376.433059859223	0
+83	952	497.429660715762	0
+83	1136	618.211901677931	0
+83	1319	738.942901064568	0
+83	1566	860.054320121551	0
+83	1849	981.005762031902	0
+84	80	14.731593366147	0
+84	288	135.051053314836	0
+84	503	255.552311153983	0
+84	688	376.433059859223	0
+84	952	497.429660715762	0
+84	1136	618.211901677931	0
+84	1319	738.942901064568	0
+84	1566	860.054320121551	0
+84	1849	981.005762031902	0
+85	82	14.731593942147	64
+85	290	135.051053890836	64
+85	505	255.552311729983	64
+85	690	376.433060435223	64
+85	954	497.429661291762	64
+85	1138	618.211902253931	64
+85	1321	738.942901640568	64
+85	1568	860.054320697551	64
+85	1851	981.005762607902	64
+86	83	14.731593992147	64
+86	291	135.051053940836	64
+86	506	255.552311779983	64
+86	691	376.433060485223	64
+86	955	497.429661341762	64
+86	1139	618.211902303931	64
+86	1322	738.942901690568	64
+86	1569	860.054320747551	64
+86	1852	981.005762657902	64
+87	83	14.731593992147	64
+87	291	135.051053940836	64
+87	506	255.552311779983	64
+87	691	376.433060485223	64
+87	955	497.429661341762	64
+87	1139	618.211902303931	64
+87	1322	738.942901690568	64
+87	1569	860.054320747551	64
+87	1852	981.005762657902	64
+88	84	14.731593992147	46
+88	292	135.051053940836	46
+88	507	255.552311779983	46
+88	692	376.433060485223	46
+88	956	497.429661341762	46
+88	1140	618.211902303931	46
+88	1323	738.942901690568	46
+88	1570	860.054320747551	46
+88	1853	981.005762657902	46
+89	93	14.731594690147	440
+89	154	15.9551494133	440
+89	222	126.726616794746	440
+89	301	135.051054638836	440
+89	362	136.284355825958	440
+89	436	247.552440372333	440
+89	516	255.552312477983	440
+89	577	256.918309205658	440
+89	701	376.433061183223	440
+89	760	377.499551834752	440
+89	815	397.945350310117	440
+89	904	495.387813071851	440
+89	965	497.429662039762	440
+89	1022	497.544399354355	440
+89	1149	618.211903001931	440
+89	1206	618.411064331143	440
+89	1332	738.942902388568	440
+89	1389	739.196754488352	440
+89	1444	797.498945071717	440
+89	1579	860.054321445551	440
+89	1647	879.74734798349	440
+89	1754	977.655737089358	440
+89	1800	979.26988520029	440
+89	1862	981.005763355902	440
+90	93	14.731594690147	0
+90	154	15.9551494133	0
+90	222	126.726616794746	0
+90	301	135.051054638836	0
+90	362	136.284355825958	0
+90	436	247.552440372333	0
+90	516	255.552312477983	0
+90	577	256.918309205658	0
+90	701	376.433061183223	0
+90	760	377.499551834752	0
+90	815	397.945350310117	0
+90	904	495.387813071851	0
+90	965	497.429662039762	0
+90	1022	497.544399354355	0
+90	1149	618.211903001931	0
+90	1206	618.411064331143	0
+90	1332	738.942902388568	0
+90	1389	739.196754488352	0
+90	1444	797.498945071717	0
+90	1579	860.054321445551	0
+90	1647	879.74734798349	0
+90	1754	977.655737089358	0
+90	1800	979.26988520029	0
+90	1862	981.005763355902	0
+91	93	14.731594690147	440
+91	154	15.9551494133	440
+91	222	126.726616794746	440
+91	301	135.051054638836	440
+91	362	136.284355825958	440
+91	436	247.552440372333	440
+91	516	255.552312477983	440
+91	577	256.918309205658	440
+91	701	376.433061183223	440
+91	760	377.499551834752	440
+91	815	397.945350310117	440
+91	904	495.387813071851	440
+91	965	497.429662039762	440
+91	1022	497.544399354355	440
+91	1149	618.211903001931	440
+91	1206	618.411064331143	440
+91	1332	738.942902388568	440
+91	1389	739.196754488352	440
+91	1444	797.498945071717	440
+91	1579	860.054321445551	440
+91	1647	879.74734798349	440
+91	1754	977.655737089358	440
+91	1800	979.26988520029	440
+91	1862	981.005763355902	440
+92	93	14.731594690147	62
+92	154	15.9551494133	62
+92	222	126.726616794746	62
+92	301	135.051054638836	62
+92	362	136.284355825958	62
+92	436	247.552440372333	62
+92	516	255.552312477983	62
+92	577	256.918309205658	62
+92	701	376.433061183223	62
+92	760	377.499551834752	62
+92	815	397.945350310117	62
+92	904	495.387813071851	62
+92	965	497.429662039762	62
+92	1022	497.544399354355	62
+92	1149	618.211903001931	62
+92	1206	618.411064331143	62
+92	1332	738.942902388568	62
+92	1389	739.196754488352	62
+92	1444	797.498945071717	62
+92	1579	860.054321445551	62
+92	1647	879.74734798349	62
+92	1754	977.655737089358	62
+92	1800	979.26988520029	62
+92	1862	981.005763355902	62
+93	93	14.731594690147	0
+93	154	15.9551494133	0
+93	222	126.726616794746	0
+93	301	135.051054638836	0
+93	362	136.284355825958	0
+93	436	247.552440372333	0
+93	516	255.552312477983	0
+93	577	256.918309205658	0
+93	701	376.433061183223	0
+93	760	377.499551834752	0
+93	815	397.945350310117	0
+93	904	495.387813071851	0
+93	965	497.429662039762	0
+93	1022	497.544399354355	0
+93	1149	618.211903001931	0
+93	1206	618.411064331143	0
+93	1332	738.942902388568	0
+93	1389	739.196754488352	0
+93	1444	797.498945071717	0
+93	1579	860.054321445551	0
+93	1647	879.74734798349	0
+93	1754	977.655737089358	0
+93	1800	979.26988520029	0
+93	1862	981.005763355902	0
+94	93	14.731594690147	0
+94	154	15.9551494133	0
+94	222	126.726616794746	0
+94	301	135.051054638836	0
+94	362	136.284355825958	0
+94	436	247.552440372333	0
+94	516	255.552312477983	0
+94	577	256.918309205658	0
+94	701	376.433061183223	0
+94	760	377.499551834752	0
+94	815	397.945350310117	0
+94	904	495.387813071851	0
+94	965	497.429662039762	0
+94	1022	497.544399354355	0
+94	1149	618.211903001931	0
+94	1206	618.411064331143	0
+94	1332	738.942902388568	0
+94	1389	739.196754488352	0
+94	1444	797.498945071717	0
+94	1579	860.054321445551	0
+94	1647	879.74734798349	0
+94	1754	977.655737089358	0
+94	1800	979.26988520029	0
+94	1862	981.005763355902	0
+95	96	14.731595236147	62
+95	157	15.9551499593	62
+95	225	126.726617340746	62
+95	304	135.051055184836	62
+95	365	136.284356371958	62
+95	439	247.552440918333	62
+95	519	255.552313023983	62
+95	580	256.918309751658	62
+95	704	376.433061729223	62
+95	763	377.499552380752	62
+95	818	397.945350856117	62
+95	907	495.387813617851	62
+95	968	497.429662585762	62
+95	1025	497.544399900355	62
+95	1152	618.211903547931	62
+95	1209	618.411064877143	62
+95	1335	738.942902934568	62
+95	1392	739.196755034352	62
+95	1447	797.498945617717	62
+95	1582	860.054321991551	62
+95	1650	879.74734852949	62
+95	1757	977.655737635358	62
+95	1803	979.26988574629	62
+95	1865	981.005763901902	62
+96	96	14.731595236147	55
+96	157	15.9551499593	55
+96	225	126.726617340746	55
+96	304	135.051055184836	55
+96	365	136.284356371958	55
+96	439	247.552440918333	55
+96	519	255.552313023983	55
+96	580	256.918309751658	55
+96	704	376.433061729223	55
+96	763	377.499552380752	55
+96	818	397.945350856117	55
+96	907	495.387813617851	55
+96	968	497.429662585762	55
+96	1025	497.544399900355	55
+96	1152	618.211903547931	55
+96	1209	618.411064877143	55
+96	1335	738.942902934568	55
+96	1392	739.196755034352	55
+96	1447	797.498945617717	55
+96	1582	860.054321991551	55
+96	1650	879.74734852949	55
+96	1757	977.655737635358	55
+96	1803	979.26988574629	55
+96	1865	981.005763901902	55
+97	99	14.741595676147	440
+97	160	15.9651503993	440
+97	228	126.736617780746	440
+97	307	135.061055624836	440
+97	368	136.294356811958	440
+97	442	247.562441358333	440
+97	522	255.562313463983	440
+97	583	256.928310191658	440
+97	707	376.443062169223	440
+97	766	377.509552820752	440
+97	821	397.955351296117	440
+97	910	495.397814057851	440
+97	971	497.439663025762	440
+97	1028	497.554400340355	440
+97	1155	618.221903987931	440
+97	1212	618.421065317143	440
+97	1338	738.952903374568	440
+97	1395	739.206755474352	440
+97	1450	797.508946057717	440
+97	1585	860.064322431551	440
+97	1653	879.75734896949	440
+97	1760	977.665738075358	440
+97	1806	979.27988618629	440
+97	1868	981.015764341902	440
+98	99	14.741595676147	0
+98	160	15.9651503993	0
+98	228	126.736617780746	0
+98	307	135.061055624836	0
+98	368	136.294356811958	0
+98	442	247.562441358333	0
+98	522	255.562313463983	0
+98	583	256.928310191658	0
+98	707	376.443062169223	0
+98	766	377.509552820752	0
+98	821	397.955351296117	0
+98	910	495.397814057851	0
+98	971	497.439663025762	0
+98	1028	497.554400340355	0
+98	1155	618.221903987931	0
+98	1212	618.421065317143	0
+98	1338	738.952903374568	0
+98	1395	739.206755474352	0
+98	1450	797.508946057717	0
+98	1585	860.064322431551	0
+98	1653	879.75734896949	0
+98	1760	977.665738075358	0
+98	1806	979.27988618629	0
+98	1868	981.015764341902	0
+99	99	14.741595676147	440
+99	160	15.9651503993	440
+99	228	126.736617780746	440
+99	307	135.061055624836	440
+99	368	136.294356811958	440
+99	442	247.562441358333	440
+99	522	255.562313463983	440
+99	583	256.928310191658	440
+99	707	376.443062169223	440
+99	766	377.509552820752	440
+99	821	397.955351296117	440
+99	910	495.397814057851	440
+99	971	497.439663025762	440
+99	1028	497.554400340355	440
+99	1155	618.221903987931	440
+99	1212	618.421065317143	440
+99	1338	738.952903374568	440
+99	1395	739.206755474352	440
+99	1450	797.508946057717	440
+99	1585	860.064322431551	440
+99	1653	879.75734896949	440
+99	1760	977.665738075358	440
+99	1806	979.27988618629	440
+99	1868	981.015764341902	440
+100	99	14.741595676147	62
+100	160	15.9651503993	62
+100	228	126.736617780746	62
+100	307	135.061055624836	62
+100	368	136.294356811958	62
+100	442	247.562441358333	62
+100	522	255.562313463983	62
+100	583	256.928310191658	62
+100	707	376.443062169223	62
+100	766	377.509552820752	62
+100	821	397.955351296117	62
+100	910	495.397814057851	62
+100	971	497.439663025762	62
+100	1028	497.554400340355	62
+100	1155	618.221903987931	62
+100	1212	618.421065317143	62
+100	1338	738.952903374568	62
+100	1395	739.206755474352	62
+100	1450	797.508946057717	62
+100	1585	860.064322431551	62
+100	1653	879.75734896949	62
+100	1760	977.665738075358	62
+100	1806	979.27988618629	62
+100	1868	981.015764341902	62
+101	99	14.741595676147	0
+101	160	15.9651503993	0
+101	228	126.736617780746	0
+101	307	135.061055624836	0
+101	368	136.294356811958	0
+101	442	247.562441358333	0
+101	522	255.562313463983	0
+101	583	256.928310191658	0
+101	707	376.443062169223	0
+101	766	377.509552820752	0
+101	821	397.955351296117	0
+101	910	495.397814057851	0
+101	971	497.439663025762	0
+101	1028	497.554400340355	0
+101	1155	618.221903987931	0
+101	1212	618.421065317143	0
+101	1338	738.952903374568	0
+101	1395	739.206755474352	0
+101	1450	797.508946057717	0
+101	1585	860.064322431551	0
+101	1653	879.75734896949	0
+101	1760	977.665738075358	0
+101	1806	979.27988618629	0
+101	1868	981.015764341902	0
+102	99	14.741595676147	0
+102	160	15.9651503993	0
+102	228	126.736617780746	0
+102	307	135.061055624836	0
+102	368	136.294356811958	0
+102	442	247.562441358333	0
+102	522	255.562313463983	0
+102	583	256.928310191658	0
+102	707	376.443062169223	0
+102	766	377.509552820752	0
+102	821	397.955351296117	0
+102	910	495.397814057851	0
+102	971	497.439663025762	0
+102	1028	497.554400340355	0
+102	1155	618.221903987931	0
+102	1212	618.421065317143	0
+102	1338	738.952903374568	0
+102	1395	739.206755474352	0
+102	1450	797.508946057717	0
+102	1585	860.064322431551	0
+102	1653	879.75734896949	0
+102	1760	977.665738075358	0
+102	1806	979.27988618629	0
+102	1868	981.015764341902	0
+103	101	14.741596222147	62
+103	162	15.9651509453	62
+103	230	126.736618326746	62
+103	309	135.061056170836	62
+103	370	136.294357357958	62
+103	444	247.562441904333	62
+103	524	255.562314009983	62
+103	585	256.928310737658	62
+103	709	376.443062715223	62
+103	768	377.509553366752	62
+103	823	397.955351842117	62
+103	912	495.397814603851	62
+103	973	497.439663571762	62
+103	1030	497.554400886355	62
+103	1157	618.221904533931	62
+103	1214	618.421065863143	62
+103	1340	738.952903920568	62
+103	1397	739.206756020352	62
+103	1452	797.508946603717	62
+103	1587	860.064322977551	62
+103	1655	879.75734951549	62
+103	1762	977.665738621358	62
+103	1808	979.27988673229	62
+103	1870	981.015764887902	62
+104	101	14.741596222147	55
+104	162	15.9651509453	55
+104	230	126.736618326746	55
+104	309	135.061056170836	55
+104	370	136.294357357958	55
+104	444	247.562441904333	55
+104	524	255.562314009983	55
+104	585	256.928310737658	55
+104	709	376.443062715223	55
+104	768	377.509553366752	55
+104	823	397.955351842117	55
+104	912	495.397814603851	55
+104	973	497.439663571762	55
+104	1030	497.554400886355	55
+104	1157	618.221904533931	55
+104	1214	618.421065863143	55
+104	1340	738.952903920568	55
+104	1397	739.206756020352	55
+104	1452	797.508946603717	55
+104	1587	860.064322977551	55
+104	1655	879.75734951549	55
+104	1762	977.665738621358	55
+104	1808	979.27988673229	55
+104	1870	981.015764887902	55
+105	102	14.741596222147	28
+105	310	135.061056170836	28
+105	525	255.562314009983	28
+105	710	376.443062715223	28
+105	974	497.439663571762	28
+105	1158	618.221904533931	28
+105	1341	738.952903920568	28
+105	1588	860.064322977551	28
+105	1871	981.015764887902	28
+106	103	14.741596222147	28
+106	116	14.741597474147	55
+106	164	15.9651509453	55
+106	232	126.736618326746	55
+106	311	135.061056170836	28
+106	324	135.061057422836	55
+106	372	136.294357357958	55
+106	446	247.562441904333	55
+106	526	255.562314009983	28
+106	539	255.562315261983	55
+106	587	256.928310737658	55
+106	711	376.443062715223	28
+106	724	376.443063967223	55
+106	770	377.509553366752	55
+106	825	397.955351842117	55
+106	914	495.397814603851	55
+106	975	497.439663571762	28
+106	988	497.439664823762	55
+106	1032	497.554400886355	55
+106	1159	618.221904533931	28
+106	1172	618.221905785931	55
+106	1216	618.421065863143	55
+106	1342	738.952903920568	28
+106	1355	738.952905172568	55
+106	1399	739.206756020352	55
+106	1454	797.508946603717	55
+106	1589	860.064322977551	28
+106	1602	860.064324229551	55
+106	1657	879.75734951549	55
+106	1764	977.665738621358	55
+106	1810	979.27988673229	55
+106	1872	981.015764887902	28
+106	1885	981.015766139902	55
+107	104	14.741596222147	368
+107	117	14.741597474147	584
+107	165	15.9651509453	584
+107	233	126.736618326746	584
+107	312	135.061056170836	368
+107	325	135.061057422836	584
+107	373	136.294357357958	584
+107	447	247.562441904333	584
+107	527	255.562314009983	368
+107	540	255.562315261983	584
+107	588	256.928310737658	584
+107	712	376.443062715223	368
+107	725	376.443063967223	584
+107	771	377.509553366752	584
+107	826	397.955351842117	584
+107	915	495.397814603851	584
+107	976	497.439663571762	368
+107	989	497.439664823762	584
+107	1033	497.554400886355	584
+107	1160	618.221904533931	368
+107	1173	618.221905785931	584
+107	1217	618.421065863143	584
+107	1343	738.952903920568	368
+107	1356	738.952905172568	584
+107	1400	739.206756020352	584
+107	1455	797.508946603717	584
+107	1590	860.064322977551	368
+107	1603	860.064324229551	584
+107	1658	879.75734951549	584
+107	1765	977.665738621358	584
+107	1811	979.27988673229	584
+107	1873	981.015764887902	368
+107	1886	981.015766139902	584
+108	104	14.741596222147	0
+108	117	14.741597474147	0
+108	165	15.9651509453	0
+108	233	126.736618326746	0
+108	312	135.061056170836	0
+108	325	135.061057422836	0
+108	373	136.294357357958	0
+108	447	247.562441904333	0
+108	527	255.562314009983	0
+108	540	255.562315261983	0
+108	588	256.928310737658	0
+108	712	376.443062715223	0
+108	725	376.443063967223	0
+108	771	377.509553366752	0
+108	826	397.955351842117	0
+108	915	495.397814603851	0
+108	976	497.439663571762	0
+108	989	497.439664823762	0
+108	1033	497.554400886355	0
+108	1160	618.221904533931	0
+108	1173	618.221905785931	0
+108	1217	618.421065863143	0
+108	1343	738.952903920568	0
+108	1356	738.952905172568	0
+108	1400	739.206756020352	0
+108	1455	797.508946603717	0
+108	1590	860.064322977551	0
+108	1603	860.064324229551	0
+108	1658	879.75734951549	0
+108	1765	977.665738621358	0
+108	1811	979.27988673229	0
+108	1873	981.015764887902	0
+108	1886	981.015766139902	0
+109	104	14.741596222147	368
+109	117	14.741597474147	584
+109	165	15.9651509453	584
+109	233	126.736618326746	584
+109	312	135.061056170836	368
+109	325	135.061057422836	584
+109	373	136.294357357958	584
+109	447	247.562441904333	584
+109	527	255.562314009983	368
+109	540	255.562315261983	584
+109	588	256.928310737658	584
+109	712	376.443062715223	368
+109	725	376.443063967223	584
+109	771	377.509553366752	584
+109	826	397.955351842117	584
+109	915	495.397814603851	584
+109	976	497.439663571762	368
+109	989	497.439664823762	584
+109	1033	497.554400886355	584
+109	1160	618.221904533931	368
+109	1173	618.221905785931	584
+109	1217	618.421065863143	584
+109	1343	738.952903920568	368
+109	1356	738.952905172568	584
+109	1400	739.206756020352	584
+109	1455	797.508946603717	584
+109	1590	860.064322977551	368
+109	1603	860.064324229551	584
+109	1658	879.75734951549	584
+109	1765	977.665738621358	584
+109	1811	979.27988673229	584
+109	1873	981.015764887902	368
+109	1886	981.015766139902	584
+110	104	14.741596222147	46
+110	117	14.741597474147	73
+110	165	15.9651509453	73
+110	233	126.736618326746	73
+110	312	135.061056170836	46
+110	325	135.061057422836	73
+110	373	136.294357357958	73
+110	447	247.562441904333	73
+110	527	255.562314009983	46
+110	540	255.562315261983	73
+110	588	256.928310737658	73
+110	712	376.443062715223	46
+110	725	376.443063967223	73
+110	771	377.509553366752	73
+110	826	397.955351842117	73
+110	915	495.397814603851	73
+110	976	497.439663571762	46
+110	989	497.439664823762	73
+110	1033	497.554400886355	73
+110	1160	618.221904533931	46
+110	1173	618.221905785931	73
+110	1217	618.421065863143	73
+110	1343	738.952903920568	46
+110	1356	738.952905172568	73
+110	1400	739.206756020352	73
+110	1455	797.508946603717	73
+110	1590	860.064322977551	46
+110	1603	860.064324229551	73
+110	1658	879.75734951549	73
+110	1765	977.665738621358	73
+110	1811	979.27988673229	73
+110	1873	981.015764887902	46
+110	1886	981.015766139902	73
+111	104	14.741596222147	0
+111	117	14.741597474147	0
+111	165	15.9651509453	0
+111	233	126.736618326746	0
+111	312	135.061056170836	0
+111	325	135.061057422836	0
+111	373	136.294357357958	0
+111	447	247.562441904333	0
+111	527	255.562314009983	0
+111	540	255.562315261983	0
+111	588	256.928310737658	0
+111	712	376.443062715223	0
+111	725	376.443063967223	0
+111	771	377.509553366752	0
+111	826	397.955351842117	0
+111	915	495.397814603851	0
+111	976	497.439663571762	0
+111	989	497.439664823762	0
+111	1033	497.554400886355	0
+111	1160	618.221904533931	0
+111	1173	618.221905785931	0
+111	1217	618.421065863143	0
+111	1343	738.952903920568	0
+111	1356	738.952905172568	0
+111	1400	739.206756020352	0
+111	1455	797.508946603717	0
+111	1590	860.064322977551	0
+111	1603	860.064324229551	0
+111	1658	879.75734951549	0
+111	1765	977.665738621358	0
+111	1811	979.27988673229	0
+111	1873	981.015764887902	0
+111	1886	981.015766139902	0
+112	104	14.741596222147	0
+112	117	14.741597474147	0
+112	165	15.9651509453	0
+112	233	126.736618326746	0
+112	312	135.061056170836	0
+112	325	135.061057422836	0
+112	373	136.294357357958	0
+112	447	247.562441904333	0
+112	527	255.562314009983	0
+112	540	255.562315261983	0
+112	588	256.928310737658	0
+112	712	376.443062715223	0
+112	725	376.443063967223	0
+112	771	377.509553366752	0
+112	826	397.955351842117	0
+112	915	495.397814603851	0
+112	976	497.439663571762	0
+112	989	497.439664823762	0
+112	1033	497.554400886355	0
+112	1160	618.221904533931	0
+112	1173	618.221905785931	0
+112	1217	618.421065863143	0
+112	1343	738.952903920568	0
+112	1356	738.952905172568	0
+112	1400	739.206756020352	0
+112	1455	797.508946603717	0
+112	1590	860.064322977551	0
+112	1603	860.064324229551	0
+112	1658	879.75734951549	0
+112	1765	977.665738621358	0
+112	1811	979.27988673229	0
+112	1873	981.015764887902	0
+112	1886	981.015766139902	0
+113	105	14.741596798147	64
+113	119	14.741598122147	73
+113	166	15.9651515933	73
+113	234	126.736618974746	73
+113	313	135.061056746836	64
+113	327	135.061058070836	73
+113	374	136.294358005958	73
+113	448	247.562442552333	73
+113	528	255.562314585983	64
+113	542	255.562315909983	73
+113	589	256.928311385658	73
+113	713	376.443063291223	64
+113	727	376.443064615223	73
+113	772	377.509554014752	73
+113	827	397.955352490117	73
+113	916	495.397815251851	73
+113	977	497.439664147762	64
+113	991	497.439665471762	73
+113	1034	497.554401534355	73
+113	1161	618.221905109931	64
+113	1175	618.221906433931	73
+113	1218	618.421066511143	73
+113	1344	738.952904496568	64
+113	1358	738.952905820568	73
+113	1401	739.206756668352	73
+113	1456	797.508947251717	73
+113	1591	860.064323553551	64
+113	1605	860.064324877551	73
+113	1659	879.75735016349	73
+113	1766	977.665739269358	73
+113	1812	979.27988738029	73
+113	1874	981.015765463902	64
+113	1888	981.015766787902	73
+114	106	14.741596848147	64
+114	120	14.741598172147	73
+114	167	15.9651516433	73
+114	235	126.736619024746	73
+114	314	135.061056796836	64
+114	328	135.061058120836	73
+114	375	136.294358055958	73
+114	449	247.562442602333	73
+114	529	255.562314635983	64
+114	543	255.562315959983	73
+114	590	256.928311435658	73
+114	714	376.443063341223	64
+114	728	376.443064665223	73
+114	773	377.509554064752	73
+114	828	397.955352540117	73
+114	917	495.397815301851	73
+114	978	497.439664197762	64
+114	992	497.439665521762	73
+114	1035	497.554401584355	73
+114	1162	618.221905159931	64
+114	1176	618.221906483931	73
+114	1219	618.421066561143	73
+114	1345	738.952904546568	64
+114	1359	738.952905870568	73
+114	1402	739.206756718352	73
+114	1457	797.508947301717	73
+114	1592	860.064323603551	64
+114	1606	860.064324927551	73
+114	1660	879.75735021349	73
+114	1767	977.665739319358	73
+114	1813	979.27988743029	73
+114	1875	981.015765513902	64
+114	1889	981.015766837902	73
+115	106	14.741596848147	64
+115	120	14.741598172147	73
+115	167	15.9651516433	73
+115	235	126.736619024746	73
+115	314	135.061056796836	64
+115	328	135.061058120836	73
+115	375	136.294358055958	73
+115	449	247.562442602333	73
+115	529	255.562314635983	64
+115	543	255.562315959983	73
+115	590	256.928311435658	73
+115	714	376.443063341223	64
+115	728	376.443064665223	73
+115	773	377.509554064752	73
+115	828	397.955352540117	73
+115	917	495.397815301851	73
+115	978	497.439664197762	64
+115	992	497.439665521762	73
+115	1035	497.554401584355	73
+115	1162	618.221905159931	64
+115	1176	618.221906483931	73
+115	1219	618.421066561143	73
+115	1345	738.952904546568	64
+115	1359	738.952905870568	73
+115	1402	739.206756718352	73
+115	1457	797.508947301717	73
+115	1592	860.064323603551	64
+115	1606	860.064324927551	73
+115	1660	879.75735021349	73
+115	1767	977.665739319358	73
+115	1813	979.27988743029	73
+115	1875	981.015765513902	64
+115	1889	981.015766837902	73
+116	107	14.741596848147	46
+116	121	14.741598172147	55
+116	168	15.9651516433	55
+116	236	126.736619024746	55
+116	315	135.061056796836	46
+116	329	135.061058120836	55
+116	376	136.294358055958	55
+116	450	247.562442602333	55
+116	530	255.562314635983	46
+116	544	255.562315959983	55
+116	591	256.928311435658	55
+116	715	376.443063341223	46
+116	729	376.443064665223	55
+116	774	377.509554064752	55
+116	829	397.955352540117	55
+116	918	495.397815301851	55
+116	979	497.439664197762	46
+116	993	497.439665521762	55
+116	1036	497.554401584355	55
+116	1163	618.221905159931	46
+116	1177	618.221906483931	55
+116	1220	618.421066561143	55
+116	1346	738.952904546568	46
+116	1360	738.952905870568	55
+116	1403	739.206756718352	55
+116	1458	797.508947301717	55
+116	1593	860.064323603551	46
+116	1607	860.064324927551	55
+116	1661	879.75735021349	55
+116	1768	977.665739319358	55
+116	1814	979.27988743029	55
+116	1876	981.015765513902	46
+116	1890	981.015766837902	55
+117	108	14.741596848147	28
+117	316	135.061056796836	28
+117	531	255.562314635983	28
+117	716	376.443063341223	28
+117	980	497.439664197762	28
+117	1164	618.221905159931	28
+117	1347	738.952904546568	28
+117	1594	860.064323603551	28
+117	1877	981.015765513902	28
+118	109	14.741596848147	28
+118	317	135.061056796836	28
+118	532	255.562314635983	28
+118	717	376.443063341223	28
+118	981	497.439664197762	28
+118	1165	618.221905159931	28
+118	1348	738.952904546568	28
+118	1595	860.064323603551	28
+118	1878	981.015765513902	28
+119	110	14.741596848147	368
+119	318	135.061056796836	368
+119	533	255.562314635983	368
+119	718	376.443063341223	368
+119	982	497.439664197762	368
+119	1166	618.221905159931	368
+119	1349	738.952904546568	368
+119	1596	860.064323603551	368
+119	1879	981.015765513902	368
+120	110	14.741596848147	0
+120	318	135.061056796836	0
+120	533	255.562314635983	0
+120	718	376.443063341223	0
+120	982	497.439664197762	0
+120	1166	618.221905159931	0
+120	1349	738.952904546568	0
+120	1596	860.064323603551	0
+120	1879	981.015765513902	0
+121	110	14.741596848147	368
+121	318	135.061056796836	368
+121	533	255.562314635983	368
+121	718	376.443063341223	368
+121	982	497.439664197762	368
+121	1166	618.221905159931	368
+121	1349	738.952904546568	368
+121	1596	860.064323603551	368
+121	1879	981.015765513902	368
+122	110	14.741596848147	46
+122	318	135.061056796836	46
+122	533	255.562314635983	46
+122	718	376.443063341223	46
+122	982	497.439664197762	46
+122	1166	618.221905159931	46
+122	1349	738.952904546568	46
+122	1596	860.064323603551	46
+122	1879	981.015765513902	46
+123	110	14.741596848147	0
+123	318	135.061056796836	0
+123	533	255.562314635983	0
+123	718	376.443063341223	0
+123	982	497.439664197762	0
+123	1166	618.221905159931	0
+123	1349	738.952904546568	0
+123	1596	860.064323603551	0
+123	1879	981.015765513902	0
+124	110	14.741596848147	0
+124	318	135.061056796836	0
+124	533	255.562314635983	0
+124	718	376.443063341223	0
+124	982	497.439664197762	0
+124	1166	618.221905159931	0
+124	1349	738.952904546568	0
+124	1596	860.064323603551	0
+124	1879	981.015765513902	0
+125	112	14.741597424147	64
+125	320	135.061057372836	64
+125	535	255.562315211983	64
+125	720	376.443063917223	64
+125	984	497.439664773762	64
+125	1168	618.221905735931	64
+125	1351	738.952905122568	64
+125	1598	860.064324179551	64
+125	1881	981.015766089902	64
+126	113	14.741597474147	64
+126	321	135.061057422836	64
+126	536	255.562315261983	64
+126	721	376.443063967223	64
+126	985	497.439664823762	64
+126	1169	618.221905785931	64
+126	1352	738.952905172568	64
+126	1599	860.064324229551	64
+126	1882	981.015766139902	64
+127	113	14.741597474147	64
+127	321	135.061057422836	64
+127	536	255.562315261983	64
+127	721	376.443063967223	64
+127	985	497.439664823762	64
+127	1169	618.221905785931	64
+127	1352	738.952905172568	64
+127	1599	860.064324229551	64
+127	1882	981.015766139902	64
+128	114	14.741597474147	46
+128	322	135.061057422836	46
+128	537	255.562315261983	46
+128	722	376.443063967223	46
+128	986	497.439664823762	46
+128	1170	618.221905785931	46
+128	1353	738.952905172568	46
+128	1600	860.064324229551	46
+128	1883	981.015766139902	46
+129	123	14.741598172147	35
+129	170	15.9651516433	35
+129	238	126.736619024746	35
+129	331	135.061058120836	35
+129	378	136.294358055958	35
+129	452	247.562442602333	35
+129	546	255.562315959983	35
+129	593	256.928311435658	35
+129	731	376.443064665223	35
+129	776	377.509554064752	35
+129	831	397.955352540117	35
+129	920	495.397815301851	35
+129	995	497.439665521762	35
+129	1038	497.554401584355	35
+129	1179	618.221906483931	35
+129	1222	618.421066561143	35
+129	1362	738.952905870568	35
+129	1405	739.206756718352	35
+129	1460	797.508947301717	35
+129	1609	860.064324927551	35
+129	1663	879.75735021349	35
+129	1770	977.665739319358	35
+129	1816	979.27988743029	35
+129	1892	981.015766837902	35
+130	128	15.73159266088	1
+130	133	15.877068732367	3
+130	145	15.955148732367	1
+130	145	15.955148732367	0
+130	146	15.955148732367	1
+130	175	16.73159266088	0
+130	178	17.73159266088	1
+130	180	18.73159266088	0
+130	336	136.051052609569	1
+130	341	136.206275145025	3
+130	353	136.284355145025	1
+130	353	136.284355145025	0
+130	353	136.284355145025	1
+130	383	137.051052609569	0
+130	386	138.051052609569	1
+130	389	139.051052609569	0
+130	551	256.552310448716	1
+130	556	256.840228524725	3
+130	568	256.918308524725	1
+130	568	256.918308524725	0
+130	569	256.918308524725	1
+130	598	257.552310448716	0
+130	601	258.552310448716	1
+130	603	259.552310448716	0
+130	743	377.433059153956	1
+130	780	378.433059153956	0
+130	785	379.433059153956	1
+130	787	380.433059153956	0
+130	1042	498.429660010495	1
+130	1046	499.429660010495	0
+130	1049	500.429660010495	1
+130	1051	501.429660010495	0
+130	1227	619.411063553876	1
+130	1230	620.411063553876	0
+130	1234	621.411063553876	1
+130	1236	622.411063553876	0
+130	1410	740.196753711085	1
+130	1414	741.196753711085	0
+130	1417	742.196753711085	1
+130	1419	743.196753711085	0
+130	1464	798.49894429445	1
+130	1465	799.49894429445	0
+130	1466	800.49894429445	1
+130	1467	801.49894429445	0
+130	1615	861.054319416284	1
+130	1618	862.054319416284	0
+130	1621	863.054319416284	1
+130	1622	864.054319416284	0
+130	1898	982.005761326635	1
+130	1901	983.005761326635	0
+130	1903	984.005761326635	1
+130	1904	985.005761326635	0
+131	130	15.877068644855	80
+131	338	136.206275057513	80
+131	553	256.840228437213	80
+131	736	377.421471066307	80
+131	792	397.867269541672	80
+131	999	497.46631858591	80
+131	1112	618.133820981486	80
+131	1295	738.864820368123	80
+131	1525	858.886419998715	80
+131	1624	879.669267215045	80
+131	1776	979.191804431845	80
+132	130	15.877068644855	0
+132	338	136.206275057513	0
+132	553	256.840228437213	0
+132	736	377.421471066307	0
+132	792	397.867269541672	0
+132	999	497.46631858591	0
+132	1112	618.133820981486	0
+132	1295	738.864820368123	0
+132	1525	858.886419998715	0
+132	1624	879.669267215045	0
+132	1776	979.191804431845	0
+133	130	15.877068644855	80
+133	338	136.206275057513	80
+133	553	256.840228437213	80
+133	736	377.421471066307	80
+133	792	397.867269541672	80
+133	999	497.46631858591	80
+133	1112	618.133820981486	80
+133	1295	738.864820368123	80
+133	1525	858.886419998715	80
+133	1624	879.669267215045	80
+133	1776	979.191804431845	80
+134	130	15.877068644855	0
+134	137	15.955148644855	0
+134	176	16.955148644855	0
+134	179	17.955148644855	-0.03201
+134	181	18.955148644855	-0.03201
+134	182	19.955148644855	-0.06402
+134	338	136.206275057513	-0.06402
+134	345	136.284355057513	-0.06402
+134	384	137.284355057513	-0.06402
+134	387	138.284355057513	-0.09603
+134	390	139.284355057513	-0.09603
+134	391	140.284355057513	-0.12804
+134	553	256.840228437213	-0.12804
+134	560	256.918308437213	-0.12804
+134	599	257.918308437213	-0.12804
+134	602	258.918308437213	-0.16005
+134	604	259.918308437213	-0.16005
+134	605	260.918308437213	-0.19206
+134	736	377.421471066307	-0.19206
+134	744	377.499551066307	-0.19206
+134	781	378.499551066307	-0.19206
+134	786	379.499551066307	-0.22407
+134	788	380.499551066307	-0.22407
+134	789	381.499551066307	-0.25608
+134	792	397.867269541672	-0.25608
+134	799	397.945349541672	-0.25608
+134	834	398.945349541672	-0.25608
+134	836	399.945349541672	-0.28809
+134	837	400.945349541672	-0.28809
+134	838	401.945349541672	-0.3201
+134	999	497.46631858591	-0.3201
+134	1006	497.54439858591	-0.3201
+134	1043	498.54439858591	-0.3201
+134	1048	499.54439858591	-0.35211
+134	1050	500.54439858591	-0.35211
+134	1052	501.54439858591	-0.38412
+134	1112	618.133820981486	-0.38412
+134	1119	618.211900981486	-0.38412
+134	1226	619.211900981486	-0.38412
+134	1229	620.211900981486	-0.41613
+134	1233	621.211900981486	-0.41613
+134	1235	622.211900981486	-0.44814
+134	1295	738.864820368123	-0.44814
+134	1302	738.942900368123	-0.44814
+134	1409	739.942900368123	-0.44814
+134	1413	740.942900368123	-0.48015
+134	1416	741.942900368123	-0.48015
+134	1418	742.942900368123	-0.51216
+134	1525	858.886419998715	-0.51216
+134	1532	858.964499998715	-0.51216
+134	1539	859.964499998715	-0.51216
+134	1546	859.976239503796	-0.51253578155764
+134	1558	860.054319503796	-0.51503512235764
+134	1613	860.964499998715	-0.54417
+134	1617	861.964499998715	-0.54417
+134	1619	862.964499998715	-0.57618
+134	1624	879.669267215045	-0.57618
+134	1631	879.747347215045	-0.57618
+134	1667	880.747347215045	-0.57618
+134	1668	881.747347215045	-0.60819
+134	1669	882.747347215045	-0.60819
+134	1670	883.747347215045	-0.6402
+134	1776	979.191804431845	-0.6402
+134	1783	979.269884431845	-0.6402
+134	1820	980.269884431845	-0.6402
+134	1828	980.927681414147	-0.66125608140349
+134	1841	981.005761414147	-0.66375542220349
+134	1895	981.269884431845	-0.67221
+134	1899	982.269884431845	-0.67221
+134	1902	983.269884431845	-0.70422
+135	130	15.877068644855	1
+135	131	15.877068644855	2
+135	137	15.955148644855	1
+135	137	15.955148644855	0
+135	338	136.206275057513	1
+135	339	136.206275057513	2
+135	345	136.284355057513	1
+135	345	136.284355057513	0
+135	553	256.840228437213	1
+135	554	256.840228437213	2
+135	560	256.918308437213	1
+135	560	256.918308437213	0
+135	736	377.421471066307	1
+135	737	377.421471066307	2
+135	744	377.499551066307	1
+135	744	377.499551066307	0
+135	792	397.867269541672	1
+135	793	397.867269541672	2
+135	799	397.945349541672	1
+135	799	397.945349541672	0
+135	999	497.46631858591	1
+135	1000	497.46631858591	2
+135	1006	497.54439858591	1
+135	1006	497.54439858591	0
+135	1112	618.133820981486	1
+135	1113	618.133820981486	2
+135	1119	618.211900981486	1
+135	1119	618.211900981486	0
+135	1295	738.864820368123	1
+135	1296	738.864820368123	2
+135	1302	738.942900368123	1
+135	1302	738.942900368123	0
+135	1525	858.886419998715	1
+135	1526	858.886419998715	2
+135	1532	858.964499998715	1
+135	1532	858.964499998715	0
+135	1624	879.669267215045	1
+135	1625	879.669267215045	2
+135	1631	879.747347215045	1
+135	1631	879.747347215045	0
+135	1776	979.191804431845	1
+135	1777	979.191804431845	2
+135	1783	979.269884431845	1
+135	1783	979.269884431845	0
+136	130	15.877068644855	0
+136	338	136.206275057513	0
+136	553	256.840228437213	0
+136	736	377.421471066307	0
+136	792	397.867269541672	0
+136	999	497.46631858591	0
+136	1112	618.133820981486	0
+136	1295	738.864820368123	0
+136	1525	858.886419998715	0
+136	1624	879.669267215045	0
+136	1776	979.191804431845	0
+137	130	15.877068644855	0
+137	338	136.206275057513	0
+137	553	256.840228437213	0
+137	736	377.421471066307	0
+137	792	397.867269541672	0
+137	999	497.46631858591	0
+137	1112	618.133820981486	0
+137	1295	738.864820368123	0
+137	1525	858.886419998715	0
+137	1624	879.669267215045	0
+137	1776	979.191804431845	0
+138	176	16.955148644855	1
+138	179	17.955148644855	0
+138	181	18.955148644855	1
+138	182	19.955148644855	0
+138	384	137.284355057513	1
+138	387	138.284355057513	0
+138	390	139.284355057513	1
+138	391	140.284355057513	0
+138	599	257.918308437213	1
+138	602	258.918308437213	0
+138	604	259.918308437213	1
+138	605	260.918308437213	0
+138	781	378.499551066307	1
+138	786	379.499551066307	0
+138	788	380.499551066307	1
+138	789	381.499551066307	0
+138	834	398.945349541672	1
+138	836	399.945349541672	0
+138	837	400.945349541672	1
+138	838	401.945349541672	0
+138	1043	498.54439858591	1
+138	1048	499.54439858591	0
+138	1050	500.54439858591	1
+138	1052	501.54439858591	0
+138	1226	619.211900981486	1
+138	1229	620.211900981486	0
+138	1233	621.211900981486	1
+138	1235	622.211900981486	0
+138	1409	739.942900368123	1
+138	1413	740.942900368123	0
+138	1416	741.942900368123	1
+138	1418	742.942900368123	0
+138	1539	859.964499998715	1
+138	1546	859.976239503796	3
+138	1558	860.054319503796	1
+138	1558	860.054319503796	0
+138	1559	860.054319503796	1
+138	1613	860.964499998715	0
+138	1617	861.964499998715	1
+138	1619	862.964499998715	0
+138	1667	880.747347215045	1
+138	1668	881.747347215045	0
+138	1669	882.747347215045	1
+138	1670	883.747347215045	0
+138	1820	980.269884431845	1
+138	1828	980.927681414147	3
+138	1841	981.005761414147	1
+138	1841	981.005761414147	0
+138	1842	981.005761414147	1
+138	1895	981.269884431845	0
+138	1899	982.269884431845	1
+138	1902	983.269884431845	0
+
